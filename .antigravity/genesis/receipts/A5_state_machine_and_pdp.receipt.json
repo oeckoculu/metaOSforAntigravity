@@ -1,0 +1,257 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A5",
+  "name": "state_machine_and_pdp",
+  "status": "PASS",
+  "generated_at": "2026-10-20T22:04:27Z",
+  "input": {
+    "commit": "b3685f798bdcf2c811226b9dd44435468c3ab122",
+    "tree": "b37b26e75e9ac08cccb93a1c3f3d2ec017265eb4"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:b71ee15764e7117061c68541f4117c164a05426ba3b26e85a2db176e354b38bf"
+  },
+  "reproducibility": {
+    "source_commit": "b3685f798bdcf2c811226b9dd44435468c3ab122",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A5-C01",
+      "description": "v1.2.0 transitions policy, admission policy, and policy_bundle.lock.json materialized and bound to GBP-0000 (29 states, 14 patches)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-08",
+        "transitions_sha256": "sha256:3ee5f79ae0973e58fffd19b1ed0d1a62f968d0ca6662d64137ba8700d0f83979",
+        "admission_sha256": "sha256:3001efbfce830b93b608bb76d3c3e15e9b384e1f45a30c9415e3feac6271b530",
+        "bundle_lock_sha256": "sha256:8f1e5866cd4382ae7f66c3c0d4312603bd60d8f212f97dfafcc52c02334d945e",
+        "applied_patches": [
+          "C-1",
+          "C-2",
+          "C-3",
+          "C-4",
+          "C-5",
+          "C-6",
+          "C-7",
+          "C-8",
+          "V12-01",
+          "V12-02",
+          "V12-03",
+          "V12-04",
+          "V12-05",
+          "V12-06"
+        ]
+      }
+    },
+    {
+      "id": "A5-C02",
+      "description": "Full 22-step lifecycle happy-path simulation (TECH_RADAR_SYNC -> CLOSED) executes deterministically",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-03",
+        "summary": "Completed 22 transitions to CLOSED",
+        "guards_fired": [
+          "LC-01",
+          "LC-02",
+          "LC-03",
+          "LC-04",
+          "LC-05",
+          "LC-06A",
+          "LC-07A",
+          "LC-08",
+          "LC-09",
+          "LC-10",
+          "LC-11",
+          "LC-12",
+          "LC-13",
+          "LC-14",
+          "LC-15",
+          "LC-16",
+          "LC-17",
+          "LC-18A",
+          "LC-19A",
+          "LC-20",
+          "LC-21",
+          "LC-22A"
+        ]
+      }
+    },
+    {
+      "id": "A5-C03",
+      "description": "C-1 & V12-06 regression suite: HUMAN_AUDIT_REQUIRED origin-scoped routing blocks gate bypass and post-quarantine merge",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-10",
+        "cases": {
+          "C-1_budget_to_merge_denied": true,
+          "C-1_budget_resume_to_origin_allowed": true,
+          "C-1_blocked_policy_to_merge_denied": true,
+          "V12-06_quarantine_to_merge_denied": true,
+          "V12-06_quarantine_to_sandbox_denied": true,
+          "V12-06_quarantine_to_intent_captured_allowed": true,
+          "C-1_proof_assembled_to_merge_allowed": true
+        }
+      }
+    },
+    {
+      "id": "A5-C04",
+      "description": "C-2 regression suite: pre-admission EVIDENCE_INCOMPLETE blocked from jumping to SANDBOX_EXECUTING; post-admission allowed",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-08",
+        "cases": {
+          "C-2_pre_admission_jump_to_sandbox_denied": true,
+          "C-2_pre_admission_return_to_origin_allowed": true,
+          "C-2_post_admission_remediate_via_sandbox_allowed": true
+        }
+      }
+    },
+    {
+      "id": "A5-C05",
+      "description": "C-3/V12-02, C-4, C-5, C-6, C-7, C-8 regression suite (Break-Glass realignment, exception preemption, rollback scoping, LC-04 dual evidence, retroactive lock, post-merge compensating action)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-09",
+        "cases": {
+          "C-3_V12-02_break_glass_enter_allowed": true,
+          "C-3_V12-02_break_glass_exit_unsigned_denied": true,
+          "C-3_V12-02_break_glass_exit_to_genesis_locked_allowed": true,
+          "C-4_higher_priority_exception_preempts": true,
+          "C-4_origin_preserved_on_preemption": true,
+          "C-4_lower_priority_exception_denied": true,
+          "C-5_genesis_rollback_to_intent_denied": true,
+          "C-5_genesis_rollback_to_morphing_allowed": true,
+          "C-6_lc04_single_evidence_denied": true,
+          "C-6_lc04_dual_evidence_allowed": true,
+          "C-7_post_genesis_retroactive_denied": true,
+          "C-8_post_merge_worktree_cleanup_denied": true,
+          "C-8_post_merge_compensating_action_allowed": true
+        }
+      }
+    },
+    {
+      "id": "A5-C06",
+      "description": "V12-01, V12-03, V12-04, V12-05 regression suite (Handshake branches, polymorphic security/perf proof labels, drift loopback, and triple RED test oracle)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-13",
+        "cases": {
+          "V12-01_handshake_approve_allowed": true,
+          "V12-01_handshake_reject_allowed": true,
+          "V12-01_handshake_timeout_allowed": true,
+          "V12-03_legacy_security_label_denied": true,
+          "V12-03_polymorphic_security_label_allowed": true,
+          "V12-03_legacy_perf_label_denied": true,
+          "V12-03_polymorphic_perf_label_allowed": true,
+          "V12-04_drift_without_proposal_denied": true,
+          "V12-04_drift_with_automated_patch_proposal_allowed": true,
+          "V12-05_compile_error_denied": true,
+          "V12-05_not_executed_denied": true,
+          "V12-05_premature_green_exit_0_denied": true,
+          "V12-05_valid_triple_red_allowed": true
+        }
+      }
+    },
+    {
+      "id": "A5-C07",
+      "description": "Policy Decision Point & Admission Controller enforces I-01, I-02, I-04, I-05, I-06, I-09, and I-12 fail-closed rules",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-01",
+        "cases": {
+          "PDP_valid_proposal_allowed": true,
+          "I-01_privileged_role_impersonation_denied": true,
+          "I-02_expired_token_denied": true,
+          "I-02_layer_a_token_grant_denied": true,
+          "I-04_base_commit_mismatch_denied": true,
+          "I-05_undeclared_layer_a_denied": true,
+          "I-05_unsigned_self_mod_denied": true,
+          "I-05_ssh_signed_self_mod_allowed": true,
+          "I-06_risk_downgrade_denied": true,
+          "I-09_empty_rollback_steps_denied": true,
+          "I-12_secret_in_proposal_denied_and_quarantined": true
+        }
+      }
+    },
+    {
+      "id": "A5-C08",
+      "description": "Live event journal (.antigravity/events/run-0000.jsonl, seq 0..6) replays cleanly through compiled v1.2.0 guard engine to GENESIS_LOCKED",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-03",
+        "replay": {
+          "final_state": "GENESIS_LOCKED",
+          "transitions_verified": 3,
+          "replayed_transitions": [
+            {
+              "seq": 4,
+              "guard_id": "LC-01",
+              "from_state": "TECH_RADAR_SYNC",
+              "to_state": "CAPABILITY_BASELINED"
+            },
+            {
+              "seq": 5,
+              "guard_id": "LC-02",
+              "from_state": "CAPABILITY_BASELINED",
+              "to_state": "GENESIS_MORPHING"
+            },
+            {
+              "seq": 6,
+              "guard_id": "LC-03",
+              "from_state": "GENESIS_MORPHING",
+              "to_state": "GENESIS_LOCKED"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/kernel/metaos/pdp.py",
+      "sha256": "sha256:3e75653c93b81b6415cf827505c389b58878aca1151951dc6f1cc4eac4436286"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/phase_a5.py",
+      "sha256": "sha256:acfb478c5c25ac2d813f2eb5dba8779cd698c5ff0b84defdc0c24ca67b57edef"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/statemachine.py",
+      "sha256": "sha256:cfd3f40e46cff7b59f8508c7fe7cdc5d5d9fecfc87d5216f0f78c08c80efed6e"
+    },
+    {
+      "path": ".antigravity/policies/admission_policy.v1.2.0.json",
+      "sha256": "sha256:aac37c96952341bbd7e2850efaec1c4cd081bf4107741f5fea1b9a4ddb10f9c4"
+    },
+    {
+      "path": ".antigravity/policies/policy_bundle.lock.json",
+      "sha256": "sha256:5a0c05c05cf7ad177938656d7f5506142afd1c166f31a0bb1f786a38fd684b82"
+    },
+    {
+      "path": ".antigravity/policies/transitions.v1.2.0.json",
+      "sha256": "sha256:0a4c3fad7df4818f4ef570b15a1767921ad3ce9f6ad9e994a563cc701d73fb92"
+    },
+    {
+      "path": "scripts/pdp_eval",
+      "sha256": "sha256:ff438e52efffa037c4902ba5f28cfe1a3ec7721d2a6a547e132cc02a12fe6e49"
+    },
+    {
+      "path": "scripts/sm_transition",
+      "sha256": "sha256:b7121402d836285147521add96c9d3fd58546ae42dbfc6121e2d0a7a19af8274"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:0195b582c55461e4295d44aeca42f89c96ba37f06a6e2ed71e3d7f7be323b67d"
+}

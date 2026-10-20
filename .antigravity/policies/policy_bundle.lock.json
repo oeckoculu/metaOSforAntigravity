@@ -1,0 +1,48 @@
+{
+  "bundle_id": "urn:metaos:policy-bundle:1.2.0",
+  "schema_version": "1.2.0",
+  "base_authority_lock_sha256": "sha256:1d9e27bc4afb1b911234f6a7ae354b25ac58e4aabe6e5d1f74ceea08ebdc5411",
+  "genesis_bootstrap_proposal_id": "GBP-0000",
+  "genesis_bootstrap_proposal_sha256": "sha256:926de5c846264c4382c4547c86efba31872fc3610bc2f1422e456060fe09380f",
+  "applied_patches": [
+    "C-1",
+    "C-2",
+    "C-3",
+    "C-4",
+    "C-5",
+    "C-6",
+    "C-7",
+    "C-8",
+    "V12-01",
+    "V12-02",
+    "V12-03",
+    "V12-04",
+    "V12-05",
+    "V12-06"
+  ],
+  "policies": {
+    "transitions": {
+      "policy_id": "urn:metaos:policy:transitions:1.2.0",
+      "path": ".antigravity/policies/transitions.v1.2.0.json",
+      "canonical_sha256": "sha256:3ee5f79ae0973e58fffd19b1ed0d1a62f968d0ca6662d64137ba8700d0f83979",
+      "bytes": 15989,
+      "state_count": 29,
+      "lifecycle_guard_count": 29,
+      "exception_guard_count": 15
+    },
+    "admission_and_pdp": {
+      "policy_id": "urn:metaos:policy:admission:1.2.0",
+      "path": ".antigravity/policies/admission_policy.v1.2.0.json",
+      "canonical_sha256": "sha256:3001efbfce830b93b608bb76d3c3e15e9b384e1f45a30c9415e3feac6271b530",
+      "bytes": 5793,
+      "risk_classes": [
+        "R0",
+        "R1",
+        "R2",
+        "R3",
+        "R4"
+      ],
+      "invariants_enforced_count": 9
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "policy_type": "AdmissionAndPdpPolicy",
+  "schema_version": "1.2.0",
+  "policy_id": "urn:metaos:policy:admission:1.2.0",
+  "base_authority_version": "1.1.0",
+  "default_decision": "DENY",
+  "fail_closed_invariant": "I-08",
+  "protected_layer_a_prefixes": [
+    ".antigravity/",
+    ".agents/",
+    "scripts/",
+    ".git/",
+    "SPEC_META_OS"
+  ],
+  "risk_classification_matrix": {
+    "R0": {
+      "description": "Documentation, comments, or non-executable metadata only",
+      "max_loc_delta": 50,
+      "max_blast_radius": "ISOLATED_FILE",
+      "counterfactual_handshake_required": false,
+      "human_audit_required": false,
+      "mutation_tier": "SKIP",
+      "mutation_min_score_pct": 0,
+      "rollback_proof_required": false,
+      "ssh_signature_required": false,
+      "required_gates": [
+        "G0_SCHEMA_AND_SECRET_SCAN",
+        "G1_TRIPLE_RED_ORACLE",
+        "G2_WORKTREE_BUILD_GREEN",
+        "G3_ARCHETYPE_SECURITY_SCAN",
+        "G5_ARCHETYPE_PERFORMANCE_SCAN",
+        "G6_PROOF_ASSEMBLY"
+      ]
+    },
+    "R1": {
+      "description": "Isolated module logic change without public API, schema, or auth impact",
+      "max_loc_delta": 200,
+      "max_blast_radius": "MODULE",
+      "counterfactual_handshake_required": false,
+      "human_audit_required": false,
+      "mutation_tier": "FAST_DIFF",
+      "mutation_min_score_pct": 70,
+      "rollback_proof_required": true,
+      "ssh_signature_required": false,
+      "required_gates": [
+        "G0_SCHEMA_AND_SECRET_SCAN",
+        "G1_TRIPLE_RED_ORACLE",
+        "G2_WORKTREE_BUILD_GREEN",
+        "G3_ARCHETYPE_SECURITY_SCAN",
+        "G4_MUTATION_FAST_DIFF",
+        "G5_ARCHETYPE_PERFORMANCE_SCAN",
+        "G6_PROOF_ASSEMBLY"
+      ]
+    },
+    "R2": {
+      "description": "Service-level change, public API change, or build/dependency update",
+      "max_loc_delta": 600,
+      "max_blast_radius": "SERVICE",
+      "counterfactual_handshake_required": true,
+      "human_audit_required": true,
+      "mutation_tier": "TARGETED_MODULE",
+      "mutation_min_score_pct": 80,
+      "rollback_proof_required": true,
+      "ssh_signature_required": false,
+      "required_gates": [
+        "G0_SCHEMA_AND_SECRET_SCAN",
+        "G0_COUNTERFACTUAL_HANDSHAKE",
+        "G1_TRIPLE_RED_ORACLE",
+        "G2_WORKTREE_BUILD_GREEN",
+        "G3_ARCHETYPE_SECURITY_SCAN",
+        "G4_MUTATION_TARGETED_MODULE",
+        "G5_ARCHETYPE_PERFORMANCE_SCAN",
+        "G6_PROOF_ASSEMBLY",
+        "G7_HUMAN_AUDIT"
+      ]
+    },
+    "R3": {
+      "description": "Cross-service, data schema/migration, or authentication/cryptography change",
+      "max_loc_delta": 1500,
+      "max_blast_radius": "CROSS_SERVICE",
+      "counterfactual_handshake_required": true,
+      "human_audit_required": true,
+      "mutation_tier": "FULL_CRITICAL",
+      "mutation_min_score_pct": 90,
+      "rollback_proof_required": true,
+      "ssh_signature_required": true,
+      "required_gates": [
+        "G0_SCHEMA_AND_SECRET_SCAN",
+        "G0_COUNTERFACTUAL_HANDSHAKE",
+        "G1_TRIPLE_RED_ORACLE",
+        "G2_WORKTREE_BUILD_GREEN",
+        "G3_ARCHETYPE_SECURITY_SCAN",
+        "G4_MUTATION_FULL_CRITICAL",
+        "G5_ARCHETYPE_PERFORMANCE_SCAN",
+        "G6_PROOF_ASSEMBLY",
+        "G7_HUMAN_AUDIT_SSH_SIGNED"
+      ]
+    },
+    "R4": {
+      "description": "System-wide architectural change or Layer A / Layer B self-modification (I-05)",
+      "max_loc_delta": 5000,
+      "max_blast_radius": "SYSTEM_WIDE",
+      "counterfactual_handshake_required": true,
+      "human_audit_required": true,
+      "mutation_tier": "FULL_CRITICAL",
+      "mutation_min_score_pct": 95,
+      "rollback_proof_required": true,
+      "ssh_signature_required": true,
+      "required_gates": [
+        "G0_SCHEMA_AND_SECRET_SCAN",
+        "G0_COUNTERFACTUAL_HANDSHAKE",
+        "G1_TRIPLE_RED_ORACLE",
+        "G2_WORKTREE_BUILD_GREEN",
+        "G3_ARCHETYPE_SECURITY_SCAN",
+        "G4_MUTATION_FULL_CRITICAL",
+        "G5_ARCHETYPE_PERFORMANCE_SCAN",
+        "G6_PROOF_ASSEMBLY",
+        "G7_HUMAN_AUDIT_SSH_SIGNED",
+        "G8_SELF_MODIFICATION_LOCK"
+      ]
+    }
+  },
+  "invariants_enforced": [
+    {
+      "invariant_id": "I-01",
+      "rule": "Agents emit only pure data ChangeProposals; direct git commit/merge or state mutation by agent roles is forbidden."
+    },
+    {
+      "invariant_id": "I-02",
+      "rule": "Task capability tokens are ephemeral, time-bounded, path-scoped, and strictly forbidden from granting write access to Layer A."
+    },
+    {
+      "invariant_id": "I-04",
+      "rule": "ChangeProposal base_commit_hash and base_tree_hash must match the current repository HEAD commit and tree."
+    },
+    {
+      "invariant_id": "I-05",
+      "rule": "Any modification touching Layer A/B paths requires self_modification=true, risk_class=R4, and SSH-signed HUMAN approval."
+    },
+    {
+      "invariant_id": "I-06",
+      "rule": "Risk classification is deterministically computed from risk hints and blast radius; declared risk_class cannot downgrade computed risk."
+    },
+    {
+      "invariant_id": "I-08",
+      "rule": "Fail-closed default DENY on any missing field, schema violation, unverified evidence, or ambiguous state."
+    },
+    {
+      "invariant_id": "I-09",
+      "rule": "Every admitted ChangeProposal must include an executable rollback_plan with strategy and non-empty steps."
+    },
+    {
+      "invariant_id": "I-10",
+      "rule": "Proposal admission requires TESTS_ARMED_RED state and the V12-05 triple RED test oracle (CompilationSuccess == true && RuntimeExecution == EXECUTED && TestExitCode != 0)."
+    },
+    {
+      "invariant_id": "I-12",
+      "rule": "Zero-secret policy: any secret token or private key pattern in proposal payloads triggers immediate DENY and QUARANTINED escalation."
+    }
+  ]
+}

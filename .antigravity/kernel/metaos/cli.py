@@ -1,9 +1,9 @@
-"""Command-line entrypoint for Meta-OS kernel phases and journal/projection utilities."""
+"""Command-line entrypoint for Meta-OS kernel phases and journal/projection/policy utilities."""
 import argparse
 import os
 import sys
 
-from . import authority, canonical, contracts, env, genesis, journal, projector, scaffold
+from . import authority, canonical, contracts, env, genesis, journal, pdp, phase_a5, projector, scaffold, statemachine
 
 
 def cmd_phase_a1(args):
@@ -35,10 +35,16 @@ def cmd_phase_a3(args):
 def cmd_phase_a4(args):
     r = genesis.run(args.root)
     body = r.write(genesis.RECEIPT_A4_REL)
-    # Also write journal_receipt.json at the canonical genesis receipts path
     jr_abs = os.path.join(args.root, genesis.JOURNAL_RECEIPT_REL)
     with open(jr_abs, "wb") as fh:
         fh.write(canonical.pretty_bytes(body))
+    sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
+    return 0 if r.passed else 1
+
+
+def cmd_phase_a5(args):
+    r = phase_a5.run(args.root)
+    body = r.write(phase_a5.RECEIPT_A5_REL)
     sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
     return 0 if r.passed else 1
 
@@ -110,6 +116,58 @@ def cmd_journal_append(args):
     return 0
 
 
+def cmd_sm_transition(args):
+    req = canonical.strict_load_file(args.request_json)
+    res = statemachine.evaluate_transition(
+        state_ctx=req.get("state_ctx") or statemachine.initial_context(req["from_state"]),
+        from_state=req["from_state"],
+        to_state=req["to_state"],
+        evidence=req.get("evidence", []),
+        actor_kind=req.get("actor_kind", "KERNEL"),
+        retroactive=req.get("retroactive", False),
+        red_oracle=req.get("red_oracle"),
+        ssh_signed=req.get("ssh_signed", False),
+    )
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["decision"] == "ALLOW" else 1
+
+
+def cmd_pdp_eval(args):
+    req = canonical.strict_load_file(args.request_json)
+    mode = req.get("mode", "ADMISSION")
+    if mode == "RISK_CLASSIFY":
+        res = pdp.classify_risk_and_schedule(
+            req.get("risk_hints", {}),
+            self_modification=req.get("self_modification", False),
+            layer_a_touched=req.get("layer_a_touched", False),
+        )
+        sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+        return 0
+    if mode == "CAPABILITY_TOKEN":
+        res = pdp.evaluate_capability_token(
+            token=req.get("capability_token"),
+            requested_action=req.get("requested_action"),
+            requested_tool=req.get("requested_tool"),
+            target_paths=req.get("target_paths", []),
+            now_utc=req.get("now_utc"),
+        )
+        sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+        return 0 if res["decision"] == "ALLOW" else 1
+
+    res = pdp.evaluate_proposal_admission(
+        proposal=req.get("proposal"),
+        state_ctx=req.get("state_ctx"),
+        base_commit=req.get("base_commit"),
+        base_tree=req.get("base_tree"),
+        now_utc=req.get("now_utc"),
+        red_oracle=req.get("red_oracle"),
+        capability_token=req.get("capability_token"),
+        human_approval=req.get("human_approval"),
+    )
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["decision"] == "ALLOW" else 1
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="metaos")
     p.add_argument("--root", default=os.getcwd(), help="Repository root directory")
@@ -130,6 +188,9 @@ def main(argv=None):
     p_a4 = sub.add_parser("phase-a4")
     p_a4.set_defaults(func=cmd_phase_a4)
 
+    p_a5 = sub.add_parser("phase-a5")
+    p_a5.set_defaults(func=cmd_phase_a5)
+
     p_boot = sub.add_parser("bootstrap-a1-a4")
     p_boot.add_argument("--lineage-json", default=None)
     p_boot.add_argument("--lineage-spec", default=None)
@@ -149,6 +210,14 @@ def main(argv=None):
     p_ja.add_argument("--journal", default=projector.DEFAULT_JOURNAL)
     p_ja.add_argument("--entry-json", required=True)
     p_ja.set_defaults(func=cmd_journal_append)
+
+    p_sm = sub.add_parser("sm-transition")
+    p_sm.add_argument("--request-json", required=True)
+    p_sm.set_defaults(func=cmd_sm_transition)
+
+    p_pdp = sub.add_parser("pdp-eval")
+    p_pdp.add_argument("--request-json", required=True)
+    p_pdp.set_defaults(func=cmd_pdp_eval)
 
     args = p.parse_args(argv)
     return args.func(args)

@@ -1,0 +1,650 @@
+{
+  "policy_type": "StateMachineTransitionsPolicy",
+  "schema_version": "1.2.0",
+  "policy_id": "urn:metaos:policy:transitions:1.2.0",
+  "base_authority_version": "1.1.0",
+  "applied_patches": [
+    "C-1",
+    "C-2",
+    "C-3",
+    "C-4",
+    "C-5",
+    "C-6",
+    "C-7",
+    "C-8",
+    "V12-01",
+    "V12-02",
+    "V12-03",
+    "V12-04",
+    "V12-05",
+    "V12-06"
+  ],
+  "initial_state": "TECH_RADAR_SYNC",
+  "terminal_states": [
+    "CLOSED"
+  ],
+  "state_sets": {
+    "GENESIS_STATES": [
+      "TECH_RADAR_SYNC",
+      "CAPABILITY_BASELINED",
+      "GENESIS_MORPHING",
+      "GENESIS_LOCKED"
+    ],
+    "PRE_ADMISSION_STATES": [
+      "INTENT_CAPTURED",
+      "RISK_CLASSIFIED",
+      "HANDSHAKE_PENDING",
+      "CONTRACT_DRAFTING",
+      "CONTRACT_REVIEWED",
+      "CONTRACT_LOCKED",
+      "TESTS_ARMED_RED"
+    ],
+    "POST_ADMISSION_PRE_MERGE_STATES": [
+      "CHANGE_ADMITTED",
+      "SANDBOX_EXECUTING",
+      "WORKTREE_GREEN",
+      "SECURITY_VERIFIED",
+      "MUTATION_VERIFIED",
+      "PERFORMANCE_VERIFIED",
+      "PROOF_ASSEMBLED",
+      "HUMAN_AUDIT_REQUIRED",
+      "READY_TO_MERGE"
+    ],
+    "POST_MERGE_ACTIVE_STATES": [
+      "MERGED",
+      "POST_DEPLOY_OBSERVING"
+    ],
+    "ACTIVE_STATES": [
+      "TECH_RADAR_SYNC",
+      "CAPABILITY_BASELINED",
+      "GENESIS_MORPHING",
+      "GENESIS_LOCKED",
+      "INTENT_CAPTURED",
+      "RISK_CLASSIFIED",
+      "HANDSHAKE_PENDING",
+      "CONTRACT_DRAFTING",
+      "CONTRACT_REVIEWED",
+      "CONTRACT_LOCKED",
+      "TESTS_ARMED_RED",
+      "CHANGE_ADMITTED",
+      "SANDBOX_EXECUTING",
+      "WORKTREE_GREEN",
+      "SECURITY_VERIFIED",
+      "MUTATION_VERIFIED",
+      "PERFORMANCE_VERIFIED",
+      "PROOF_ASSEMBLED",
+      "HUMAN_AUDIT_REQUIRED",
+      "READY_TO_MERGE",
+      "MERGED",
+      "POST_DEPLOY_OBSERVING"
+    ],
+    "EXCEPTION_STATES": [
+      "BLOCKED_POLICY",
+      "BUDGET_EXHAUSTED",
+      "EVIDENCE_INCOMPLETE",
+      "ROLLED_BACK",
+      "QUARANTINED",
+      "BREAK_GLASS_ACTIVE"
+    ],
+    "TERMINAL_STATES": [
+      "CLOSED"
+    ]
+  },
+  "exception_priority": {
+    "BREAK_GLASS_ACTIVE": 1,
+    "QUARANTINED": 2,
+    "BLOCKED_POLICY": 3,
+    "BUDGET_EXHAUSTED": 4,
+    "EVIDENCE_INCOMPLETE": 5,
+    "ROLLED_BACK": 6
+  },
+  "lifecycle_guards": [
+    {
+      "guard_id": "LC-01",
+      "from_state": "TECH_RADAR_SYNC",
+      "to_state": "CAPABILITY_BASELINED",
+      "all_of_evidence": [
+        "TechRadarDelta",
+        "CapabilityManifest"
+      ],
+      "allow_retroactive": true
+    },
+    {
+      "guard_id": "LC-02",
+      "from_state": "CAPABILITY_BASELINED",
+      "to_state": "GENESIS_MORPHING",
+      "all_of_evidence": [
+        "ValidatedEnvironmentProfile"
+      ],
+      "allow_retroactive": true
+    },
+    {
+      "guard_id": "LC-03",
+      "from_state": "GENESIS_MORPHING",
+      "to_state": "GENESIS_LOCKED",
+      "all_of_evidence": [
+        "UserApprovedProfile"
+      ],
+      "required_actor_kinds": [
+        "HUMAN"
+      ],
+      "requires_genesis_bootstrap": true,
+      "allow_retroactive": true
+    },
+    {
+      "guard_id": "LC-04",
+      "patch_ref": "C-6",
+      "from_state": "GENESIS_LOCKED",
+      "to_state": "INTENT_CAPTURED",
+      "all_of_evidence": [
+        "InitializedWorkspace",
+        "ValidatedIntentContract"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-05",
+      "from_state": "INTENT_CAPTURED",
+      "to_state": "RISK_CLASSIFIED",
+      "all_of_evidence": [
+        "RiskClassAssignment",
+        "GateSchedule"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-06A",
+      "from_state": "RISK_CLASSIFIED",
+      "to_state": "HANDSHAKE_PENDING",
+      "any_of_evidence_sets": [
+        [
+          "CounterfactualHandshakeRequest"
+        ],
+        [
+          "CounterfactualHandshakeResult"
+        ]
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-06B",
+      "from_state": "RISK_CLASSIFIED",
+      "to_state": "CONTRACT_DRAFTING",
+      "all_of_evidence": [
+        "ContractDraft"
+      ],
+      "allowed_risk_classes": [
+        "R0",
+        "R1"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-07A",
+      "patch_ref": "V12-01",
+      "from_state": "HANDSHAKE_PENDING",
+      "to_state": "CONTRACT_DRAFTING",
+      "all_of_evidence": [
+        "HumanApprovalReceipt"
+      ],
+      "required_actor_kinds": [
+        "HUMAN"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-07B",
+      "patch_ref": "V12-01",
+      "from_state": "HANDSHAKE_PENDING",
+      "to_state": "CONTRACT_DRAFTING",
+      "all_of_evidence": [
+        "HandshakeRejectionReceipt"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-07C",
+      "patch_ref": "V12-01",
+      "from_state": "HANDSHAKE_PENDING",
+      "to_state": "INTENT_CAPTURED",
+      "all_of_evidence": [
+        "HandshakeTimeoutReceipt"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-08",
+      "from_state": "CONTRACT_DRAFTING",
+      "to_state": "CONTRACT_REVIEWED",
+      "all_of_evidence": [
+        "ThreatModelReport",
+        "ContractDiff"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-09",
+      "from_state": "CONTRACT_REVIEWED",
+      "to_state": "CONTRACT_LOCKED",
+      "all_of_evidence": [
+        "CanonicalSpecLockFile"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-10",
+      "from_state": "CONTRACT_LOCKED",
+      "to_state": "TESTS_ARMED_RED",
+      "all_of_evidence": [
+        "PropertyBasedTestSet",
+        "GoldenCases"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-11",
+      "patch_ref": "V12-05",
+      "from_state": "TESTS_ARMED_RED",
+      "to_state": "CHANGE_ADMITTED",
+      "all_of_evidence": [
+        "AdmissionPolicyPassReceipt"
+      ],
+      "requires_triple_red_oracle": {
+        "CompilationSuccess": true,
+        "RuntimeExecution": "EXECUTED",
+        "TestExitCode_non_zero": true,
+        "zero_build_collection_infra_errors": true,
+        "min_failures": 1
+      },
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-12",
+      "from_state": "CHANGE_ADMITTED",
+      "to_state": "SANDBOX_EXECUTING",
+      "all_of_evidence": [
+        "EphemeralSandboxAllocation"
+      ],
+      "required_actor_kinds": [
+        "EXECUTOR",
+        "KERNEL"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-13",
+      "from_state": "SANDBOX_EXECUTING",
+      "to_state": "WORKTREE_GREEN",
+      "all_of_evidence": [
+        "IsolatedWorktreeBuildSuccess"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-14",
+      "patch_ref": "V12-03",
+      "from_state": "WORKTREE_GREEN",
+      "to_state": "SECURITY_VERIFIED",
+      "all_of_evidence": [
+        "ArchetypeSecurityScanProof"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-15",
+      "from_state": "SECURITY_VERIFIED",
+      "to_state": "MUTATION_VERIFIED",
+      "all_of_evidence": [
+        "MutationScorePass",
+        "Non-SurvivingInvariants"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-16",
+      "patch_ref": "V12-03",
+      "from_state": "MUTATION_VERIFIED",
+      "to_state": "PERFORMANCE_VERIFIED",
+      "all_of_evidence": [
+        "ArchetypePerformanceScanProof"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-17",
+      "from_state": "PERFORMANCE_VERIFIED",
+      "to_state": "PROOF_ASSEMBLED",
+      "all_of_evidence": [
+        "CompleteProofReceiptPackage"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-18A",
+      "from_state": "PROOF_ASSEMBLED",
+      "to_state": "HUMAN_AUDIT_REQUIRED",
+      "all_of_evidence": [
+        "CompleteProofReceiptPackage"
+      ],
+      "sets_suspended_from": "PROOF_ASSEMBLED",
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-18B",
+      "from_state": "PROOF_ASSEMBLED",
+      "to_state": "READY_TO_MERGE",
+      "all_of_evidence": [
+        "AutomatedGatePass",
+        "CompleteProofReceiptPackage"
+      ],
+      "allowed_risk_classes": [
+        "R0",
+        "R1"
+      ],
+      "forbid_self_modification": true,
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-19A",
+      "patch_ref": "C-1",
+      "from_state": "HUMAN_AUDIT_REQUIRED",
+      "to_state": "READY_TO_MERGE",
+      "required_suspended_from": [
+        "PROOF_ASSEMBLED"
+      ],
+      "forbid_quarantine_taint": true,
+      "all_of_evidence": [
+        "HumanApprovalToken",
+        "CompleteProofReceiptPackage"
+      ],
+      "required_actor_kinds": [
+        "HUMAN"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-19B",
+      "patch_ref": "C-1",
+      "from_state": "HUMAN_AUDIT_REQUIRED",
+      "to_state": "RESUME_TO_ORIGIN",
+      "forbid_quarantine_taint": true,
+      "all_of_evidence": [
+        "HumanApprovalToken"
+      ],
+      "required_actor_kinds": [
+        "HUMAN"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-19C",
+      "patch_ref": "V12-06",
+      "from_state": "HUMAN_AUDIT_REQUIRED",
+      "to_state": "INTENT_CAPTURED",
+      "any_of_evidence_sets": [
+        [
+          "HumanApprovalToken",
+          "SanitizedAuditAttestation"
+        ],
+        [
+          "RejectionRationale"
+        ]
+      ],
+      "required_actor_kinds": [
+        "HUMAN"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-20",
+      "from_state": "READY_TO_MERGE",
+      "to_state": "MERGED",
+      "all_of_evidence": [
+        "GitMergeSuccess",
+        "AppendOnlyEventRecord"
+      ],
+      "required_actor_kinds": [
+        "EXECUTOR"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-21",
+      "from_state": "MERGED",
+      "to_state": "POST_DEPLOY_OBSERVING",
+      "all_of_evidence": [
+        "CanaryDeploymentTelemetry"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-22A",
+      "from_state": "POST_DEPLOY_OBSERVING",
+      "to_state": "CLOSED",
+      "all_of_evidence": [
+        "StabilityReceipt",
+        "FinalStateLock"
+      ],
+      "allow_retroactive": false
+    },
+    {
+      "guard_id": "LC-22B",
+      "patch_ref": "V12-04",
+      "from_state": "POST_DEPLOY_OBSERVING",
+      "to_state": "INTENT_CAPTURED",
+      "all_of_evidence": [
+        "DriftDetectionReport",
+        "AutomatedPatchProposal"
+      ],
+      "allow_retroactive": false
+    }
+  ],
+  "exception_guards": [
+    {
+      "guard_id": "EX-01",
+      "patch_ref": "C-4",
+      "from_state": "ANY_ACTIVE_OR_LOWER_EXCEPTION",
+      "to_state": "BLOCKED_POLICY",
+      "all_of_evidence": [
+        "PolicyViolationRecord"
+      ],
+      "preserves_suspended_from": true
+    },
+    {
+      "guard_id": "EX-02",
+      "patch_ref": "C-1",
+      "from_state": "BLOCKED_POLICY",
+      "to_state": "HUMAN_AUDIT_REQUIRED",
+      "all_of_evidence": [
+        "PolicyExemptionReviewPacket"
+      ],
+      "preserves_suspended_from": true
+    },
+    {
+      "guard_id": "EX-03",
+      "patch_ref": "C-4",
+      "from_state": "ANY_ACTIVE_OR_LOWER_EXCEPTION",
+      "to_state": "BUDGET_EXHAUSTED",
+      "all_of_evidence": [
+        "BudgetBreachRecord"
+      ],
+      "preserves_suspended_from": true
+    },
+    {
+      "guard_id": "EX-04",
+      "patch_ref": "C-1",
+      "from_state": "BUDGET_EXHAUSTED",
+      "to_state": "HUMAN_AUDIT_REQUIRED",
+      "all_of_evidence": [
+        "BudgetIncrementAuthorization"
+      ],
+      "preserves_suspended_from": true
+    },
+    {
+      "guard_id": "EX-05",
+      "patch_ref": "C-2",
+      "from_state": "ANY_ACTIVE_STATE",
+      "to_state": "EVIDENCE_INCOMPLETE",
+      "all_of_evidence": [
+        "MissingEvidenceAuditReport"
+      ],
+      "preserves_suspended_from": true
+    },
+    {
+      "guard_id": "EX-06A",
+      "patch_ref": "C-2",
+      "from_state": "EVIDENCE_INCOMPLETE",
+      "to_state": "SANDBOX_EXECUTING",
+      "required_suspended_from": [
+        "CHANGE_ADMITTED",
+        "SANDBOX_EXECUTING",
+        "WORKTREE_GREEN",
+        "SECURITY_VERIFIED",
+        "MUTATION_VERIFIED",
+        "PERFORMANCE_VERIFIED",
+        "PROOF_ASSEMBLED",
+        "HUMAN_AUDIT_REQUIRED",
+        "READY_TO_MERGE"
+      ],
+      "all_of_evidence": [
+        "RemediationTaskEnvelope"
+      ]
+    },
+    {
+      "guard_id": "EX-06B",
+      "patch_ref": "C-2",
+      "from_state": "EVIDENCE_INCOMPLETE",
+      "to_state": "RESUME_TO_PRE_ADMISSION_ORIGIN",
+      "required_suspended_from": [
+        "TECH_RADAR_SYNC",
+        "CAPABILITY_BASELINED",
+        "GENESIS_MORPHING",
+        "GENESIS_LOCKED",
+        "INTENT_CAPTURED",
+        "RISK_CLASSIFIED",
+        "HANDSHAKE_PENDING",
+        "CONTRACT_DRAFTING",
+        "CONTRACT_REVIEWED",
+        "CONTRACT_LOCKED",
+        "TESTS_ARMED_RED"
+      ],
+      "all_of_evidence": [
+        "RemediationTaskEnvelope"
+      ]
+    },
+    {
+      "guard_id": "EX-07A",
+      "patch_ref": "C-8",
+      "from_state": "PRE_MERGE_ACTIVE_STATES",
+      "to_state": "ROLLED_BACK",
+      "all_of_evidence": [
+        "FailureRecord",
+        "WorktreeCleanupReceipt"
+      ],
+      "preserves_suspended_from": true
+    },
+    {
+      "guard_id": "EX-07B",
+      "patch_ref": "C-8",
+      "from_state": "POST_MERGE_ACTIVE_STATES",
+      "to_state": "ROLLED_BACK",
+      "all_of_evidence": [
+        "FailureRecord",
+        "CompensatingActionReceipt"
+      ],
+      "preserves_suspended_from": true
+    },
+    {
+      "guard_id": "EX-08A",
+      "patch_ref": "C-5",
+      "from_state": "ROLLED_BACK",
+      "to_state": "GENESIS_MORPHING",
+      "required_suspended_from": [
+        "TECH_RADAR_SYNC",
+        "CAPABILITY_BASELINED",
+        "GENESIS_MORPHING",
+        "GENESIS_LOCKED"
+      ],
+      "all_of_evidence": [
+        "RevisedGenesisProfileRecord"
+      ]
+    },
+    {
+      "guard_id": "EX-08B",
+      "patch_ref": "C-5",
+      "from_state": "ROLLED_BACK",
+      "to_state": "INTENT_CAPTURED",
+      "required_suspended_from": [
+        "INTENT_CAPTURED",
+        "RISK_CLASSIFIED",
+        "HANDSHAKE_PENDING",
+        "CONTRACT_DRAFTING",
+        "CONTRACT_REVIEWED",
+        "CONTRACT_LOCKED",
+        "TESTS_ARMED_RED",
+        "CHANGE_ADMITTED",
+        "SANDBOX_EXECUTING",
+        "WORKTREE_GREEN",
+        "SECURITY_VERIFIED",
+        "MUTATION_VERIFIED",
+        "PERFORMANCE_VERIFIED",
+        "PROOF_ASSEMBLED",
+        "HUMAN_AUDIT_REQUIRED",
+        "READY_TO_MERGE",
+        "MERGED",
+        "POST_DEPLOY_OBSERVING"
+      ],
+      "all_of_evidence": [
+        "RevisedHypothesisRecord"
+      ]
+    },
+    {
+      "guard_id": "EX-09",
+      "patch_ref": "C-4",
+      "from_state": "ANY_ACTIVE_OR_LOWER_EXCEPTION",
+      "to_state": "QUARANTINED",
+      "all_of_evidence": [
+        "SecurityAnomalyReport"
+      ],
+      "sets_quarantine_taint": true
+    },
+    {
+      "guard_id": "EX-10",
+      "patch_ref": "V12-06",
+      "from_state": "QUARANTINED",
+      "to_state": "HUMAN_AUDIT_REQUIRED",
+      "all_of_evidence": [
+        "SanitizedAuditAttestation"
+      ],
+      "keeps_quarantine_taint": true
+    },
+    {
+      "guard_id": "EX-11",
+      "patch_ref": "I-15",
+      "from_state": "ANY_NON_TERMINAL_STATE",
+      "to_state": "BREAK_GLASS_ACTIVE",
+      "all_of_evidence": [
+        "CryptographicallySignedBreakGlassOverrideEvent"
+      ],
+      "required_actor_kinds": [
+        "HUMAN"
+      ],
+      "requires_ssh_signature": true
+    },
+    {
+      "guard_id": "EX-12",
+      "patch_ref": "C-3/V12-02",
+      "from_state": "BREAK_GLASS_ACTIVE",
+      "to_state": "GENESIS_LOCKED",
+      "all_of_evidence": [
+        "RealignmentProjectionReceipt",
+        "CryptographicallySignedBreakGlassReviewRecord"
+      ],
+      "required_actor_kinds": [
+        "HUMAN"
+      ],
+      "requires_ssh_signature": true
+    }
+  ],
+  "content_hash": "sha256:a78e051d7a62cb5091711817f4c969ffc347d638262b772d847c783109db19b5"
+}
