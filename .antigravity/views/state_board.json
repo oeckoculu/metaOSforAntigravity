@@ -1,10 +1,21 @@
 {
+  "break_glass_log": [
+    {
+      "actor": "human:oeckoculu",
+      "entry_hash": "sha256:b73e7da84e47dde683cc6bd987ed7f4c9b794ca01e70001e5eef9ac91205d35b",
+      "incident_severity": "P0_DRILL",
+      "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+      "namespace": "metaos.breakglass",
+      "override_id": "BGO-20261020-0001",
+      "seq": 10
+    }
+  ],
   "current_state": "GENESIS_LOCKED",
   "derived_from": {
     "authority_jcs_sha256": "sha256:31b412a90f423a23328701dce1be271aedb24d236acdbccf592b86fd33704b31",
     "authority_version": "1.1.0",
-    "head_hash": "sha256:7b846bfc725cf7ba4101ef717deb474c11391fa820f16b0e88985563f7861cb1",
-    "head_seq": 6,
+    "head_hash": "sha256:57fd2b7cafb37724022ce6d44e767f50f452e3e6a93a404034c2a5dfb74d8d08",
+    "head_seq": 12,
     "journal": ".antigravity/events/run-0000.jsonl"
   },
   "evidence": [
@@ -27,6 +38,20 @@
       "receipt_hash": "sha256:d84a2daae9d4767b1ad9c257aa16831c32685ff80bdd81a320743b4ae2302633",
       "receipt_path": ".antigravity/genesis/receipts/A3_core_schemas.receipt.json",
       "seq": 3,
+      "status": "PASS"
+    },
+    {
+      "phase": "A5",
+      "receipt_hash": "sha256:0195b582c55461e4295d44aeca42f89c96ba37f06a6e2ed71e3d7f7be323b67d",
+      "receipt_path": ".antigravity/genesis/receipts/A5_state_machine_and_pdp.receipt.json",
+      "seq": 7,
+      "status": "PASS"
+    },
+    {
+      "phase": "A6",
+      "receipt_hash": "sha256:d8a3aa0a15c85f70d615889263868a5c795a5caca9bda5d5b45b5d08b3eff6b4",
+      "receipt_path": ".antigravity/genesis/receipts/A6_provider_ports_and_pep.receipt.json",
+      "seq": 8,
       "status": "PASS"
     }
   ],
@@ -77,6 +102,32 @@
       "satisfied_by": "UserApprovedProfile",
       "seq": 6,
       "to": "GENESIS_LOCKED"
+    },
+    {
+      "from": "GENESIS_LOCKED",
+      "guard_id": "EX-11",
+      "retroactive": false,
+      "satisfied_by": "CryptographicallySignedBreakGlassOverrideEvent",
+      "seq": 11,
+      "to": "BREAK_GLASS_ACTIVE"
+    },
+    {
+      "from": "BREAK_GLASS_ACTIVE",
+      "guard_id": "EX-12",
+      "retroactive": false,
+      "satisfied_by": "CryptographicallySignedBreakGlassReviewRecord & RealignmentProjectionReceipt",
+      "seq": 12,
+      "to": "GENESIS_LOCKED"
+    }
+  ],
+  "issued_tokens": [
+    {
+      "agent_role": "BuilderAgent",
+      "expires_at": "2026-10-20T23:10:00Z",
+      "issued_at": "2026-10-20T22:40:00Z",
+      "seq": 9,
+      "token_id": "0192f3a4-0000-7000-8000-000000000007",
+      "token_sha256": "sha256:e164c62e74adc5aa040e979c3d8787834606b74d242aaa0b11232e0c1d4fb503"
     }
   ],
   "next": {
@@ -87,10 +138,11 @@
     "required_evidence": "InitializedWorkspace & ValidatedIntentContract"
   },
   "open_waivers": [],
-  "patchset_status": "ACCEPTED_NOT_COMPILED (guards compiled at A5)",
+  "patchset_status": "COMPILED_V1.2.0_ACTIVE",
   "run_id": "run-0000",
   "signature_status": {
-    "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7",
+    "reason": "PRE_A7_GENESIS_ENTRIES_UNSIGNED",
+    "signed_entries": 6,
     "unsigned_entries": 7
   },
   "view": "state_board",

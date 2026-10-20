@@ -1,9 +1,9 @@
-"""Command-line entrypoint for Meta-OS kernel phases and journal/projection/policy/PEP/outbox utilities."""
+"""Command-line entrypoint for Meta-OS kernel phases and journal/projection/policy/PEP/outbox/crypto utilities."""
 import argparse
 import os
 import sys
 
-from . import authority, canonical, contracts, env, genesis, journal, pdp, pep, phase_a5, phase_a6, ports, projector, scaffold, statemachine
+from . import authority, canonical, contracts, crypto, env, genesis, journal, pdp, pep, phase_a5, phase_a6, phase_a7, ports, projector, scaffold, statemachine
 
 
 def cmd_phase_a1(args):
@@ -59,6 +59,13 @@ def cmd_phase_a6(args):
     return 0 if r.passed else 1
 
 
+def cmd_phase_a7(args):
+    r = phase_a7.run(args.root, keystore_dir=args.keystore_dir)
+    body = r.write(phase_a7.RECEIPT_A7_REL)
+    sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
+    return 0 if r.passed else 1
+
+
 def cmd_bootstrap_a1_a4(args):
     r1, _ = authority.run(
         args.root,
@@ -86,7 +93,7 @@ def cmd_bootstrap_a1_a4(args):
 def cmd_journal_verify(args):
     validator = journal.load_validator(args.root)
     jpath = os.path.join(args.root, args.journal)
-    _, report = journal.verify_file(jpath, validator)
+    _, report = journal.verify_file(jpath, validator, root=args.root)
     sys.stdout.write(canonical.pretty_bytes(report).decode("utf-8"))
     return 0 if report["valid"] else 1
 
@@ -100,7 +107,7 @@ def cmd_project_state(args):
 def cmd_journal_append(args):
     validator = journal.load_validator(args.root)
     jpath = os.path.join(args.root, args.journal)
-    entries, report = journal.verify_file(jpath, validator)
+    entries, report = journal.verify_file(jpath, validator, root=args.root)
     if not report["valid"]:
         sys.stderr.write("journal invalid: %s\n" % "; ".join(report["errors"]))
         return 1
@@ -120,8 +127,11 @@ def cmd_journal_append(args):
         retroactive=spec.get("retroactive", False),
         occurred_at=spec.get("occurred_at"),
         parent_run_id=spec.get("parent_run_id"),
+        root=args.root,
+        sign_principal=spec.get("sign_principal"),
+        sign_namespace=spec.get("sign_namespace"),
     )
-    h = journal.append(jpath, entry, validator)
+    h = journal.append(jpath, entry, validator, root=args.root)
     sys.stdout.write(canonical.pretty_bytes({"seq": seq, "entry_hash": h}).decode("utf-8"))
     return 0
 
@@ -244,6 +254,46 @@ def cmd_pep_post_tool_use(args):
     return 0 if res["decision"] == "ALLOW" else 2
 
 
+def cmd_keys_init(args):
+    manifest = crypto.init_keys(args.root, keystore_dir=args.keystore_dir, force=args.force)
+    sys.stdout.write(canonical.pretty_bytes(manifest).decode("utf-8"))
+    return 0
+
+
+def cmd_token_issue(args):
+    req = _load_req_or_stdin(args.request_json)
+    tok = crypto.issue_capability_token(
+        root=args.root,
+        file_read=req.get("file_read", ["src/**"]),
+        file_write=req.get("file_write", ["src/**"]),
+        tools=req.get("tools", ["write_file", "run_tests"]),
+        actions=req.get("actions", ["READ", "PROPOSE", "EXECUTE_TEST"]),
+        ttl_seconds=req.get("ttl_seconds", 1800),
+        issued_at=req.get("issued_at"),
+        token_id=req.get("token_id"),
+        agent_role=req.get("agent_role", "BuilderAgent"),
+        keystore_dir=args.keystore_dir,
+    )
+    sys.stdout.write(canonical.pretty_bytes(tok).decode("utf-8"))
+    return 0
+
+
+def cmd_break_glass(args):
+    req = _load_req_or_stdin(args.request_json)
+    msg_bytes = canonical.jcs_bytes(req)
+    sig = crypto.sign_bytes(
+        data_bytes=msg_bytes,
+        principal_id=req.get("principal_id", "human:oeckoculu"),
+        namespace="metaos.breakglass",
+        root=args.root,
+        keystore_dir=args.keystore_dir,
+    )
+    out = dict(req)
+    out["signature"] = sig
+    sys.stdout.write(canonical.pretty_bytes(out).decode("utf-8"))
+    return 0
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="metaos")
     p.add_argument("--root", default=os.getcwd(), help="Repository root directory")
@@ -269,6 +319,10 @@ def main(argv=None):
 
     p_a6 = sub.add_parser("phase-a6")
     p_a6.set_defaults(func=cmd_phase_a6)
+
+    p_a7 = sub.add_parser("phase-a7")
+    p_a7.add_argument("--keystore-dir", default=None)
+    p_a7.set_defaults(func=cmd_phase_a7)
 
     p_boot = sub.add_parser("bootstrap-a1-a4")
     p_boot.add_argument("--lineage-json", default=None)
@@ -326,6 +380,21 @@ def main(argv=None):
     p_po = sub.add_parser("pep-post-tool-use")
     p_po.add_argument("--request-json", default=None)
     p_po.set_defaults(func=cmd_pep_post_tool_use)
+
+    p_ki = sub.add_parser("keys-init")
+    p_ki.add_argument("--keystore-dir", default=None)
+    p_ki.add_argument("--force", action="store_true")
+    p_ki.set_defaults(func=cmd_keys_init)
+
+    p_ti = sub.add_parser("token-issue")
+    p_ti.add_argument("--request-json", default=None)
+    p_ti.add_argument("--keystore-dir", default=None)
+    p_ti.set_defaults(func=cmd_token_issue)
+
+    p_bg = sub.add_parser("break-glass")
+    p_bg.add_argument("--request-json", default=None)
+    p_bg.add_argument("--keystore-dir", default=None)
+    p_bg.set_defaults(func=cmd_break_glass)
 
     args = p.parse_args(argv)
     return args.func(args)

@@ -1,0 +1,19 @@
+{
+  "document_type": "RealignmentProjectionReceipt",
+  "schema_version": "1.0.0",
+  "realignment_id": "RPR-20261020-0001",
+  "override_id": "BGO-20261020-0001",
+  "review_id": "BGR-20261020-0001",
+  "review_file_sha256": "sha256:8d6102146d9986af719d2597d7896c5d7a5325383cbc6bb9192914b0d19cb21b",
+  "from_state": "BREAK_GLASS_ACTIVE",
+  "to_state": "GENESIS_LOCKED",
+  "patch_ref": "C-3/V12-02",
+  "verified_at": "2026-10-20T22:40:00Z",
+  "content_hash": "sha256:df478682738211db3f7cf5dee2d3cbccc74159bd90f60e37592db06bea3be0d8",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+    "namespace": "metaos.breakglass",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgpCSQAdSjOtRdg9e8MpYgWbYFmm\nd1bwueDxmZYZ5KcX8AAAARbWV0YW9zLmJyZWFrZ2xhc3MAAAAAAAAABnNoYTUxMgAAAFMA\nAAALc3NoLWVkMjU1MTkAAABAAdy3dGc0EsqtGQ8QgvKRhmrLSmpmNnDRJ/a4m2vFUN7c5n\nPJ+br8yNuPT0fKFfVLIYfsfmEh4qU2hjnJM/ZBDw==\n-----END SSH SIGNATURE-----"
+  }
+}

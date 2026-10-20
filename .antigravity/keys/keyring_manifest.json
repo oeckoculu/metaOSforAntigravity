@@ -1,0 +1,38 @@
+{
+  "document_type": "KeyringManifest",
+  "schema_version": "1.0.0",
+  "allowed_signers_path": ".antigravity/keys/allowed_signers",
+  "allowed_signers_sha256": "sha256:7c8cc4ebb7097e4d7361281f862b725de63124a745bf30bb96196c3ec550beba",
+  "private_keystore_isolation": "EXTERNAL_OUTSIDE_WORKSPACE_ONLY",
+  "principals": {
+    "human:oeckoculu": {
+      "principal_id": "human:oeckoculu",
+      "role": "HUMAN",
+      "alg": "sshsig-ed25519",
+      "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+      "public_key_path": ".antigravity/keys/human_owner.ed25519.pub",
+      "public_key_sha256": "sha256:4852e1cb2ba4a9e1268e6c50912b550a4a75dbe34901a7a986e2a5b1430b5785",
+      "allowed_namespaces": [
+        "metaos.human",
+        "metaos.breakglass",
+        "metaos.proposal",
+        "metaos.journal"
+      ]
+    },
+    "kernel:authority": {
+      "principal_id": "kernel:authority",
+      "role": "KERNEL",
+      "alg": "sshsig-ed25519",
+      "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+      "public_key_path": ".antigravity/keys/kernel_authority.ed25519.pub",
+      "public_key_sha256": "sha256:527e7bd09771f25015d6abf8c4827fa95b337af612417946ad07de2a8434fc7a",
+      "allowed_namespaces": [
+        "metaos.kernel",
+        "metaos.token",
+        "metaos.journal",
+        "metaos.receipt"
+      ]
+    }
+  },
+  "content_hash": "sha256:492d9e1f47f1f42c4c5dad1b1bfe910b89fc94c0086104cfeb01a356a521cc30"
+}

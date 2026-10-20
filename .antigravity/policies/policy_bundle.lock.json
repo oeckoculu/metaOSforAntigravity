@@ -61,6 +61,16 @@
         "PreToolUse",
         "SessionStart"
       ]
+    },
+    "keyring_manifest": {
+      "policy_id": "urn:metaos:keyring:1.0.0",
+      "path": ".antigravity/keys/keyring_manifest.json",
+      "canonical_sha256": "sha256:5cf4ae2f09685173cc9c3c03585ea3e20f66442bd2ef7fd2d9765cad7830b4fb",
+      "bytes": 1445,
+      "principals": [
+        "human:oeckoculu",
+        "kernel:authority"
+      ]
     }
   }
 }

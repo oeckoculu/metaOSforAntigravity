@@ -1,0 +1,23 @@
+{
+  "document_type": "CryptographicallySignedBreakGlassReviewRecord",
+  "schema_version": "1.0.0",
+  "review_id": "BGR-20261020-0001",
+  "override_id": "BGO-20261020-0001",
+  "override_file_sha256": "sha256:2a544f4ba27ba7f4a13f6b231453c376a8145db0fe708fa9605f9f20fbb21188",
+  "run_id": "run-0000",
+  "reviewer": {
+    "principal_id": "human:oeckoculu",
+    "kind": "HUMAN",
+    "os_identity": "oeckoculu"
+  },
+  "reviewed_at": "2026-10-20T22:40:00Z",
+  "decision": "REALIGN_TO_GENESIS_LOCKED",
+  "findings": "Break-glass drill verified; no unrecorded side effects; kernel invariants intact.",
+  "content_hash": "sha256:74af5fdfa037724f7e90b8c69c7cdf6f5d0ab4661ac043ad1750b85caea0ccce",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+    "namespace": "metaos.breakglass",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgpCSQAdSjOtRdg9e8MpYgWbYFmm\nd1bwueDxmZYZ5KcX8AAAARbWV0YW9zLmJyZWFrZ2xhc3MAAAAAAAAABnNoYTUxMgAAAFMA\nAAALc3NoLWVkMjU1MTkAAABAid1kJjIH1+HtbyoMFJt9k2SPv1CURM0hyiaXEzpOtQIJ4k\n/repFmCbOOqNfWlZ7ieBuJCLk2v2hDIw3juIpKBQ==\n-----END SSH SIGNATURE-----"
+  }
+}

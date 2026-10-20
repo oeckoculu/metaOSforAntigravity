@@ -1,0 +1,35 @@
+{
+  "token_id": "0192f3a4-0000-7000-8000-000000000007",
+  "issued_at": "2026-10-20T22:40:00Z",
+  "expires_at": "2026-10-20T23:10:00Z",
+  "scopes": {
+    "file_read": [
+      "contracts/**",
+      "invariants/**",
+      "src/**",
+      "tests/**"
+    ],
+    "file_write": [
+      "src/**",
+      "tests/**"
+    ],
+    "tools": [
+      "write_file",
+      "edit_file",
+      "run_tests"
+    ],
+    "actions": [
+      "READ",
+      "PROPOSE",
+      "EXECUTE_TEST"
+    ],
+    "egress_allowlist": []
+  },
+  "nonce": "a83ec662a8c6c7caa7471370b88fcc43",
+  "issuer_signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.token",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAMbWV0YW9zLnRva2VuAAAAAAAAAAZzaGE1MTIAAABTAAAAC3Nz\naC1lZDI1NTE5AAAAQFO8ZbhUI4RdYCyCrmZV14EfejDPWvNOU9HayLc1CTMRo2yyua2iC3\n6JCXROIIoLtmej68Xx7VwiuFZsiBZ8/Ao=\n-----END SSH SIGNATURE-----"
+  }
+}

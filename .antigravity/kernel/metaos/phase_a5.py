@@ -585,6 +585,7 @@ def _replay_live_journal(root):
                     ev_labels.append(item["kind"])
                 elif isinstance(item, str):
                     ev_labels.append(item)
+            is_ssh_signed = entry.get("signature", {}).get("alg") == "sshsig-ed25519"
             res = statemachine.evaluate_transition(
                 state_ctx=ctx,
                 from_state=tr["from_state"],
@@ -592,6 +593,7 @@ def _replay_live_journal(root):
                 evidence=ev_labels,
                 actor_kind=entry["actor"]["kind"],
                 retroactive=entry.get("retroactive", False),
+                ssh_signed=is_ssh_signed,
             )
             if res["decision"] != "ALLOW":
                 return False, {
@@ -608,7 +610,7 @@ def _replay_live_journal(root):
                     "to_state": tr["to_state"],
                 }
             )
-    ok = ctx["current_state"] == "GENESIS_LOCKED" and len(replayed_transitions) == 3
+    ok = ctx["current_state"] == "GENESIS_LOCKED" and len(replayed_transitions) >= 3
     return ok, {
         "final_state": ctx["current_state"],
         "transitions_verified": len(replayed_transitions),

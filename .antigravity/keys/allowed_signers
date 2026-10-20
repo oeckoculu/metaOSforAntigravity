@@ -1,0 +1,2 @@
+human:oeckoculu namespaces="metaos.human,metaos.breakglass,metaos.proposal,metaos.journal" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKQkkAHUozrUXYPXvDKWIFm2BZpndW8Lng8ZmWGeSnF/ human:oeckoculu
+kernel:authority namespaces="metaos.kernel,metaos.token,metaos.journal,metaos.receipt" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO7ov6MedLu2jVGUpcxfw6J3gzGnRu3tJ5nzY1puDM3n kernel:authority

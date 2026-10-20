@@ -1,0 +1,202 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A7",
+  "name": "keys_tokens_and_break_glass",
+  "status": "PASS",
+  "generated_at": "2026-10-20T22:56:11Z",
+  "input": {
+    "commit": "24cc70fae0df2d0b95a5cc79420be6b7da2925a4",
+    "tree": "b27ac7042c10c3b823212fadde742232d443f53c"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:276cc5c5435868cab8d8fd5a318d718d9d36603b1f4a6d498ad458d91c18e67a"
+  },
+  "reproducibility": {
+    "source_commit": "24cc70fae0df2d0b95a5cc79420be6b7da2925a4",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A7-C01",
+      "description": "Ed25519 public keyring & allowed_signers provisioned in .antigravity/keys/; private keys isolated outside repository (I-12, I-15)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-12",
+        "human_key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+        "kernel_key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+        "allowed_signers_sha256": "sha256:7c8cc4ebb7097e4d7361281f862b725de63124a745bf30bb96196c3ec550beba",
+        "private_keys_in_repo": []
+      }
+    },
+    {
+      "id": "A7-C02",
+      "description": "ssh-keygen -Y sign and verify enforce cryptographic integrity, namespace binding, and principal isolation",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-15",
+        "cases": {
+          "valid_signature_verified": true,
+          "tampered_payload_rejected": true,
+          "wrong_namespace_rejected": true,
+          "wrong_principal_rejected": true
+        }
+      }
+    },
+    {
+      "id": "A7-C03",
+      "description": "Cryptographically signed CapabilityToken issued and verified; post-issuance scope tampering is rejected (I-02)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-02",
+        "cases": {
+          "signed_token_verified_allow": true,
+          "tampered_scope_signature_rejected": true,
+          "token_id": "0192f3a4-0000-7000-8000-000000000007",
+          "issuer_key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU"
+        }
+      }
+    },
+    {
+      "id": "A7-C04",
+      "description": "CapabilityToken issuer blocks excessive TTL, Layer A write scopes, privileged actions, verifier src writes, and expired tokens (I-02)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-02",
+        "cases": {
+          "excessive_ttl_rejected": true,
+          "layer_a_write_scope_rejected": true,
+          "privileged_commit_action_rejected": true,
+          "verifier_src_write_rejected": true,
+          "expired_token_runtime_denied": true
+        }
+      }
+    },
+    {
+      "id": "A7-C05",
+      "description": "Break-Glass Override, Review Record, and Realignment Projection Receipt cryptographically signed by human:oeckoculu (I-15, C-3/V12-02)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-15",
+        "override_id": "BGO-20261020-0001",
+        "override_verified": true,
+        "review_verified": true,
+        "realignment_verified": true
+      }
+    },
+    {
+      "id": "A7-C06",
+      "description": "Event journal (.antigravity/events/run-0000.jsonl) records signed EVIDENCE_RECORDED, TOKEN_ISSUED, BREAK_GLASS_OVERRIDE, EX-11, and EX-12 (seq 7..12)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-03",
+        "total_entries": 13,
+        "signed_entries": 6,
+        "unsigned_genesis_entries": 7,
+        "head_seq": 12,
+        "head_hash": "sha256:57fd2b7cafb37724022ce6d44e767f50f452e3e6a93a404034c2a5dfb74d8d08"
+      }
+    },
+    {
+      "id": "A7-C07",
+      "description": "Unsigned or AGENT-authored BREAK_GLASS_OVERRIDE journal entries are rejected fail-closed (I-15)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-15",
+        "unsigned_break_glass_rejected": true,
+        "agent_break_glass_rejected": true
+      }
+    },
+    {
+      "id": "A7-C08",
+      "description": "Two independent journal replays after Break-Glass drill produce byte-identical state_board.json realigned at GENESIS_LOCKED (I-03, C-3/V12-02)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-03",
+        "current_state": "GENESIS_LOCKED",
+        "byte_identical_replay": true,
+        "state_board_sha256": "sha256:0ca5324285ef22bb345fa5e227c31b1d55578749f997c233d67f724182d4306b",
+        "history_transitions": 5
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/events/run-0000.jsonl",
+      "sha256": "sha256:0fefd441eb6ceda2557f436c5e1a92effa303601a5c6cc7b03aab4a6e63f6adb"
+    },
+    {
+      "path": ".antigravity/genesis/break_glass_drill_override.json",
+      "sha256": "sha256:2a544f4ba27ba7f4a13f6b231453c376a8145db0fe708fa9605f9f20fbb21188"
+    },
+    {
+      "path": ".antigravity/genesis/break_glass_review_record.json",
+      "sha256": "sha256:8d6102146d9986af719d2597d7896c5d7a5325383cbc6bb9192914b0d19cb21b"
+    },
+    {
+      "path": ".antigravity/genesis/initial_capability_token.json",
+      "sha256": "sha256:e164c62e74adc5aa040e979c3d8787834606b74d242aaa0b11232e0c1d4fb503"
+    },
+    {
+      "path": ".antigravity/genesis/realignment_projection_receipt.json",
+      "sha256": "sha256:6016effd7dbee33d22c5d8934107913505cf750747dc5149a00b02666779f468"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/crypto.py",
+      "sha256": "sha256:8c90af785e7a472111ce4de2b9bdc548b86c22c6bc6f365e2071109f1fa306f5"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/phase_a7.py",
+      "sha256": "sha256:a9f18b355c91ff3292337e2d57b16349da9b9329bbc101d6c1bae62f3ad569a5"
+    },
+    {
+      "path": ".antigravity/keys/allowed_signers",
+      "sha256": "sha256:7c8cc4ebb7097e4d7361281f862b725de63124a745bf30bb96196c3ec550beba"
+    },
+    {
+      "path": ".antigravity/keys/human_owner.ed25519.pub",
+      "sha256": "sha256:4852e1cb2ba4a9e1268e6c50912b550a4a75dbe34901a7a986e2a5b1430b5785"
+    },
+    {
+      "path": ".antigravity/keys/kernel_authority.ed25519.pub",
+      "sha256": "sha256:527e7bd09771f25015d6abf8c4827fa95b337af612417946ad07de2a8434fc7a"
+    },
+    {
+      "path": ".antigravity/keys/keyring_manifest.json",
+      "sha256": "sha256:496d8faaa9d44bcd6b5546e579dac83b3136d1b903946008274f77f06327e1a4"
+    },
+    {
+      "path": ".antigravity/policies/policy_bundle.lock.json",
+      "sha256": "sha256:c33f46e9e293706f214cdfda8877611739871b0a0d97e612770d92c9a0b10a3e"
+    },
+    {
+      "path": ".antigravity/views/state_board.json",
+      "sha256": "sha256:0ca5324285ef22bb345fa5e227c31b1d55578749f997c233d67f724182d4306b"
+    },
+    {
+      "path": "scripts/break_glass",
+      "sha256": "sha256:2aae7b97fc2dc925bfc62d29abe0fe7c564308693adf012f7f796556d4016a71"
+    },
+    {
+      "path": "scripts/keys_init",
+      "sha256": "sha256:023d87736af8e0bb43ffa4837041f3cf4ba7bd5e8ec3dac40c26c55e6fb31b54"
+    },
+    {
+      "path": "scripts/token_issue",
+      "sha256": "sha256:1bad33dc1873da5cc837780a58923abf5c6816ce1bffe2663f1a609054983c8d"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:5b2ecd08bd4f7174a4f36a18a470422aa6d53469cecc9040f5e5f30ac7726a46"
+}

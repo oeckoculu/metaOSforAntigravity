@@ -1,0 +1,24 @@
+{
+  "document_type": "CryptographicallySignedBreakGlassOverrideEvent",
+  "schema_version": "1.0.0",
+  "override_id": "BGO-20261020-0001",
+  "run_id": "run-0000",
+  "drill": true,
+  "incident_severity": "P0_DRILL",
+  "origin_state": "GENESIS_LOCKED",
+  "target_state": "BREAK_GLASS_ACTIVE",
+  "actor": {
+    "principal_id": "human:oeckoculu",
+    "kind": "HUMAN",
+    "os_identity": "oeckoculu"
+  },
+  "issued_at": "2026-10-20T22:40:00Z",
+  "rationale": "Phase A7 mandatory Break-Glass override and C-3/V12-02 realignment drill.",
+  "content_hash": "sha256:6039061a0b3151714f16ef51465b4ebac735455a532e663218057c2a7c8465c1",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+    "namespace": "metaos.breakglass",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgpCSQAdSjOtRdg9e8MpYgWbYFmm\nd1bwueDxmZYZ5KcX8AAAARbWV0YW9zLmJyZWFrZ2xhc3MAAAAAAAAABnNoYTUxMgAAAFMA\nAAALc3NoLWVkMjU1MTkAAABALXcAhBVsvclhExQ/+KWZFUL7+BC/uU37rsZ2CKgY/HEXvq\nKb9EqLZbUyiprFmu67B8Trg5oTIjR7RT5SYo9oDQ==\n-----END SSH SIGNATURE-----"
+  }
+}

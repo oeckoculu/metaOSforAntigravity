@@ -1,10 +1,11 @@
-"""Append-only, hash-chained event journal (I-03) with fail-closed admission."""
+"""Append-only, hash-chained event journal (I-03) with fail-closed admission and Ed25519 verification (I-15)."""
 import os
 
-from . import canonical, env, secrets
+from . import canonical, crypto, env, secrets
 from .schema import Validator
 
 SCHEMA_PATH = ".antigravity/schemas/core/event_journal_entry.schema.json"
+DEFAULT_JOURNAL_REL = ".antigravity/events/run-0000.jsonl"
 UNSIGNED = {"status": "UNSIGNED", "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7"}
 
 
@@ -34,12 +35,31 @@ def semantic_errors(entry):
     return errs
 
 
-def build_entry(validator, seq, run_id, prev_hash, event_type, actor, payload, reproducibility,
-                transition=None, retroactive=False, occurred_at=None, parent_run_id=None, ts=None):
+def build_entry(
+    validator,
+    seq,
+    run_id,
+    prev_hash,
+    event_type,
+    actor,
+    payload,
+    reproducibility,
+    transition=None,
+    retroactive=False,
+    occurred_at=None,
+    parent_run_id=None,
+    ts=None,
+    signature=None,
+    event_id=None,
+    root=None,
+    sign_principal=None,
+    sign_namespace=None,
+    keystore_dir=None,
+):
     entry = {
         "schema_version": "1.0.0",
         "seq": seq,
-        "event_id": env.uuid7(),
+        "event_id": event_id or env.uuid7(),
         "run_id": run_id,
         "parent_run_id": parent_run_id,
         "ts": ts or env.utc_now(),
@@ -55,7 +75,18 @@ def build_entry(validator, seq, run_id, prev_hash, event_type, actor, payload, r
     }
     secrets.assert_clean(entry)  # I-12: reject before anything touches disk
     entry["entry_hash"] = entry_hash(entry)
-    entry["signature"] = dict(UNSIGNED)
+    if signature is not None:
+        entry["signature"] = signature
+    elif sign_principal and sign_namespace and root:
+        entry["signature"] = crypto.sign_bytes(
+            data_bytes=entry["entry_hash"].encode("utf-8"),
+            principal_id=sign_principal,
+            namespace=sign_namespace,
+            root=root,
+            keystore_dir=keystore_dir,
+        )
+    else:
+        entry["signature"] = dict(UNSIGNED)
     errs = ["%s: %s" % e for e in validator.errors(entry)] + semantic_errors(entry)
     if errs:
         raise JournalError("entry rejected by schema/semantics: " + "; ".join(errs[:6]))
@@ -72,13 +103,14 @@ def read_lines(path):
     return [ln for ln in data.split(b"\n")[:-1]] if data else []
 
 
-def verify_lines(lines, validator):
+def verify_lines(lines, validator, root=None):
     """Return (entries, report). Fail-closed: any anomaly is an error."""
     errors = []
     entries = []
     prev = canonical.ZERO_HASH
     run_id = None
     unsigned = 0
+    signed = 0
     for idx, raw in enumerate(lines):
         try:
             e = canonical.strict_loads(raw.decode("utf-8"))
@@ -102,8 +134,23 @@ def verify_lines(lines, validator):
             errors.append("line %d: run_id changes inside journal" % idx)
         if secrets.scan_obj(e):
             errors.append("line %d: secret pattern present" % idx)
-        if e.get("signature", {}).get("status") == "UNSIGNED":
+        sig = e.get("signature", {})
+        if sig.get("status") == "UNSIGNED":
             unsigned += 1
+        elif sig.get("alg") == "sshsig-ed25519":
+            signed += 1
+            if root is not None and os.path.isfile(os.path.join(root, crypto.ALLOWED_SIGNERS_REL)):
+                actor_id = e.get("actor", {}).get("principal_id", "")
+                signer_id = "human:oeckoculu" if actor_id.startswith("human:") else "kernel:authority"
+                ver = crypto.verify_signature(
+                    data_bytes=e["entry_hash"].encode("utf-8"),
+                    sig_obj=sig,
+                    principal_id=signer_id,
+                    expected_namespace=sig.get("namespace", ""),
+                    root=root,
+                )
+                if not ver["valid"]:
+                    errors.append("line %d: signature verification failed: %s" % (idx, ver["reason"]))
         prev = e.get("entry_hash")
         entries.append(e)
     report = {
@@ -111,6 +158,7 @@ def verify_lines(lines, validator):
         "head_seq": len(entries) - 1 if entries else None,
         "head_hash": prev if entries else None,
         "run_id": run_id,
+        "signed_entries": signed,
         "unsigned_entries": unsigned,
         "valid": not errors,
         "errors": errors,
@@ -118,17 +166,17 @@ def verify_lines(lines, validator):
     return entries, report
 
 
-def verify_file(path, validator):
+def verify_file(path, validator, root=None):
     try:
         lines = read_lines(path)
     except JournalError as ex:
         return [], {"valid": False, "errors": [str(ex)], "entries": 0}
-    return verify_lines(lines, validator)
+    return verify_lines(lines, validator, root=root)
 
 
-def append(path, entry, validator):
+def append(path, entry, validator, root=None):
     """Append one entry with O_APPEND after re-verifying the existing chain."""
-    entries, report = verify_file(path, validator)
+    entries, report = verify_file(path, validator, root=root)
     if not report["valid"]:
         raise JournalError("refusing to append to invalid journal: " + "; ".join(report["errors"][:3]))
     expected_seq = len(entries)
