@@ -1,0 +1,42 @@
+{
+  "document_type": "HumanOutboxItem",
+  "schema_version": "1.0.0",
+  "outbox_id": "OBX-9a4ff14b0cd461cf",
+  "run_id": "run-0000",
+  "kind": "GENESIS_NOTICE",
+  "status": "ACKNOWLEDGED",
+  "idempotency_key": "sha256:9a4ff14b0cd461cf653c272f83eebeb392575ee085ee25ba19fe27740c52802d",
+  "created_at": "2026-10-20T10:12:47Z",
+  "title": "Meta-OS v1.2.0 HumanInteractionPort & Transactional Outbox Active",
+  "summary": "Day-0 local transactional outbox initialized and bound to GBP-0000.",
+  "payload": {
+    "proposal_id": "GBP-0000",
+    "phase": "A6",
+    "verified_ports": [
+      "HumanInteractionPort",
+      "ModelProviderPort",
+      "SandboxProviderPort",
+      "SearchHorizonPort",
+      "TelemetryPort",
+      "SecretBrokerPort"
+    ]
+  },
+  "acknowledgement": {
+    "actor": {
+      "principal_id": "human:oeckoculu",
+      "kind": "HUMAN"
+    },
+    "decision": "APPROVED",
+    "rationale": "Genesis outbox baseline verified by human owner",
+    "acknowledged_at": "2026-10-20T10:12:47Z",
+    "signature": {
+      "status": "UNSIGNED",
+      "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7"
+    }
+  },
+  "redaction": {
+    "profile": "kernel.secret_scan.v1",
+    "result": "CLEAN"
+  },
+  "content_hash": "sha256:75161627f2c34f0319e4f0496c9d97086f38f4df14cc59221c43b90e64001a1f"
+}

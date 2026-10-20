@@ -1,0 +1,52 @@
+{
+  "document_type": "AgentHooksConfig",
+  "schema_version": "1.2.0",
+  "policy_enforcement_point": "urn:metaos:pep:hooks:1.2.0",
+  "fail_closed": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "id": "pep.session_start.integrity",
+        "matcher": "*",
+        "command": "./scripts/pep_session_start",
+        "timeout_ms": 5000,
+        "on_failure": "DENY_SESSION",
+        "invariants": [
+          "I-03",
+          "I-04",
+          "I-08"
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "id": "pep.pre_tool_use.guard",
+        "matcher": "*",
+        "command": "./scripts/pep_pre_tool_use",
+        "timeout_ms": 5000,
+        "on_failure": "DENY_TOOL_CALL",
+        "invariants": [
+          "I-01",
+          "I-02",
+          "I-05",
+          "I-08",
+          "I-12",
+          "I-14"
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "id": "pep.post_tool_use.redaction",
+        "matcher": "*",
+        "command": "./scripts/pep_post_tool_use",
+        "timeout_ms": 5000,
+        "on_failure": "QUARANTINE_OUTPUT",
+        "invariants": [
+          "I-12",
+          "I-14"
+        ]
+      }
+    ]
+  }
+}

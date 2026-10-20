@@ -43,6 +43,24 @@
         "R4"
       ],
       "invariants_enforced_count": 9
+    },
+    "provider_ports": {
+      "policy_id": "urn:metaos:policy:provider_ports:1.2.0",
+      "path": ".antigravity/policies/provider_ports.v1.2.0.json",
+      "canonical_sha256": "sha256:89ce95357e59d454572f336c72dc2134b02243810db1bcff76f47b9efc3b55e1",
+      "bytes": 2643,
+      "port_count": 6
+    },
+    "pep_hooks": {
+      "policy_id": "urn:metaos:pep:hooks:1.2.0",
+      "path": ".agents/hooks.json",
+      "canonical_sha256": "sha256:34e34386edfa6bcfdf49881945b81134dc0afbd33439e3b4ab7ddffa9967c0e5",
+      "bytes": 1156,
+      "hook_events": [
+        "PostToolUse",
+        "PreToolUse",
+        "SessionStart"
+      ]
     }
   }
 }

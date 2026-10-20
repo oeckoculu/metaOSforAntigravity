@@ -1,9 +1,9 @@
-"""Command-line entrypoint for Meta-OS kernel phases and journal/projection/policy utilities."""
+"""Command-line entrypoint for Meta-OS kernel phases and journal/projection/policy/PEP/outbox utilities."""
 import argparse
 import os
 import sys
 
-from . import authority, canonical, contracts, env, genesis, journal, pdp, phase_a5, projector, scaffold, statemachine
+from . import authority, canonical, contracts, env, genesis, journal, pdp, pep, phase_a5, phase_a6, ports, projector, scaffold, statemachine
 
 
 def cmd_phase_a1(args):
@@ -45,6 +45,16 @@ def cmd_phase_a4(args):
 def cmd_phase_a5(args):
     r = phase_a5.run(args.root)
     body = r.write(phase_a5.RECEIPT_A5_REL)
+    sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
+    return 0 if r.passed else 1
+
+
+def cmd_phase_a6(args):
+    r = phase_a6.run(args.root)
+    body = r.write(phase_a6.RECEIPT_A6_REL)
+    pep_abs = os.path.join(args.root, phase_a6.PEP_RECEIPT_REL)
+    with open(pep_abs, "wb") as fh:
+        fh.write(canonical.pretty_bytes(body))
     sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
     return 0 if r.passed else 1
 
@@ -168,6 +178,72 @@ def cmd_pdp_eval(args):
     return 0 if res["decision"] == "ALLOW" else 1
 
 
+def _load_req_or_stdin(request_json):
+    if request_json:
+        return canonical.strict_load_file(request_json)
+    raw = sys.stdin.read()
+    if not raw.strip():
+        return {}
+    return canonical.strict_loads(raw)
+
+
+def cmd_outbox_emit(args):
+    if args.request_json:
+        req = canonical.strict_load_file(args.request_json)
+    else:
+        req = {
+            "kind": args.kind,
+            "title": args.title,
+            "summary": args.summary,
+            "payload": canonical.strict_loads(args.payload_json) if args.payload_json else {},
+            "run_id": args.run_id,
+            "idempotency_key": args.idempotency_key,
+        }
+    res = ports.emit_outbox_item(
+        root=args.root,
+        kind=req["kind"],
+        title=req["title"],
+        summary=req["summary"],
+        payload=req.get("payload", {}),
+        run_id=req.get("run_id", "run-0000"),
+        idempotency_key=req.get("idempotency_key"),
+    )
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0
+
+
+def cmd_outbox_ack(args):
+    res = ports.acknowledge_outbox_item(
+        root=args.root,
+        outbox_id=args.outbox_id,
+        actor_principal={"principal_id": args.principal, "kind": args.actor_kind},
+        decision=args.decision,
+        rationale=args.rationale,
+    )
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["decision"] == "ALLOW" else 1
+
+
+def cmd_pep_session_start(args):
+    res = pep.evaluate_session_start(args.root)
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["decision"] == "ALLOW" else 1
+
+
+def cmd_pep_pre_tool_use(args):
+    req = _load_req_or_stdin(args.request_json)
+    res = pep.evaluate_pre_tool_use(args.root, req)
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["decision"] == "ALLOW" else 2
+
+
+def cmd_pep_post_tool_use(args):
+    req = _load_req_or_stdin(args.request_json)
+    res = pep.evaluate_post_tool_use(args.root, req)
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["decision"] == "ALLOW" else 2
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="metaos")
     p.add_argument("--root", default=os.getcwd(), help="Repository root directory")
@@ -190,6 +266,9 @@ def main(argv=None):
 
     p_a5 = sub.add_parser("phase-a5")
     p_a5.set_defaults(func=cmd_phase_a5)
+
+    p_a6 = sub.add_parser("phase-a6")
+    p_a6.set_defaults(func=cmd_phase_a6)
 
     p_boot = sub.add_parser("bootstrap-a1-a4")
     p_boot.add_argument("--lineage-json", default=None)
@@ -218,6 +297,35 @@ def main(argv=None):
     p_pdp = sub.add_parser("pdp-eval")
     p_pdp.add_argument("--request-json", required=True)
     p_pdp.set_defaults(func=cmd_pdp_eval)
+
+    p_oe = sub.add_parser("outbox-emit")
+    p_oe.add_argument("--request-json", default=None)
+    p_oe.add_argument("--kind", default="HUMAN_AUDIT_REVIEW")
+    p_oe.add_argument("--title", default="")
+    p_oe.add_argument("--summary", default="")
+    p_oe.add_argument("--payload-json", default=None)
+    p_oe.add_argument("--run-id", default="run-0000")
+    p_oe.add_argument("--idempotency-key", default=None)
+    p_oe.set_defaults(func=cmd_outbox_emit)
+
+    p_oa = sub.add_parser("outbox-ack")
+    p_oa.add_argument("--outbox-id", required=True)
+    p_oa.add_argument("--decision", required=True)
+    p_oa.add_argument("--principal", default="human:oeckoculu")
+    p_oa.add_argument("--actor-kind", default="HUMAN")
+    p_oa.add_argument("--rationale", default="")
+    p_oa.set_defaults(func=cmd_outbox_ack)
+
+    p_pss = sub.add_parser("pep-session-start")
+    p_pss.set_defaults(func=cmd_pep_session_start)
+
+    p_ppt = sub.add_parser("pep-pre-tool-use")
+    p_ppt.add_argument("--request-json", default=None)
+    p_ppt.set_defaults(func=cmd_pep_pre_tool_use)
+
+    p_po = sub.add_parser("pep-post-tool-use")
+    p_po.add_argument("--request-json", default=None)
+    p_po.set_defaults(func=cmd_pep_post_tool_use)
 
     args = p.parse_args(argv)
     return args.func(args)

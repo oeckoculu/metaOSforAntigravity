@@ -1,0 +1,82 @@
+{
+  "policy_type": "ProviderPortsPolicy",
+  "schema_version": "1.2.0",
+  "policy_id": "urn:metaos:policy:provider_ports:1.2.0",
+  "base_authority_version": "1.1.0",
+  "invariants_enforced": [
+    "I-02",
+    "I-06",
+    "I-08",
+    "I-11",
+    "I-12",
+    "I-14"
+  ],
+  "ports": {
+    "HumanInteractionPort": {
+      "port_id": "port.human.interaction",
+      "requirement_level": "REQUIRED",
+      "primary_adapter": "LocalOutboxHumanInteractionAdapter",
+      "remote_adapters": [
+        "github.issues",
+        "atlassian.jira",
+        "slack.webhook"
+      ],
+      "fallback_mode": "TRANSACTIONAL_LOCAL_OUTBOX",
+      "outbox_directory": ".antigravity/outbox",
+      "outbox_index": ".antigravity/outbox/index.json",
+      "idempotency_hash_alg": "sha256-jcs",
+      "allowed_kinds": [
+        "HANDSHAKE_REVIEW",
+        "HUMAN_AUDIT_REVIEW",
+        "BREAK_GLASS_ALERT",
+        "QUARANTINE_REVIEW",
+        "DRIFT_ALERT",
+        "POLICY_EXEMPTION_REVIEW",
+        "BUDGET_INCREMENT_REVIEW",
+        "GENESIS_NOTICE"
+      ],
+      "allowed_decisions": [
+        "APPROVED",
+        "REJECTED",
+        "DEFERRED"
+      ],
+      "human_only_acknowledgement": true
+    },
+    "ModelProviderPort": {
+      "port_id": "port.model.provider",
+      "requirement_level": "REQUIRED",
+      "primary_adapter": "HostAgentModelAdapter",
+      "pinning_requirement": "Immutable model_snapshot_ref in TaskEnvelope",
+      "fallback_mode": "FAIL_CLOSED_ON_UNPINNED_SNAPSHOT"
+    },
+    "SandboxProviderPort": {
+      "port_id": "port.sandbox.provider",
+      "requirement_level": "REQUIRED",
+      "primary_adapter": "LocalWorktreeSandboxAdapter",
+      "container_status": "UNSUPPORTED_DEGRADED_TO_GIT_WORKTREE",
+      "isolation_root": "/tmp/metaos-worktrees",
+      "network_policy": "DEFAULT_DENY"
+    },
+    "SearchHorizonPort": {
+      "port_id": "port.search.horizon",
+      "requirement_level": "OPTIONAL",
+      "primary_adapter": "HostWebSearchAdapter",
+      "output_wrapping": "UntrustedContentEnvelope (I-14)",
+      "fallback_mode": "OFFLINE_TECH_RADAR_CACHE"
+    },
+    "TelemetryPort": {
+      "port_id": "port.telemetry.sink",
+      "requirement_level": "REQUIRED",
+      "primary_adapter": "LocalJournalTelemetryAdapter",
+      "sink_path": ".antigravity/events/run-0000.jsonl",
+      "fallback_mode": "LOCAL_APPEND_ONLY_JSONL"
+    },
+    "SecretBrokerPort": {
+      "port_id": "port.secret.broker",
+      "requirement_level": "REQUIRED",
+      "primary_adapter": "FailClosedSecretBrokerAdapter",
+      "secret_persistence": "FORBIDDEN_IN_REPO_OR_JOURNAL (I-12)",
+      "redaction_profile": "kernel.secret_scan.v1"
+    }
+  }
+}

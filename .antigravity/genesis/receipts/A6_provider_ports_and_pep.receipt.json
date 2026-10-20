@@ -1,0 +1,208 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A6",
+  "name": "provider_ports_and_pep",
+  "status": "PASS",
+  "generated_at": "2026-10-20T22:34:25Z",
+  "input": {
+    "commit": "daeead5a8fc3b3f14ff5b8f16998dc956ea2b54a",
+    "tree": "92210b571d76bdd93a9c1afef58e189d0932dadf"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:6593f6ed8a3140d9db745d49cee70370e8c827c7cea873b98fc422dccc6aff1b"
+  },
+  "reproducibility": {
+    "source_commit": "daeead5a8fc3b3f14ff5b8f16998dc956ea2b54a",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A6-C01",
+      "description": "Abstract Provider Ports policy (6 ports incl. HumanInteractionPort), .agents/hooks.json, and .agents/rules/kernel.md materialized and locked",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-11",
+        "provider_ports_sha256": "sha256:89ce95357e59d454572f336c72dc2134b02243810db1bcff76f47b9efc3b55e1",
+        "hooks_sha256": "sha256:34e34386edfa6bcfdf49881945b81134dc0afbd33439e3b4ab7ddffa9967c0e5",
+        "kernel_rule_sha256": "sha256:42673fae447c40ae00a75533bc42800598ffcbf2b1c505021a3efc063e9f1c67",
+        "policy_bundle_lock_sha256": "sha256:35859c24511cfa1b89f79d1f4e919d2ed1d37091f72bf7363f265e2b6718b9d2"
+      }
+    },
+    {
+      "id": "A6-C02",
+      "description": "HumanInteractionPort (LocalOutboxHumanInteractionAdapter) deterministic emission & idempotency guarantee (I-11)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-11",
+        "outbox": {
+          "outbox_id": "OBX-9a4ff14b0cd461cf",
+          "idempotency_key": "sha256:9a4ff14b0cd461cf653c272f83eebeb392575ee085ee25ba19fe27740c52802d",
+          "first_deduplicated": false,
+          "second_deduplicated": true,
+          "json_path": ".antigravity/outbox/OBX-9a4ff14b0cd461cf.json",
+          "markdown_path": ".antigravity/outbox/OBX-9a4ff14b0cd461cf.md"
+        }
+      }
+    },
+    {
+      "id": "A6-C03",
+      "description": "HumanInteractionPort enforces HUMAN-only acknowledgement; AGENT and EXECUTOR acknowledgement attempts are denied (I-06, I-11)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-06",
+        "cases": {
+          "agent_ack_denied": true,
+          "executor_ack_denied": true,
+          "human_ack_allowed": true,
+          "final_status": "ACKNOWLEDGED"
+        }
+      }
+    },
+    {
+      "id": "A6-C04",
+      "description": "Outbox zero-secret gate rejects payloads containing secret patterns before any disk write occurs (I-12)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-12",
+        "cases": {
+          "secret_emission_blocked": true,
+          "zero_disk_writes_on_reject": true
+        }
+      }
+    },
+    {
+      "id": "A6-C05",
+      "description": "PEP SessionStart hook verifies authority_lock.json, policy_bundle.lock.json, and event journal hash chain; fails closed on policy tampering",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-08",
+        "cases": {
+          "intact_repo_decision": "ALLOW",
+          "journal_head_hash": "sha256:7b846bfc725cf7ba4101ef717deb474c11391fa820f16b0e88985563f7861cb1",
+          "tampered_policy_decision": "DENY",
+          "tampered_reason": "Policy hash mismatch for .antigravity/policies/admission_policy.v1.2.0.json (sha256:b90c9064655084041911d4d353b1c25b6b5f95accb922f2056b61d44866f7a5a != sha256:3001efbfce830b93b608bb76d3c3e15e9b384e1f45a30c9415e3feac6271b530)"
+        }
+      }
+    },
+    {
+      "id": "A6-C06",
+      "description": "PEP PreToolUse hook blocks unauthorized Layer A writes (.antigravity/, .agents/, scripts/) and direct agent git commits (I-01, I-02, I-05)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-02",
+        "cases": {
+          "I-02_agent_edit_policies_denied": true,
+          "I-02_agent_write_hooks_denied": true,
+          "I-02_agent_write_scripts_denied": true,
+          "I-01_agent_git_commit_denied": true,
+          "I-05_ssh_signed_r4_self_mod_allowed": true,
+          "I-02_scoped_src_write_allowed": true
+        }
+      }
+    },
+    {
+      "id": "A6-C07",
+      "description": "PEP PreToolUse & PostToolUse hooks block/redact secrets (I-12) and isolate untrusted/prompt-injection inputs (I-14)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-12",
+        "cases": {
+          "I-12_pre_tool_secret_denied_and_quarantined": true,
+          "I-14_pre_tool_prompt_injection_denied": true,
+          "I-14_unisolated_untrusted_exec_denied": true,
+          "I-12_post_tool_secret_redacted": true
+        }
+      }
+    },
+    {
+      "id": "A6-C08",
+      "description": "Live subprocess execution of PEP hook scripts (pep_session_start, pep_pre_tool_use, pep_post_tool_use) verified (EXPERIMENTAL -> VERIFIED)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-08",
+        "cases": {
+          "session_start_script_exit_0": true,
+          "pre_tool_use_script_blocks_layer_a_exit_nonzero": true,
+          "pre_tool_use_script_allows_layer_b_exit_0": true,
+          "post_tool_use_script_allows_clean_output_exit_0": true
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".agents/hooks.json",
+      "sha256": "sha256:381026cbdc6c06e3ef2739147afb8aff054c9fb42e465226f373c4b79c33e708"
+    },
+    {
+      "path": ".agents/rules/kernel.md",
+      "sha256": "sha256:42673fae447c40ae00a75533bc42800598ffcbf2b1c505021a3efc063e9f1c67"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/pep.py",
+      "sha256": "sha256:ad949f7fb7f89ca16445fd02bf35038fb5931475be3d7df5d9d5594085e2ee77"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/phase_a6.py",
+      "sha256": "sha256:63f15f0b03ffbf520f3153ed6b2404573d9b8668ea030424dd988f896d58bc05"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/ports.py",
+      "sha256": "sha256:3645c628cf98d8a95f82f88e38f67701319bd93e1a663667c89fc1bb7a43d5b8"
+    },
+    {
+      "path": ".antigravity/outbox/OBX-9a4ff14b0cd461cf.json",
+      "sha256": "sha256:d04cb8bfc9d0f3eb439e7d90d8e33924c153297c70152f8e9c8f0388450d68d4"
+    },
+    {
+      "path": ".antigravity/outbox/OBX-9a4ff14b0cd461cf.md",
+      "sha256": "sha256:8871f764161fdf00c515738c4244196864bc518afbf4c1d0b8ef8c64c7ed3b33"
+    },
+    {
+      "path": ".antigravity/outbox/index.json",
+      "sha256": "sha256:bf4b759642159e0968792acf71554de87259c70fe850005688fec7e71d455cce"
+    },
+    {
+      "path": ".antigravity/policies/policy_bundle.lock.json",
+      "sha256": "sha256:e77ab6d779f3ffbf1aa05cc5cf217bc6aae8e435151bd167f04e89e5d67d605c"
+    },
+    {
+      "path": ".antigravity/policies/provider_ports.v1.2.0.json",
+      "sha256": "sha256:af79e6d25136d7b5c0f4ec810ff5fe674b0e00f2364662981c0d92e03490b300"
+    },
+    {
+      "path": "scripts/outbox_ack",
+      "sha256": "sha256:ba8b956f6b61e81ffd5cacc2efe85d1f64d30d9b209826acfbfc5682d7d2168b"
+    },
+    {
+      "path": "scripts/outbox_emit",
+      "sha256": "sha256:d653cc637a0143ee8b42c44534d01806d6234bd38967f215ceb71580fd420ef5"
+    },
+    {
+      "path": "scripts/pep_post_tool_use",
+      "sha256": "sha256:1d984be1a3994319b069051f01b89aca7eb9d39c7a3d13468fe635c940aa5454"
+    },
+    {
+      "path": "scripts/pep_pre_tool_use",
+      "sha256": "sha256:dd21b7b9685d3e19376941a12bf0915c653a31ca511fab76ec418a479415aaaf"
+    },
+    {
+      "path": "scripts/pep_session_start",
+      "sha256": "sha256:6acee29b47fc2e793f8bc821e3bcb38f086af56117766bbd8c58fa85e181d479"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:d8a3aa0a15c85f70d615889263868a5c795a5caca9bda5d5b45b5d08b3eff6b4"
+}

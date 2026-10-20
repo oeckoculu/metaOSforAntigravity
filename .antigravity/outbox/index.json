@@ -1,0 +1,19 @@
+{
+  "document_type": "OutboxIndex",
+  "schema_version": "1.0.0",
+  "items": {
+    "OBX-9a4ff14b0cd461cf": {
+      "outbox_id": "OBX-9a4ff14b0cd461cf",
+      "kind": "GENESIS_NOTICE",
+      "status": "ACKNOWLEDGED",
+      "idempotency_key": "sha256:9a4ff14b0cd461cf653c272f83eebeb392575ee085ee25ba19fe27740c52802d",
+      "json_path": ".antigravity/outbox/OBX-9a4ff14b0cd461cf.json",
+      "markdown_path": ".antigravity/outbox/OBX-9a4ff14b0cd461cf.md",
+      "content_hash": "sha256:75161627f2c34f0319e4f0496c9d97086f38f4df14cc59221c43b90e64001a1f",
+      "created_at": "2026-10-20T10:12:47Z",
+      "acknowledged_at": "2026-10-20T10:12:47Z",
+      "decision": "APPROVED"
+    }
+  },
+  "content_hash": "sha256:6ecb6dfa67773ebb7b05609470e2b318707d1888e6a1035b8cd869a20ecf3b6d"
+}
