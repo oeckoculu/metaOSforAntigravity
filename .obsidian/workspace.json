@@ -183,6 +183,17 @@
   },
   "active": "50ef054eb27f159a",
   "lastOpenFiles": [
+    "docs",
+    "infra",
+    "provenance",
+    "receipts",
+    "tests",
+    "src",
+    "invariants",
+    "contracts",
+    "scripts/kernel_selftest",
+    "scripts/kernel_lock",
+    "scripts/envelope_wrap",
     "SPEC_META_OS_v1.1.md"
   ]
 }

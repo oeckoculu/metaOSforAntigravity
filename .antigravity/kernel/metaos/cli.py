@@ -1,9 +1,29 @@
-"""Command-line entrypoint for Meta-OS kernel phases and journal/projection/policy/PEP/outbox/crypto utilities."""
+"""Command-line entrypoint for Meta-OS kernel phases and journal/projection/policy/PEP/outbox/crypto/envelope/lock utilities."""
 import argparse
 import os
 import sys
 
-from . import authority, canonical, contracts, crypto, env, genesis, journal, pdp, pep, phase_a5, phase_a6, phase_a7, ports, projector, scaffold, statemachine
+from . import (
+    authority,
+    canonical,
+    contracts,
+    crypto,
+    env,
+    envelope,
+    genesis,
+    journal,
+    pdp,
+    pep,
+    phase_a5,
+    phase_a6,
+    phase_a7,
+    phase_a8,
+    phase_a9,
+    ports,
+    projector,
+    scaffold,
+    statemachine,
+)
 
 
 def cmd_phase_a1(args):
@@ -62,6 +82,20 @@ def cmd_phase_a6(args):
 def cmd_phase_a7(args):
     r = phase_a7.run(args.root, keystore_dir=args.keystore_dir)
     body = r.write(phase_a7.RECEIPT_A7_REL)
+    sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
+    return 0 if r.passed else 1
+
+
+def cmd_phase_a8(args):
+    r = phase_a8.run(args.root, keystore_dir=args.keystore_dir)
+    body = r.write(phase_a8.RECEIPT_A8_REL)
+    sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
+    return 0 if r.passed else 1
+
+
+def cmd_phase_a9(args):
+    r = phase_a9.run(args.root, keystore_dir=args.keystore_dir)
+    body = r.write(phase_a9.RECEIPT_A9_REL)
     sys.stdout.write(canonical.pretty_bytes(body).decode("utf-8"))
     return 0 if r.passed else 1
 
@@ -294,6 +328,45 @@ def cmd_break_glass(args):
     return 0
 
 
+def cmd_redact(args):
+    if args.input_file:
+        raw = open(args.input_file, "rb").read().decode("utf-8")
+    else:
+        raw = sys.stdin.read()
+    res = envelope.redact_text(raw)
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0
+
+
+def cmd_envelope_wrap(args):
+    req = _load_req_or_stdin(args.request_json)
+    doc = envelope.wrap_untrusted_content(
+        root=args.root,
+        raw_text=req.get("raw_text", ""),
+        source_kind=req.get("source_kind", "EXTERNAL_DOC"),
+        source_uri=req.get("source_uri", "urn:untrusted:stdin"),
+        retrieved_at=req.get("retrieved_at"),
+        run_id=req.get("run_id", "run-0000"),
+        envelope_id=req.get("envelope_id"),
+        extracted_claims=req.get("extracted_claims"),
+        keystore_dir=args.keystore_dir,
+    )
+    sys.stdout.write(canonical.pretty_bytes(doc).decode("utf-8"))
+    return 0
+
+
+def cmd_kernel_selftest(args):
+    res = phase_a9.run_selftest(args.root)
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["overall_valid"] else 1
+
+
+def cmd_kernel_lock(args):
+    res = phase_a9.verify_kernel_lock(args.root)
+    sys.stdout.write(canonical.pretty_bytes(res).decode("utf-8"))
+    return 0 if res["valid"] else 1
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="metaos")
     p.add_argument("--root", default=os.getcwd(), help="Repository root directory")
@@ -323,6 +396,14 @@ def main(argv=None):
     p_a7 = sub.add_parser("phase-a7")
     p_a7.add_argument("--keystore-dir", default=None)
     p_a7.set_defaults(func=cmd_phase_a7)
+
+    p_a8 = sub.add_parser("phase-a8")
+    p_a8.add_argument("--keystore-dir", default=None)
+    p_a8.set_defaults(func=cmd_phase_a8)
+
+    p_a9 = sub.add_parser("phase-a9")
+    p_a9.add_argument("--keystore-dir", default=None)
+    p_a9.set_defaults(func=cmd_phase_a9)
 
     p_boot = sub.add_parser("bootstrap-a1-a4")
     p_boot.add_argument("--lineage-json", default=None)
@@ -395,6 +476,21 @@ def main(argv=None):
     p_bg.add_argument("--request-json", default=None)
     p_bg.add_argument("--keystore-dir", default=None)
     p_bg.set_defaults(func=cmd_break_glass)
+
+    p_rd = sub.add_parser("redact")
+    p_rd.add_argument("--input-file", default=None)
+    p_rd.set_defaults(func=cmd_redact)
+
+    p_ew = sub.add_parser("envelope-wrap")
+    p_ew.add_argument("--request-json", default=None)
+    p_ew.add_argument("--keystore-dir", default=None)
+    p_ew.set_defaults(func=cmd_envelope_wrap)
+
+    p_kst = sub.add_parser("kernel-selftest")
+    p_kst.set_defaults(func=cmd_kernel_selftest)
+
+    p_kl = sub.add_parser("kernel-lock")
+    p_kl.set_defaults(func=cmd_kernel_lock)
 
     args = p.parse_args(argv)
     return args.func(args)

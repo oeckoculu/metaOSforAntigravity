@@ -14,8 +14,8 @@
   "derived_from": {
     "authority_jcs_sha256": "sha256:31b412a90f423a23328701dce1be271aedb24d236acdbccf592b86fd33704b31",
     "authority_version": "1.1.0",
-    "head_hash": "sha256:57fd2b7cafb37724022ce6d44e767f50f452e3e6a93a404034c2a5dfb74d8d08",
-    "head_seq": 12,
+    "head_hash": "sha256:f4e7e105c5136da135ef21d94a87cd4e80bf6fdc9e5f357e4d7c8fc826d43fcb",
+    "head_seq": 14,
     "journal": ".antigravity/events/run-0000.jsonl"
   },
   "evidence": [
@@ -52,6 +52,20 @@
       "receipt_hash": "sha256:d8a3aa0a15c85f70d615889263868a5c795a5caca9bda5d5b45b5d08b3eff6b4",
       "receipt_path": ".antigravity/genesis/receipts/A6_provider_ports_and_pep.receipt.json",
       "seq": 8,
+      "status": "PASS"
+    },
+    {
+      "phase": "A7",
+      "receipt_hash": "sha256:5b2ecd08bd4f7174a4f36a18a470422aa6d53469cecc9040f5e5f30ac7726a46",
+      "receipt_path": ".antigravity/genesis/receipts/A7_keys_tokens_and_break_glass.receipt.json",
+      "seq": 13,
+      "status": "PASS"
+    },
+    {
+      "phase": "A8",
+      "receipt_hash": "sha256:a24f91ee58757677d8d0f9c61fc74b9fa5f79c52d8de24b309188827832cc8d5",
+      "receipt_path": ".antigravity/genesis/receipts/A8_redaction_and_untrusted_envelope.receipt.json",
+      "seq": 14,
       "status": "PASS"
     }
   ],
@@ -142,7 +156,7 @@
   "run_id": "run-0000",
   "signature_status": {
     "reason": "PRE_A7_GENESIS_ENTRIES_UNSIGNED",
-    "signed_entries": 6,
+    "signed_entries": 8,
     "unsigned_entries": 7
   },
   "view": "state_board",

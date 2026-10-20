@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:core:untrusted_content_envelope:1.0.0",
+  "title": "UntrustedContentEnvelope",
+  "description": "Strict data-only isolation envelope for external/untrusted content (web search, external docs, user attachments, third-party APIs). Strips prompt-injection directives and redacts secrets before any agent or journal consumption. Invariants: I-08, I-12, I-14.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "envelope_id",
+    "run_id",
+    "source",
+    "trust_level",
+    "executable_authority",
+    "sanitization",
+    "raw_sha256",
+    "sanitized_text",
+    "extracted_claims",
+    "content_hash",
+    "signature"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "envelope_id": {"$ref": "#/$defs/Uuid"},
+    "run_id": {"$ref": "#/$defs/RunId"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "uri", "retrieved_at"],
+      "properties": {
+        "kind": {"enum": ["WEB_SEARCH", "EXTERNAL_DOC", "USER_ATTACHMENT", "THIRD_PARTY_API", "REPO_UNVERIFIED"]},
+        "uri": {"type": "string", "minLength": 1},
+        "retrieved_at": {"$ref": "#/$defs/DateTime"}
+      }
+    },
+    "trust_level": {"const": "UNTRUSTED_ENVELOPED"},
+    "executable_authority": {"const": "NONE_DATA_ONLY"},
+    "sanitization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "redaction_profile",
+        "secrets_redacted_count",
+        "matched_secret_classes",
+        "prompt_injection_stripped_count",
+        "matched_injection_patterns",
+        "quarantine_recommended"
+      ],
+      "properties": {
+        "redaction_profile": {"type": "string", "minLength": 1},
+        "secrets_redacted_count": {"type": "integer", "minimum": 0},
+        "matched_secret_classes": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "prompt_injection_stripped_count": {"type": "integer", "minimum": 0},
+        "matched_injection_patterns": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "quarantine_recommended": {"type": "boolean"}
+      }
+    },
+    "raw_sha256": {"$ref": "#/$defs/Hash"},
+    "sanitized_text": {"type": "string"},
+    "extracted_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "statement", "evidence_status"],
+        "properties": {
+          "claim_id": {"type": "string", "pattern": "^CLM-[0-9]{4,}$"},
+          "statement": {"type": "string", "minLength": 1},
+          "evidence_status": {"const": "UNVERIFIED"}
+        }
+      }
+    },
+    "content_hash": {"$ref": "#/$defs/Hash"},
+    "signature": {"$ref": "#/$defs/Signature"}
+  },
+  "$defs": {
+    "Hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "DateTime": {"type": "string", "format": "date-time"},
+    "Uuid": {"type": "string", "format": "uuid"},
+    "RunId": {"type": "string", "pattern": "^run-[0-9]{4,}$"},
+    "SshSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alg", "key_id", "namespace", "sig"],
+      "properties": {
+        "alg": {"const": "sshsig-ed25519"},
+        "key_id": {"type": "string", "pattern": "^SHA256:[A-Za-z0-9+/]{43}$"},
+        "namespace": {"type": "string", "pattern": "^metaos\\.[a-z.]+$"},
+        "sig": {"type": "string", "minLength": 1}
+      }
+    },
+    "Signature": {
+      "oneOf": [
+        {"$ref": "#/$defs/SshSignature"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason"],
+          "properties": {
+            "status": {"const": "UNSIGNED"},
+            "reason": {"enum": ["KEYS_NOT_PROVISIONED_UNTIL_A7"]}
+          }
+        }
+      ]
+    }
+  }
+}

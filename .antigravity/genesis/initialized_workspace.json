@@ -1,0 +1,50 @@
+{
+  "artifact_kind": "InitializedWorkspace",
+  "schema_version": "1.2.0",
+  "initialized_at": "2026-10-20T23:00:00Z",
+  "run_id": "run-0000",
+  "bound_kernel_lock_path": ".antigravity/genesis/kernel_lock.json",
+  "bound_kernel_lock_sha256": "sha256:7c0d3b0c51739040e250ebec1483555f6b7b84b79544996070fd010761335051",
+  "archetype_binding": "DEFERRED_TO_DAY_1",
+  "layer_b_directories": {
+    "contracts": {
+      "gitkeep_path": "contracts/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "invariants": {
+      "gitkeep_path": "invariants/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "src": {
+      "gitkeep_path": "src/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tests": {
+      "gitkeep_path": "tests/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "receipts": {
+      "gitkeep_path": "receipts/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "provenance": {
+      "gitkeep_path": "provenance/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "infra": {
+      "gitkeep_path": "infra/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs": {
+      "gitkeep_path": "docs/.gitkeep",
+      "gitkeep_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "content_hash": "sha256:89332944e7b4883d588b1aa946ad2139898058e39c31b6bb5cd870930433b36a",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEA38X2Otv0k8KxHMmF6+xrEtJ1i4fvUeMZck0hp8bAzZZYx5zPsD5\ndmZGt7fOwO9krML1OVc6pw0wwHL9SFm5kP\n-----END SSH SIGNATURE-----"
+  }
+}

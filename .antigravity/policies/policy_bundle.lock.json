@@ -71,6 +71,12 @@
         "human:oeckoculu",
         "kernel:authority"
       ]
+    },
+    "untrusted_content_envelope_schema": {
+      "policy_id": "urn:metaos:schema:core:untrusted_content_envelope:1.0.0",
+      "path": ".antigravity/schemas/core/untrusted_content_envelope.schema.json",
+      "canonical_sha256": "sha256:efc8f7ee90ead09a14cb0788f940786dc2467a7b093bbf267066a60d7ca14156",
+      "bytes": 3937
     }
   }
 }

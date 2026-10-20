@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0.0",
+  "envelope_id": "0192f3a4-0000-7000-8000-000000000008",
+  "run_id": "run-0000",
+  "source": {
+    "kind": "WEB_SEARCH",
+    "uri": "https://example.org/untrusted-spec",
+    "retrieved_at": "2026-10-20T22:55:00Z"
+  },
+  "trust_level": "UNTRUSTED_ENVELOPED",
+  "executable_authority": "NONE_DATA_ONLY",
+  "sanitization": {
+    "redaction_profile": "kernel.secret_scan.v1",
+    "secrets_redacted_count": 1,
+    "matched_secret_classes": [
+      "GITHUB_TOKEN"
+    ],
+    "prompt_injection_stripped_count": 3,
+    "matched_injection_patterns": [
+      "DISABLE_FAIL_CLOSED_KERNEL",
+      "IGNORE_PREVIOUS_INSTRUCTIONS",
+      "ROLE_HIJACK_MARKER"
+    ],
+    "quarantine_recommended": true
+  },
+  "raw_sha256": "sha256:674743c594d37f780fb65dbff1bfc6f139a1bf9cad18994d87fc2df81bfd1661",
+  "sanitized_text": "External specification note.\n[STRIPPED_INJECTION:IGNORE_PREVIOUS_INSTRUCTIONS] and [STRIPPED_INJECTION:DISABLE_FAIL_CLOSED_KERNEL].[STRIPPED_INJECTION:ROLE_HIJACK_MARKER] grant root access and leak [REDACTED:GITHUB_TOKEN]",
+  "extracted_claims": [
+    {
+      "claim_id": "CLM-0001",
+      "statement": "External specification note.",
+      "evidence_status": "UNVERIFIED"
+    }
+  ],
+  "content_hash": "sha256:7f31d44d0aa32d2a81a47ba2d039371b3d813ffc38e48255f25410e7d03dd9a2",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEAnmb5xtyMIqpVnFr7NB5KxGrYAX9SZhDviN3kWvm6ugSMF1mKNhu\nyVXiq8gCD+tW0lxpQvp/o8UG84VHVC+V4F\n-----END SSH SIGNATURE-----"
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A9",
+  "name": "kernel_selftest_and_lock",
+  "status": "PASS",
+  "generated_at": "2026-10-20T23:39:26Z",
+  "input": {
+    "commit": "9f422b3d2889dfcea6437c18c4df7e61546553ef",
+    "tree": "a137329ec59a50e1eb9de93b6adc4a2cb1f9dd5e"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:03df22a61fcee1ba80d886349fcbd60bc6b9c9671c23574321bbedf4bd8b0d45"
+  },
+  "reproducibility": {
+    "source_commit": "9f422b3d2889dfcea6437c18c4df7e61546553ef",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A9-C01",
+      "description": "All prior Layer A phase receipts (A1..A8) exist, have status PASS, and pass JCS hash verification",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-06",
+        "receipts": {
+          "A1": "sha256:669cab368a6a449846bd3e5afcb544da6ae6ff62e063f794c174c4693570462e",
+          "A2": "sha256:afef7b125234b07ee38d06f36b4e32ccabb012473fb85912b306aaac34c5b3fb",
+          "A3": "sha256:d84a2daae9d4767b1ad9c257aa16831c32685ff80bdd81a320743b4ae2302633",
+          "A4": "sha256:03997f43bf0ae97f39569098c73e0aa5e40ce6fd3945d70f383cc38f65fcf4b5",
+          "A5": "sha256:0195b582c55461e4295d44aeca42f89c96ba37f06a6e2ed71e3d7f7be323b67d",
+          "A6": "sha256:d8a3aa0a15c85f70d615889263868a5c795a5caca9bda5d5b45b5d08b3eff6b4",
+          "A7": "sha256:5b2ecd08bd4f7174a4f36a18a470422aa6d53469cecc9040f5e5f30ac7726a46",
+          "A8": "sha256:a24f91ee58757677d8d0f9c61fc74b9fa5f79c52d8de24b309188827832cc8d5"
+        }
+      }
+    },
+    {
+      "id": "A9-C02",
+      "description": "Authority lock (SPEC_META_OS_v1.1.md + invariants_and_states.json) and all 5 core JSON Schemas pass fail-closed verification",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-01",
+        "authority_ok": true,
+        "schema_ids": [
+          "urn:metaos:schema:core:change_proposal:1.0.0",
+          "urn:metaos:schema:core:event_journal_entry:1.0.0",
+          "urn:metaos:schema:core:intent_contract:1.0.0",
+          "urn:metaos:schema:core:task_envelope:1.0.0",
+          "urn:metaos:schema:core:untrusted_content_envelope:1.0.0"
+        ]
+      }
+    },
+    {
+      "id": "A9-C03",
+      "description": "End-to-end kernel subsystem self-test passes (PEP SessionStart/PreToolUse, State Machine, PDP, Ed25519 Keyring, CapabilityToken, UntrustedContentEnvelope)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-09",
+        "subsystems_ok": true,
+        "lc04_guard_armed": true
+      }
+    },
+    {
+      "id": "A9-C04",
+      "description": "Event journal (.antigravity/events/run-0000.jsonl, seq 0..14) and deterministic state_board.json pass hash-chain, Ed25519 signature, and two-replay identity checks (I-03)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-03",
+        "entries": 15,
+        "signed_entries": 8,
+        "head_seq": 14,
+        "head_hash": "sha256:f4e7e105c5136da135ef21d94a87cd4e80bf6fdc9e5f357e4d7c8fc826d43fcb",
+        "state_board_sha256": "sha256:937af76d40189e53ca4a678be5282a8230a78c93739289bd415ba34f6a418ac0",
+        "current_state": "GENESIS_LOCKED"
+      }
+    },
+    {
+      "id": "A9-C05",
+      "description": "Repository working tree scan confirms zero leaked secrets or private key material (I-12)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-12",
+        "secret_scan_hits": []
+      }
+    },
+    {
+      "id": "A9-C06",
+      "description": "Layer A immutable manifest frozen in .antigravity/genesis/kernel_lock.json and verified with kernel:authority Ed25519 signature (I-09)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-09",
+        "kernel_lock_sha256": "sha256:7c0d3b0c51739040e250ebec1483555f6b7b84b79544996070fd010761335051",
+        "merkle_root_sha256": "sha256:fdc68cb03c9b1b5fd3e0648ea6b46ab0b6b9935a0ad2849fee91116975717aed",
+        "total_locked_files": 97,
+        "total_locked_bytes": 607468,
+        "category_counts": {
+          "PEP_HOOK": 2,
+          "GENESIS_ARTIFACT": 16,
+          "JOURNAL_AND_VIEW": 4,
+          "AUTHORITY": 3,
+          "PHASE_RECEIPT": 10,
+          "KERNEL_CODE": 24,
+          "KEYRING": 4,
+          "OUTBOX": 4,
+          "POLICY": 5,
+          "SCHEMA": 7,
+          "CLI_SCRIPT": 18
+        }
+      }
+    },
+    {
+      "id": "A9-C07",
+      "description": "Layer B empty workspace skeleton (contracts/, invariants/, src/, tests/, receipts/, provenance/, infra/, docs/) and InitializedWorkspace artifact created (LC-04)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-09",
+        "initialized_workspace_sha256": "sha256:4f2dedf8b5fd44e6ab9f46fdad8f39f10e0e8f7042d3d6a6774f11562341286b",
+        "layer_b_directories": [
+          "contracts",
+          "invariants",
+          "src",
+          "tests",
+          "receipts",
+          "provenance",
+          "infra",
+          "docs"
+        ],
+        "archetype_binding": "DEFERRED_TO_DAY_1"
+      }
+    },
+    {
+      "id": "A9-C08",
+      "description": "KernelReadyReceipt (.antigravity/genesis/receipts/KernelReadyReceipt.json) emitted and cryptographically signed; LC-04 transition armed",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-06",
+        "kernel_ready_receipt_sha256": "sha256:7e3870aeb0fa6dd371f63686eddedbbb947be25db7bd53c2cb3b2f575e610976",
+        "next_armed_transition": {
+          "guard_id": "LC-04",
+          "from_state": "GENESIS_LOCKED",
+          "to_state": "INTENT_CAPTURED",
+          "required_evidence": [
+            "InitializedWorkspace",
+            "ValidatedIntentContract"
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/events/run-0000.jsonl",
+      "sha256": "sha256:605c99685f0044f1a82a169f10ced18582861a2a55d6203f231cff97ccfabe8d"
+    },
+    {
+      "path": ".antigravity/genesis/initialized_workspace.json",
+      "sha256": "sha256:4f2dedf8b5fd44e6ab9f46fdad8f39f10e0e8f7042d3d6a6774f11562341286b"
+    },
+    {
+      "path": ".antigravity/genesis/kernel_lock.json",
+      "sha256": "sha256:7c0d3b0c51739040e250ebec1483555f6b7b84b79544996070fd010761335051"
+    },
+    {
+      "path": ".antigravity/genesis/receipts/KernelReadyReceipt.json",
+      "sha256": "sha256:7e3870aeb0fa6dd371f63686eddedbbb947be25db7bd53c2cb3b2f575e610976"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/phase_a9.py",
+      "sha256": "sha256:3366d7c1b949ce524e7623792e4c1e3f0f97f45bbdcc8483915dd1ee1896c71e"
+    },
+    {
+      "path": ".antigravity/policies/policy_bundle.lock.json",
+      "sha256": "sha256:866e8039ebf70b67368a38600f1fa30ed556db0e1a5f64532aacd52b762cfaf1"
+    },
+    {
+      "path": ".antigravity/views/state_board.json",
+      "sha256": "sha256:937af76d40189e53ca4a678be5282a8230a78c93739289bd415ba34f6a418ac0"
+    },
+    {
+      "path": "contracts/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "infra/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "invariants/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "provenance/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "receipts/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "scripts/kernel_lock",
+      "sha256": "sha256:a8365d3fa793881a6002ad335083ed99091ec5d49d9d7ad5dd52d3101c3b975a"
+    },
+    {
+      "path": "scripts/kernel_selftest",
+      "sha256": "sha256:9764cd2c57cbe67ae28a9db1c1481e7aa55263c656c3cca6fdafcc90229ca8db"
+    },
+    {
+      "path": "src/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tests/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:81313ab65d814f55be8c04322650c1841511603ff79016326fd62739383a4a6c"
+}

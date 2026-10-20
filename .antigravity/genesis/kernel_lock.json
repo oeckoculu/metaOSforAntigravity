@@ -1,0 +1,523 @@
+{
+  "artifact_kind": "KernelLock",
+  "schema_version": "1.2.0",
+  "locked_at": "2026-10-20T23:00:00Z",
+  "run_id": "run-0000",
+  "state_at_lock": "GENESIS_LOCKED",
+  "immutability_invariant": "I-09",
+  "authority_lock_sha256": "sha256:5fdf784a85f3d22bd804f5244629462655d9462763d92e4c2fd6ae3f920dafbe",
+  "policy_bundle_lock_sha256": "sha256:866e8039ebf70b67368a38600f1fa30ed556db0e1a5f64532aacd52b762cfaf1",
+  "journal_head_seq": 14,
+  "journal_head_hash": "sha256:f4e7e105c5136da135ef21d94a87cd4e80bf6fdc9e5f357e4d7c8fc826d43fcb",
+  "state_board_sha256": "sha256:937af76d40189e53ca4a678be5282a8230a78c93739289bd415ba34f6a418ac0",
+  "total_locked_files": 97,
+  "total_locked_bytes": 607468,
+  "category_counts": {
+    "PEP_HOOK": 2,
+    "GENESIS_ARTIFACT": 16,
+    "JOURNAL_AND_VIEW": 4,
+    "AUTHORITY": 3,
+    "PHASE_RECEIPT": 10,
+    "KERNEL_CODE": 24,
+    "KEYRING": 4,
+    "OUTBOX": 4,
+    "POLICY": 5,
+    "SCHEMA": 7,
+    "CLI_SCRIPT": 18
+  },
+  "merkle_root_sha256": "sha256:fdc68cb03c9b1b5fd3e0648ea6b46ab0b6b9935a0ad2849fee91116975717aed",
+  "files": {
+    ".agents/hooks.json": {
+      "sha256": "sha256:381026cbdc6c06e3ef2739147afb8aff054c9fb42e465226f373c4b79c33e708",
+      "bytes": 1156,
+      "category": "PEP_HOOK"
+    },
+    ".agents/rules/kernel.md": {
+      "sha256": "sha256:42673fae447c40ae00a75533bc42800598ffcbf2b1c505021a3efc063e9f1c67",
+      "bytes": 2507,
+      "category": "PEP_HOOK"
+    },
+    ".antigravity/app.json": {
+      "sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/appearance.json": {
+      "sha256": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/core-plugins.json": {
+      "sha256": "sha256:79985eff638a8a3f7fe2946dca1ed0872116d31028bb1498b0efb7ac4e11077b",
+      "bytes": 666,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/events/.gitkeep": {
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "category": "JOURNAL_AND_VIEW"
+    },
+    ".antigravity/events/run-0000.jsonl": {
+      "sha256": "sha256:605c99685f0044f1a82a169f10ced18582861a2a55d6203f231cff97ccfabe8d",
+      "bytes": 25432,
+      "category": "JOURNAL_AND_VIEW"
+    },
+    ".antigravity/genesis/authority_lock.json": {
+      "sha256": "sha256:5fdf784a85f3d22bd804f5244629462655d9462763d92e4c2fd6ae3f920dafbe",
+      "bytes": 1763,
+      "category": "AUTHORITY"
+    },
+    ".antigravity/genesis/blueprint/system_blueprint_v1.md": {
+      "sha256": "sha256:1460b6418ba8c4a14ef27b283cccedfba64fe9d60575f4e12c6ca20024b3bc97",
+      "bytes": 23512,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/break_glass_drill_override.json": {
+      "sha256": "sha256:2a544f4ba27ba7f4a13f6b231453c376a8145db0fe708fa9605f9f20fbb21188",
+      "bytes": 1113,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/break_glass_review_record.json": {
+      "sha256": "sha256:8d6102146d9986af719d2597d7896c5d7a5325383cbc6bb9192914b0d19cb21b",
+      "bytes": 1176,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/capability_manifest.json": {
+      "sha256": "sha256:2ae7cbf1c222e37972b564ce5ef72b4dd31b3f505af05224f9f6375798bfc023",
+      "bytes": 2553,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/genesis_bootstrap_proposal.json": {
+      "sha256": "sha256:8a93e2942048c17e70b212f789f115c4446ca2a61be0750f1b82be21bf7cec9c",
+      "bytes": 3707,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/initial_capability_token.json": {
+      "sha256": "sha256:e164c62e74adc5aa040e979c3d8787834606b74d242aaa0b11232e0c1d4fb503",
+      "bytes": 1031,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/realignment_projection_receipt.json": {
+      "sha256": "sha256:6016effd7dbee33d22c5d8934107913505cf750747dc5149a00b02666779f468",
+      "bytes": 1019,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/receipts/A1_authority_normalization.receipt.json": {
+      "sha256": "sha256:8c7a67354c46b4c3794bffe6f65f40d2d4aa32cc04caa925e9691979d9ac7776",
+      "bytes": 4483,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/A2_kernel_scaffold.receipt.json": {
+      "sha256": "sha256:7c9097cd08d59ef4897487f2c69d56fe00fc52d03eee6c7cb63108019f6001e3",
+      "bytes": 4117,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/A3_core_schemas.receipt.json": {
+      "sha256": "sha256:70492aca2aaacbdf44d2b1be74cd698c08ad91c339edb11611289f47941ce62b",
+      "bytes": 10392,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/A4_event_journal.receipt.json": {
+      "sha256": "sha256:eeffff151b92416dea6bb883742ab887801e873f86438729adc392b4ee4a03ee",
+      "bytes": 4742,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/A5_state_machine_and_pdp.receipt.json": {
+      "sha256": "sha256:ddf83953492b3558725efda68002ad7a25ea9ae1afc7c2ba3c49ab86bb71eb73",
+      "bytes": 9193,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/A6_provider_ports_and_pep.receipt.json": {
+      "sha256": "sha256:a5dbf20c18f2ec8cb84cc2f271a6eba2d69b39c4f1f735de9cacce488de13b17",
+      "bytes": 8062,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/A7_keys_tokens_and_break_glass.receipt.json": {
+      "sha256": "sha256:f93c35e40ab46abcaeeb5a412cf86ba131981201b261c7041be4cf040f552f46",
+      "bytes": 7574,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/A8_redaction_and_untrusted_envelope.receipt.json": {
+      "sha256": "sha256:b07765cae96252a18f5af3095eabcb0758b6ab6c9912bbee8de2e5fb4274a0b9",
+      "bytes": 5962,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/journal_receipt.json": {
+      "sha256": "sha256:eeffff151b92416dea6bb883742ab887801e873f86438729adc392b4ee4a03ee",
+      "bytes": 4742,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/receipts/pep_test_receipt.json": {
+      "sha256": "sha256:a5dbf20c18f2ec8cb84cc2f271a6eba2d69b39c4f1f735de9cacce488de13b17",
+      "bytes": 8062,
+      "category": "PHASE_RECEIPT"
+    },
+    ".antigravity/genesis/sample_untrusted_envelope.json": {
+      "sha256": "sha256:ffb289cfda935e2fd423663294f06e70836965ff392c4db513ec2d88af6819cc",
+      "bytes": 1790,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/tech_radar_delta.json": {
+      "sha256": "sha256:e9f14fb778d5deea0d5637d0d417da42150887eb0f43edf3d089401e3e9a79b3",
+      "bytes": 2628,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/genesis/user_approval_step26.md": {
+      "sha256": "sha256:0d36b8dba21a7abc43725a13d439fdeea921112bf6194af11df7849f5e7b2a61",
+      "bytes": 2210,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/graph.json": {
+      "sha256": "sha256:969396aec27e51d0dfe2d0f03f137c00bc49c376cb9cf8c0ad776bff4b1b9d2c",
+      "bytes": 494,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".antigravity/kernel/metaos/__init__.py": {
+      "sha256": "sha256:8d7302b29430fd7985d37484a50a89af7f9832d39b476f6e3e80d8fc273e391f",
+      "bytes": 77,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/authority.py": {
+      "sha256": "sha256:ec89c6770a8980b936dad898996e4e171ba8ae0d947798cf7348477e3461bc22",
+      "bytes": 9772,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/canonical.py": {
+      "sha256": "sha256:75a866c1002162389fe8c0b2bce4fc7bd9979d6666da04f3b9ab63c6178e5ec0",
+      "bytes": 4497,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/cli.py": {
+      "sha256": "sha256:f59288da99fc99aeb35c7f0fa1ae7a2ae6c30c7a252f8fe8350ea45a9aea5620",
+      "bytes": 16908,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/contracts.py": {
+      "sha256": "sha256:354e90759ff3a976a9909ad3282648284e8afd593f9b5391b5e80e58415d9e3f",
+      "bytes": 5438,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/crypto.py": {
+      "sha256": "sha256:8c90af785e7a472111ce4de2b9bdc548b86c22c6bc6f365e2071109f1fa306f5",
+      "bytes": 15466,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/env.py": {
+      "sha256": "sha256:4794113fa589e756b612af2e70c0cb12778b50630d9bd5ddab16dabb269aa116",
+      "bytes": 3596,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/envelope.py": {
+      "sha256": "sha256:9027546a18bcbda068ee2c2debd7b6dc6068a6480568e1f9ce7498000d9de76c",
+      "bytes": 9599,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/genesis.py": {
+      "sha256": "sha256:7eb3b47d259626023e8f4ff03d2eadfea0b63639e868c86c7eb6e2aaff906c46",
+      "bytes": 19141,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/journal.py": {
+      "sha256": "sha256:97ca7d74b1d6282a901462889a18d2001275ac8690f07e01237e2f42b5dd1739",
+      "bytes": 7211,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/pdp.py": {
+      "sha256": "sha256:3e75653c93b81b6415cf827505c389b58878aca1151951dc6f1cc4eac4436286",
+      "bytes": 25375,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/pep.py": {
+      "sha256": "sha256:b41c244602dcf6cf89bc5603e6589ae772002a702face18f017f4a9834a035eb",
+      "bytes": 15429,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/phase_a5.py": {
+      "sha256": "sha256:47e096463aaf0bdd8b7375a708725aef97398d523d655af89209892ac895bd5e",
+      "bytes": 35942,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/phase_a6.py": {
+      "sha256": "sha256:63f15f0b03ffbf520f3153ed6b2404573d9b8668ea030424dd988f896d58bc05",
+      "bytes": 22553,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/phase_a7.py": {
+      "sha256": "sha256:a9f18b355c91ff3292337e2d57b16349da9b9329bbc101d6c1bae62f3ad569a5",
+      "bytes": 25267,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/phase_a8.py": {
+      "sha256": "sha256:a8790c35664f2c8c08713b65beb2df4ebad8eb221fec17e9587da432fe17d1a8",
+      "bytes": 10631,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/phase_a9.py": {
+      "sha256": "sha256:3366d7c1b949ce524e7623792e4c1e3f0f97f45bbdcc8483915dd1ee1896c71e",
+      "bytes": 27481,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/ports.py": {
+      "sha256": "sha256:3645c628cf98d8a95f82f88e38f67701319bd93e1a663667c89fc1bb7a43d5b8",
+      "bytes": 11893,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/projector.py": {
+      "sha256": "sha256:7dd526a8e73f8dcd5d35a87eb46b084ecc7ddba33427488946bc1ec81476f844",
+      "bytes": 12521,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/receipt.py": {
+      "sha256": "sha256:d57a58f649aa456f58029f7c4e9617e5cf91e644a35f5fa748853a7f8f1483a1",
+      "bytes": 2298,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/scaffold.py": {
+      "sha256": "sha256:1368539dc6583088869170ebbe8d9d0bd8c34806c798226048a4be37942ddf38",
+      "bytes": 6718,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/schema.py": {
+      "sha256": "sha256:3174c2e771c18cf9b63a4fc0244b1ef0d9853b21d57821347a747d94f8aee44d",
+      "bytes": 8344,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/secrets.py": {
+      "sha256": "sha256:307ccc50c84ff683e90d8699faed6ab515dd855e50f2a1ce42e5eb76d9d91def",
+      "bytes": 1435,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/kernel/metaos/statemachine.py": {
+      "sha256": "sha256:cfd3f40e46cff7b59f8508c7fe7cdc5d5d9fecfc87d5216f0f78c08c80efed6e",
+      "bytes": 42945,
+      "category": "KERNEL_CODE"
+    },
+    ".antigravity/keys/allowed_signers": {
+      "sha256": "sha256:7c8cc4ebb7097e4d7361281f862b725de63124a745bf30bb96196c3ec550beba",
+      "bytes": 373,
+      "category": "KEYRING"
+    },
+    ".antigravity/keys/human_owner.ed25519.pub": {
+      "sha256": "sha256:4852e1cb2ba4a9e1268e6c50912b550a4a75dbe34901a7a986e2a5b1430b5785",
+      "bytes": 97,
+      "category": "KEYRING"
+    },
+    ".antigravity/keys/kernel_authority.ed25519.pub": {
+      "sha256": "sha256:527e7bd09771f25015d6abf8c4827fa95b337af612417946ad07de2a8434fc7a",
+      "bytes": 98,
+      "category": "KEYRING"
+    },
+    ".antigravity/keys/keyring_manifest.json": {
+      "sha256": "sha256:496d8faaa9d44bcd6b5546e579dac83b3136d1b903946008274f77f06327e1a4",
+      "bytes": 1445,
+      "category": "KEYRING"
+    },
+    ".antigravity/outbox/.gitkeep": {
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "category": "OUTBOX"
+    },
+    ".antigravity/outbox/OBX-9a4ff14b0cd461cf.json": {
+      "sha256": "sha256:d04cb8bfc9d0f3eb439e7d90d8e33924c153297c70152f8e9c8f0388450d68d4",
+      "bytes": 1284,
+      "category": "OUTBOX"
+    },
+    ".antigravity/outbox/OBX-9a4ff14b0cd461cf.md": {
+      "sha256": "sha256:8871f764161fdf00c515738c4244196864bc518afbf4c1d0b8ef8c64c7ed3b33",
+      "bytes": 720,
+      "category": "OUTBOX"
+    },
+    ".antigravity/outbox/index.json": {
+      "sha256": "sha256:bf4b759642159e0968792acf71554de87259c70fe850005688fec7e71d455cce",
+      "bytes": 777,
+      "category": "OUTBOX"
+    },
+    ".antigravity/policies/.gitkeep": {
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "category": "POLICY"
+    },
+    ".antigravity/policies/admission_policy.v1.2.0.json": {
+      "sha256": "sha256:aac37c96952341bbd7e2850efaec1c4cd081bf4107741f5fea1b9a4ddb10f9c4",
+      "bytes": 5793,
+      "category": "POLICY"
+    },
+    ".antigravity/policies/policy_bundle.lock.json": {
+      "sha256": "sha256:866e8039ebf70b67368a38600f1fa30ed556db0e1a5f64532aacd52b762cfaf1",
+      "bytes": 2661,
+      "category": "POLICY"
+    },
+    ".antigravity/policies/provider_ports.v1.2.0.json": {
+      "sha256": "sha256:af79e6d25136d7b5c0f4ec810ff5fe674b0e00f2364662981c0d92e03490b300",
+      "bytes": 2643,
+      "category": "POLICY"
+    },
+    ".antigravity/policies/transitions.v1.2.0.json": {
+      "sha256": "sha256:0a4c3fad7df4818f4ef570b15a1767921ad3ce9f6ad9e994a563cc701d73fb92",
+      "bytes": 15989,
+      "category": "POLICY"
+    },
+    ".antigravity/schemas/core/change_proposal.schema.json": {
+      "sha256": "sha256:9f474d4814f739e219f39d93c405033d1ce013b56ac354dd1e8978be52ba4ed5",
+      "bytes": 6816,
+      "category": "SCHEMA"
+    },
+    ".antigravity/schemas/core/event_journal_entry.schema.json": {
+      "sha256": "sha256:11078c46f22c5b2259364f17883229df56f999119d446a496306023813e34f43",
+      "bytes": 10225,
+      "category": "SCHEMA"
+    },
+    ".antigravity/schemas/core/fixtures/core_golden.fixtures.json": {
+      "sha256": "sha256:67ea82d25d941ace50c99c60e1fa0511d1cdaa956e7ee9b70891820747a56a8c",
+      "bytes": 13096,
+      "category": "SCHEMA"
+    },
+    ".antigravity/schemas/core/intent_contract.schema.json": {
+      "sha256": "sha256:03904074e3d6e768525dd341c8b68d9849b0ad0034af2a5703a4191538594b3d",
+      "bytes": 5824,
+      "category": "SCHEMA"
+    },
+    ".antigravity/schemas/core/registry.json": {
+      "sha256": "sha256:36c2d1d8e93dfd89860a2354f7cc8a263f8fefacf4b9e07aab55105ce7438212",
+      "bytes": 1885,
+      "category": "SCHEMA"
+    },
+    ".antigravity/schemas/core/task_envelope.schema.json": {
+      "sha256": "sha256:7182a5e15cffd2b40c8a78db71387186b2246dae343f3f90c3397e293ce686eb",
+      "bytes": 8012,
+      "category": "SCHEMA"
+    },
+    ".antigravity/schemas/core/untrusted_content_envelope.schema.json": {
+      "sha256": "sha256:2faf337d8b3a9d3e3bfc9ca283c0ffdd3977c8e133157bae058c2c077061e17c",
+      "bytes": 3937,
+      "category": "SCHEMA"
+    },
+    ".antigravity/schemas/invariants_and_states.json": {
+      "sha256": "sha256:48deaeffd3f64c01a7c7712b71bcc634ffd2d10585abaef93955103794cc4700",
+      "bytes": 14350,
+      "category": "AUTHORITY"
+    },
+    ".antigravity/views/.gitkeep": {
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "category": "JOURNAL_AND_VIEW"
+    },
+    ".antigravity/views/state_board.json": {
+      "sha256": "sha256:937af76d40189e53ca4a678be5282a8230a78c93739289bd415ba34f6a418ac0",
+      "bytes": 5097,
+      "category": "JOURNAL_AND_VIEW"
+    },
+    ".antigravity/workspace.json": {
+      "sha256": "sha256:4e5c63f94517494a737d8fb226f1e8ce73b76bd8e3cfd392396bd20de5b6299e",
+      "bytes": 4898,
+      "category": "GENESIS_ARTIFACT"
+    },
+    ".gitignore": {
+      "sha256": "sha256:01a0897b773b3ef703e9ca517cbd98742a236e7b17f0226e6345f69706d34166",
+      "bytes": 167,
+      "category": "GENESIS_ARTIFACT"
+    },
+    "SPEC_META_OS_v1.1.md": {
+      "sha256": "sha256:c33c4d90251c336f5a0ab9811ee7f2b9fa09df7608de15f5333b66e7666db511",
+      "bytes": 17789,
+      "category": "AUTHORITY"
+    },
+    "scripts/break_glass": {
+      "sha256": "sha256:2aae7b97fc2dc925bfc62d29abe0fe7c564308693adf012f7f796556d4016a71",
+      "bytes": 170,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/envelope_wrap": {
+      "sha256": "sha256:3d6958fa7a985ac693e6f3e4ea5d5078f066a3b50a1009883c08e99911b1e17e",
+      "bytes": 156,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/journal_append": {
+      "sha256": "sha256:22e53bd1c52e68ef6b2dc0cd2ed33889a06819d89604c3c14e22845878bed077",
+      "bytes": 110,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/journal_verify": {
+      "sha256": "sha256:8cb37eb8c4088f3a39c161f8a5fb48485cee31d4cb0314c034e465e10ce71cd5",
+      "bytes": 110,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/kernel_lock": {
+      "sha256": "sha256:a8365d3fa793881a6002ad335083ed99091ec5d49d9d7ad5dd52d3101c3b975a",
+      "bytes": 154,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/kernel_selftest": {
+      "sha256": "sha256:9764cd2c57cbe67ae28a9db1c1481e7aa55263c656c3cca6fdafcc90229ca8db",
+      "bytes": 158,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/keys_init": {
+      "sha256": "sha256:023d87736af8e0bb43ffa4837041f3cf4ba7bd5e8ec3dac40c26c55e6fb31b54",
+      "bytes": 168,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/metaos": {
+      "sha256": "sha256:6fae89f1c53fbc68149410c40df7ebcc1cbc400c6d99535c2abdaf4912c6467d",
+      "bytes": 206,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/outbox_ack": {
+      "sha256": "sha256:ba8b956f6b61e81ffd5cacc2efe85d1f64d30d9b209826acfbfc5682d7d2168b",
+      "bytes": 169,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/outbox_emit": {
+      "sha256": "sha256:d653cc637a0143ee8b42c44534d01806d6234bd38967f215ceb71580fd420ef5",
+      "bytes": 170,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/pdp_eval": {
+      "sha256": "sha256:ff438e52efffa037c4902ba5f28cfe1a3ec7721d2a6a547e132cc02a12fe6e49",
+      "bytes": 167,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/pep_post_tool_use": {
+      "sha256": "sha256:1d984be1a3994319b069051f01b89aca7eb9d39c7a3d13468fe635c940aa5454",
+      "bytes": 176,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/pep_pre_tool_use": {
+      "sha256": "sha256:dd21b7b9685d3e19376941a12bf0915c653a31ca511fab76ec418a479415aaaf",
+      "bytes": 175,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/pep_session_start": {
+      "sha256": "sha256:6acee29b47fc2e793f8bc821e3bcb38f086af56117766bbd8c58fa85e181d479",
+      "bytes": 176,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/project_state": {
+      "sha256": "sha256:3791b310481804c00fd5b6cdcf51bf3d2be990ab8b01b0f0ac5f8f0d584dc4d4",
+      "bytes": 109,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/redact": {
+      "sha256": "sha256:111add33dc401e54f71dc488848e9e2e42217c320e2665b1ddcaa1adf98743dc",
+      "bytes": 149,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/sm_transition": {
+      "sha256": "sha256:b7121402d836285147521add96c9d3fd58546ae42dbfc6121e2d0a7a19af8274",
+      "bytes": 172,
+      "category": "CLI_SCRIPT"
+    },
+    "scripts/token_issue": {
+      "sha256": "sha256:1bad33dc1873da5cc837780a58923abf5c6816ce1bffe2663f1a609054983c8d",
+      "bytes": 170,
+      "category": "CLI_SCRIPT"
+    }
+  },
+  "content_hash": "sha256:7dbacc907b28f753519621b19774b716a634fab42c564fe0ba4734b970e77afc",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEBCC7Pt6dV2oBkSP8D793EUp6PWyNcPfTemFlPwv9kY+v4s7fM6Bn\na1Gk09Xu6fYrIJIOtIhpG3Mj2QCpPToRcF\n-----END SSH SIGNATURE-----"
+  }
+}

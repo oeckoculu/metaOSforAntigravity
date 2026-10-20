@@ -1,0 +1,167 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A8",
+  "name": "redaction_and_untrusted_envelope",
+  "status": "PASS",
+  "generated_at": "2026-10-20T23:39:25Z",
+  "input": {
+    "commit": "9f422b3d2889dfcea6437c18c4df7e61546553ef",
+    "tree": "a137329ec59a50e1eb9de93b6adc4a2cb1f9dd5e"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:03df22a61fcee1ba80d886349fcbd60bc6b9c9671c23574321bbedf4bd8b0d45"
+  },
+  "reproducibility": {
+    "source_commit": "9f422b3d2889dfcea6437c18c4df7e61546553ef",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A8-C01",
+      "description": "untrusted_content_envelope.schema.json passes fail-closed schema lint and enforces NONE_DATA_ONLY authority (I-14)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-14",
+        "schema_id": "urn:metaos:schema:core:untrusted_content_envelope:1.0.0",
+        "lint_problems": []
+      }
+    },
+    {
+      "id": "A8-C02",
+      "description": "Deterministic redaction filter strips GITHUB_TOKEN, AWS_ACCESS_KEY_ID, URL_EMBEDDED_CREDENTIAL, GOOGLE_API_KEY, and SLACK_TOKEN from nested objects (I-12)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-12",
+        "secrets_redacted_count": 5,
+        "matched_secret_classes": [
+          "AWS_ACCESS_KEY_ID",
+          "GITHUB_TOKEN",
+          "GOOGLE_API_KEY",
+          "SLACK_TOKEN",
+          "URL_EMBEDDED_CREDENTIAL"
+        ],
+        "post_redaction_secret_scan_hits": []
+      }
+    },
+    {
+      "id": "A8-C03",
+      "description": "UntrustedContentEnvelope strips prompt-injection directives, redacts secrets, and seals content with kernel Ed25519 signature (I-12, I-14)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-14",
+        "envelope_id": "0192f3a4-0000-7000-8000-000000000008",
+        "sample_sha256": "sha256:ffb289cfda935e2fd423663294f06e70836965ff392c4db513ec2d88af6819cc",
+        "sanitization": {
+          "redaction_profile": "kernel.secret_scan.v1",
+          "secrets_redacted_count": 1,
+          "matched_secret_classes": [
+            "GITHUB_TOKEN"
+          ],
+          "prompt_injection_stripped_count": 3,
+          "matched_injection_patterns": [
+            "DISABLE_FAIL_CLOSED_KERNEL",
+            "IGNORE_PREVIOUS_INSTRUCTIONS",
+            "ROLE_HIJACK_MARKER"
+          ],
+          "quarantine_recommended": true
+        }
+      }
+    },
+    {
+      "id": "A8-C04",
+      "description": "UntrustedContentEnvelope verifier rejects executable_authority escalation, post-signing text tampering, and VERIFIED claim spoofing (I-14)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-14",
+        "cases": {
+          "executable_authority_escalation_rejected": true,
+          "post_signing_text_tamper_rejected": true,
+          "untrusted_claim_verified_escalation_rejected": true
+        }
+      }
+    },
+    {
+      "id": "A8-C05",
+      "description": "PEP PreToolUse denies raw UNTRUSTED writes and allows sanitized writes only after UntrustedContentEnvelope verification (I-14)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-14",
+        "cases": {
+          "unwrapped_untrusted_write_denied": true,
+          "verified_enveloped_sanitized_write_allowed": true
+        }
+      }
+    },
+    {
+      "id": "A8-C06",
+      "description": "PEP PostToolUse quarantines and redacts secret output and allows output sanitized by redaction filter (I-12)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-12",
+        "cases": {
+          "unredacted_post_tool_quarantined": true,
+          "redacted_post_tool_allowed": true
+        }
+      }
+    },
+    {
+      "id": "A8-C07",
+      "description": "UntrustedContentEnvelope sanitization and hashing are deterministically reproducible across replays (I-06, I-14)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-06",
+        "raw_sha256": "sha256:674743c594d37f780fb65dbff1bfc6f139a1bf9cad18994d87fc2df81bfd1661",
+        "content_hash": "sha256:7f31d44d0aa32d2a81a47ba2d039371b3d813ffc38e48255f25410e7d03dd9a2"
+      }
+    },
+    {
+      "id": "A8-C08",
+      "description": "CLI wrappers scripts/redact and scripts/envelope_wrap exist and are executable",
+      "result": "PASS",
+      "detail": {
+        "scripts_redact": true,
+        "scripts_envelope_wrap": true
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/genesis/sample_untrusted_envelope.json",
+      "sha256": "sha256:ffb289cfda935e2fd423663294f06e70836965ff392c4db513ec2d88af6819cc"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/envelope.py",
+      "sha256": "sha256:9027546a18bcbda068ee2c2debd7b6dc6068a6480568e1f9ce7498000d9de76c"
+    },
+    {
+      "path": ".antigravity/kernel/metaos/phase_a8.py",
+      "sha256": "sha256:a8790c35664f2c8c08713b65beb2df4ebad8eb221fec17e9587da432fe17d1a8"
+    },
+    {
+      "path": ".antigravity/schemas/core/untrusted_content_envelope.schema.json",
+      "sha256": "sha256:2faf337d8b3a9d3e3bfc9ca283c0ffdd3977c8e133157bae058c2c077061e17c"
+    },
+    {
+      "path": "scripts/envelope_wrap",
+      "sha256": "sha256:3d6958fa7a985ac693e6f3e4ea5d5078f066a3b50a1009883c08e99911b1e17e"
+    },
+    {
+      "path": "scripts/redact",
+      "sha256": "sha256:111add33dc401e54f71dc488848e9e2e42217c320e2665b1ddcaa1adf98743dc"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:a24f91ee58757677d8d0f9c61fc74b9fa5f79c52d8de24b309188827832cc8d5"
+}

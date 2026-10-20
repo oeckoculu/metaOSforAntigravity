@@ -162,7 +162,7 @@ def evaluate_session_start(root):
             }
 
     validator = journal.load_validator(root)
-    entries, report = journal.verify_file(journal_path, validator)
+    entries, report = journal.verify_file(journal_path, validator, root=root)
     if not report["valid"]:
         return {
             "decision": "DENY",

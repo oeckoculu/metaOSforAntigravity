@@ -1,0 +1,61 @@
+{
+  "artifact_kind": "KernelReadyReceipt",
+  "schema_version": "1.2.0",
+  "issued_at": "2026-10-20T23:00:00Z",
+  "run_id": "run-0000",
+  "status": "PASS",
+  "current_state": "GENESIS_LOCKED",
+  "next_armed_transition": {
+    "guard_id": "LC-04",
+    "from_state": "GENESIS_LOCKED",
+    "to_state": "INTENT_CAPTURED",
+    "required_evidence": [
+      "InitializedWorkspace",
+      "ValidatedIntentContract"
+    ]
+  },
+  "kernel_lock": {
+    "path": ".antigravity/genesis/kernel_lock.json",
+    "sha256": "sha256:7c0d3b0c51739040e250ebec1483555f6b7b84b79544996070fd010761335051",
+    "merkle_root_sha256": "sha256:fdc68cb03c9b1b5fd3e0648ea6b46ab0b6b9935a0ad2849fee91116975717aed",
+    "total_locked_files": 97
+  },
+  "initialized_workspace": {
+    "path": ".antigravity/genesis/initialized_workspace.json",
+    "sha256": "sha256:4f2dedf8b5fd44e6ab9f46fdad8f39f10e0e8f7042d3d6a6774f11562341286b",
+    "layer_b_directories": [
+      "contracts",
+      "docs",
+      "infra",
+      "invariants",
+      "provenance",
+      "receipts",
+      "src",
+      "tests"
+    ]
+  },
+  "journal_state": {
+    "journal_path": ".antigravity/events/run-0000.jsonl",
+    "head_seq": 14,
+    "head_hash": "sha256:f4e7e105c5136da135ef21d94a87cd4e80bf6fdc9e5f357e4d7c8fc826d43fcb",
+    "state_board_path": ".antigravity/views/state_board.json",
+    "state_board_sha256": "sha256:937af76d40189e53ca4a678be5282a8230a78c93739289bd415ba34f6a418ac0"
+  },
+  "verified_phase_receipts": {
+    "A1": "sha256:669cab368a6a449846bd3e5afcb544da6ae6ff62e063f794c174c4693570462e",
+    "A2": "sha256:afef7b125234b07ee38d06f36b4e32ccabb012473fb85912b306aaac34c5b3fb",
+    "A3": "sha256:d84a2daae9d4767b1ad9c257aa16831c32685ff80bdd81a320743b4ae2302633",
+    "A4": "sha256:03997f43bf0ae97f39569098c73e0aa5e40ce6fd3945d70f383cc38f65fcf4b5",
+    "A5": "sha256:0195b582c55461e4295d44aeca42f89c96ba37f06a6e2ed71e3d7f7be323b67d",
+    "A6": "sha256:d8a3aa0a15c85f70d615889263868a5c795a5caca9bda5d5b45b5d08b3eff6b4",
+    "A7": "sha256:5b2ecd08bd4f7174a4f36a18a470422aa6d53469cecc9040f5e5f30ac7726a46",
+    "A8": "sha256:a24f91ee58757677d8d0f9c61fc74b9fa5f79c52d8de24b309188827832cc8d5"
+  },
+  "content_hash": "sha256:2a81af8b9bbce78aa8b625c34f8ab5c759b69e7afd9a853ad136b12c5c0966e8",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAECpbZyTehqbo8SsCmfm/b8mnKA3YukOPXoTnUY3j9EuGDrTMpdkMO\nWoyM1RHarvp1YmXL3/o7R/WyG6PX3jAKcD\n-----END SSH SIGNATURE-----"
+  }
+}
