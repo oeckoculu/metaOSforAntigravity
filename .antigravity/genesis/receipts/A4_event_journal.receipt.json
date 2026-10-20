@@ -1,0 +1,129 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A4",
+  "name": "event_journal_and_state_projector",
+  "status": "PASS",
+  "generated_at": "2026-10-20T19:42:01Z",
+  "input": {
+    "commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "tree": "7877feb1485af80f1fb89155015753397cac0f3c"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:699b0590ae9750bf2f840182ad17cb67505051c0f87c2a998ecca48a620ebefc"
+  },
+  "reproducibility": {
+    "source_commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A4-C01",
+      "description": "Prerequisite genesis artifacts exist and A1..A3 receipts are PASS and hash-verified",
+      "result": "PASS",
+      "detail": {
+        "checked": [
+          ".antigravity/genesis/blueprint/system_blueprint_v1.md",
+          ".antigravity/genesis/user_approval_step26.md",
+          ".antigravity/genesis/authority_lock.json",
+          ".antigravity/genesis/capability_manifest.json",
+          ".antigravity/genesis/receipts/A1_authority_normalization.receipt.json",
+          ".antigravity/genesis/receipts/A2_kernel_scaffold.receipt.json",
+          ".antigravity/genesis/receipts/A3_core_schemas.receipt.json"
+        ],
+        "prior_receipts": {
+          "A1": {
+            "hash_ok": true,
+            "status": "PASS",
+            "receipt_hash": "sha256:669cab368a6a449846bd3e5afcb544da6ae6ff62e063f794c174c4693570462e"
+          },
+          "A2": {
+            "hash_ok": true,
+            "status": "PASS",
+            "receipt_hash": "sha256:afef7b125234b07ee38d06f36b4e32ccabb012473fb85912b306aaac34c5b3fb"
+          },
+          "A3": {
+            "hash_ok": true,
+            "status": "PASS",
+            "receipt_hash": "sha256:d84a2daae9d4767b1ad9c257aa16831c32685ff80bdd81a320743b4ae2302633"
+          }
+        }
+      }
+    },
+    {
+      "id": "A4-C02",
+      "description": "Journal run-0000.jsonl has seq 0=GENESIS_BOOTSTRAP and contiguous hash-chained entries",
+      "result": "PASS",
+      "detail": {
+        "entries": 7,
+        "head_seq": 6,
+        "head_hash": "sha256:7b846bfc725cf7ba4101ef717deb474c11391fa820f16b0e88985563f7861cb1",
+        "run_id": "run-0000",
+        "unsigned_entries": 7,
+        "valid": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "A4-C03",
+      "description": "Two independent replays produce byte-identical state_board.json at state GENESIS_LOCKED",
+      "result": "PASS",
+      "detail": {
+        "current_state": "GENESIS_LOCKED",
+        "view_jcs_sha256": "sha256:8de9a9eaecf65e19bffcf93056ae35694b037ba2b47ee93e96cfbd96064e485f",
+        "byte_identical": true
+      }
+    },
+    {
+      "id": "A4-C04",
+      "description": "Tamper & security negative tests all fail-closed (payload tamper, prev_hash break, seq gap, secret injection, illegal transition)",
+      "result": "PASS",
+      "detail": {
+        "payload_byte_tamper_rejected": true,
+        "broken_prev_hash_rejected": true,
+        "sequence_gap_rejected": true,
+        "secret_injection_rejected": true,
+        "illegal_transition_rejected": true
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/events/run-0000.jsonl",
+      "sha256": "sha256:fbe6c1e2fd7065913a5815252c809909ed7820fe060ae4e2bbe471f25fb9ac1b"
+    },
+    {
+      "path": ".antigravity/genesis/blueprint/system_blueprint_v1.md",
+      "sha256": "sha256:1460b6418ba8c4a14ef27b283cccedfba64fe9d60575f4e12c6ca20024b3bc97"
+    },
+    {
+      "path": ".antigravity/genesis/genesis_bootstrap_proposal.json",
+      "sha256": "sha256:8a93e2942048c17e70b212f789f115c4446ca2a61be0750f1b82be21bf7cec9c"
+    },
+    {
+      "path": ".antigravity/genesis/tech_radar_delta.json",
+      "sha256": "sha256:e9f14fb778d5deea0d5637d0d417da42150887eb0f43edf3d089401e3e9a79b3"
+    },
+    {
+      "path": ".antigravity/genesis/user_approval_step26.md",
+      "sha256": "sha256:0d36b8dba21a7abc43725a13d439fdeea921112bf6194af11df7849f5e7b2a61"
+    },
+    {
+      "path": ".antigravity/views/state_board.json",
+      "sha256": "sha256:e2ce184f4b024728089e9a650570eddf10d0519b0acbaaad31f95d0a65b95031"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:03997f43bf0ae97f39569098c73e0aa5e40ce6fd3945d70f383cc38f65fcf4b5"
+}

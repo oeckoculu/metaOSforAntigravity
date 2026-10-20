@@ -1,0 +1,129 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A2",
+  "name": "kernel_scaffold",
+  "status": "PASS",
+  "generated_at": "2026-10-20T19:42:01Z",
+  "input": {
+    "commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "tree": "7877feb1485af80f1fb89155015753397cac0f3c"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:699b0590ae9750bf2f840182ad17cb67505051c0f87c2a998ecca48a620ebefc"
+  },
+  "reproducibility": {
+    "source_commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A2-C01",
+      "description": "Layer B is absent (created only after kernel lock, spec 4.3)",
+      "result": "PASS",
+      "detail": {
+        "present": []
+      }
+    },
+    {
+      "id": "A2-C02",
+      "description": "All Layer A kernel directories exist",
+      "result": "PASS",
+      "detail": {
+        "created": [
+          ".antigravity/policies",
+          ".antigravity/events",
+          ".antigravity/views",
+          ".antigravity/outbox"
+        ],
+        "required": [
+          ".antigravity/kernel",
+          ".antigravity/policies",
+          ".antigravity/events",
+          ".antigravity/views",
+          ".antigravity/outbox",
+          ".antigravity/genesis",
+          ".antigravity/schemas/core",
+          "scripts"
+        ]
+      }
+    },
+    {
+      "id": "A2-C03",
+      "description": "scripts/metaos wrapper present and executable",
+      "result": "PASS"
+    },
+    {
+      "id": "A2-C04",
+      "description": "Capability manifest contains no secret material (remote credential stripped)",
+      "result": "PASS",
+      "detail": {
+        "pattern_classes": [],
+        "remote_url_contains_credential": true
+      }
+    },
+    {
+      "id": "A2-C05",
+      "description": "Kernel runtime is real (git and python3 resolve to working binaries)",
+      "result": "PASS",
+      "detail": {
+        "git": "git version 2.50.1 (Apple Git-155)",
+        "python3": "Python 3.9.6"
+      }
+    },
+    {
+      "id": "A2-C06",
+      "description": "Working tree (excluding .git) contains no secret patterns",
+      "result": "PASS",
+      "detail": {
+        "findings": []
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/events/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".antigravity/genesis/capability_manifest.json",
+      "sha256": "sha256:2ae7cbf1c222e37972b564ce5ef72b4dd31b3f505af05224f9f6375798bfc023",
+      "jcs_sha256": "sha256:ec4c28e6ea788d3945651a93fc9f0b9406c0ecce3338dfa7befcdca43c19aac5"
+    },
+    {
+      "path": ".antigravity/outbox/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".antigravity/policies/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".antigravity/views/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "sha256:01a0897b773b3ef703e9ca517cbd98742a236e7b17f0226e6345f69706d34166"
+    },
+    {
+      "path": "scripts/metaos",
+      "sha256": "sha256:6fae89f1c53fbc68149410c40df7ebcc1cbc400c6d99535c2abdaf4912c6467d"
+    }
+  ],
+  "notes": [
+    "SEC-0001 OPEN: git remote 'origin' embeds a credential in .git/config. Remote operations are fail-closed until the token is revoked and the remote URL is reset by the human owner."
+  ],
+  "receipt_hash": "sha256:afef7b125234b07ee38d06f36b4e32ccabb012473fb85912b306aaac34c5b3fb"
+}

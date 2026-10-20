@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:core:task_envelope:1.0.0",
+  "title": "TaskEnvelope",
+  "description": "Task-scoped work order for a bounded probabilistic agent, carrying a short-lived capability token (I-02). Write scopes may never target Layer A (.antigravity/, .agents/, scripts/), absolute paths, parent traversal or leading wildcards. Monetary budgets are integer cents (kernel documents forbid floats).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "task_id", "run_id", "parent_task_id", "agent_role", "issued_in_state", "objective", "input_refs", "capability_token", "budget", "context_slice", "model_route", "verifier_isolation", "output_contract", "redaction_profile_ref", "data_classification_ceiling"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "task_id": {"$ref": "#/$defs/Uuid"},
+    "run_id": {"$ref": "#/$defs/RunId"},
+    "parent_task_id": {"anyOf": [{"$ref": "#/$defs/Uuid"}, {"type": "null"}]},
+    "agent_role": {
+      "enum": ["GenesisAgent", "IntentCompilerAgent", "CapabilityDiscoveryAgent", "TechRadarAgent", "ContractAgent", "ThreatModelAgent", "BuilderAgent", "RedTeamVerifierAgent", "PerformanceAgent", "EvidenceAssemblerAgent", "DriftHealerAgent"]
+    },
+    "issued_in_state": {"$ref": "#/$defs/State"},
+    "objective": {"type": "string", "minLength": 1},
+    "input_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref", "trust"],
+        "properties": {
+          "ref": {"$ref": "#/$defs/Hash"},
+          "trust": {"enum": ["TRUSTED_KERNEL", "TRUSTED_HUMAN", "UNTRUSTED_ENVELOPED"]}
+        }
+      }
+    },
+    "capability_token": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["token_id", "issued_at", "expires_at", "scopes", "nonce", "issuer_signature"],
+      "properties": {
+        "token_id": {"$ref": "#/$defs/Uuid"},
+        "issued_at": {"$ref": "#/$defs/DateTime"},
+        "expires_at": {"$ref": "#/$defs/DateTime"},
+        "scopes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["file_read", "file_write", "tools", "actions", "egress_allowlist"],
+          "properties": {
+            "file_read": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/ScopeGlob"}},
+            "file_write": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/WriteScopeGlob"}},
+            "tools": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}},
+            "actions": {"type": "array", "uniqueItems": true, "minItems": 1, "items": {"enum": ["READ", "PROPOSE", "EXECUTE_TEST"]}},
+            "egress_allowlist": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z0-9.-]+(:[0-9]{1,5})?$"}}
+          }
+        },
+        "nonce": {"type": "string", "pattern": "^[0-9a-f]{32,}$"},
+        "issuer_signature": {"$ref": "#/$defs/Signature"}
+      }
+    },
+    "budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_tokens", "max_usd_cents", "max_retries", "max_wall_seconds"],
+      "properties": {
+        "max_tokens": {"type": "integer", "minimum": 1},
+        "max_usd_cents": {"type": "integer", "minimum": 0},
+        "max_retries": {"type": "integer", "minimum": 0, "maximum": 20},
+        "max_wall_seconds": {"type": "integer", "minimum": 1}
+      }
+    },
+    "context_slice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["memory_refs", "exclude"],
+      "properties": {
+        "memory_refs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "ref"],
+            "properties": {
+              "kind": {"enum": ["DecisionRecord", "FailedHypothesis", "AntiPatternRule"]},
+              "ref": {"$ref": "#/$defs/Hash"}
+            }
+          }
+        },
+        "exclude": {"type": "array", "items": {"$ref": "#/$defs/ScopeGlob"}}
+      }
+    },
+    "model_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_port", "model_snapshot_ref", "params"],
+      "properties": {
+        "provider_port": {"type": "string", "pattern": "^[a-z][a-z0-9_.-]*$"},
+        "model_snapshot_ref": {"$ref": "#/$defs/Hash"},
+        "params": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["temperature_milli", "seed"],
+          "properties": {
+            "temperature_milli": {"type": "integer", "minimum": 0, "maximum": 2000},
+            "seed": {"type": ["integer", "null"]}
+          }
+        }
+      }
+    },
+    "verifier_isolation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["blind", "deny_src_write"],
+      "properties": {
+        "blind": {"type": "boolean"},
+        "deny_src_write": {"type": "boolean"}
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifact_type", "schema_ref"],
+      "properties": {
+        "artifact_type": {"enum": ["ChangeProposal", "ResearchFinding", "ThreatModelReport", "TestSet", "EvidenceReceipt", "AnalysisReport"]},
+        "schema_ref": {"type": "string", "pattern": "^urn:metaos:schema:"}
+      }
+    },
+    "redaction_profile_ref": {"type": "string", "minLength": 1},
+    "data_classification_ceiling": {"enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"agent_role": {"const": "RedTeamVerifierAgent"}}, "required": ["agent_role"], "additionalProperties": true},
+      "then": {"properties": {"verifier_isolation": {"properties": {"blind": {"const": true}, "deny_src_write": {"const": true}}, "additionalProperties": true}}, "additionalProperties": true}
+    }
+  ],
+  "$defs": {
+    "Hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "DateTime": {"type": "string", "format": "date-time"},
+    "Uuid": {"type": "string", "format": "uuid"},
+    "RunId": {"type": "string", "pattern": "^run-[0-9]{4,}$"},
+    "ScopeGlob": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))[^\\x00]+$"},
+    "WriteScopeGlob": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))[^\\x00]+$",
+      "not": {"type": "string", "pattern": "^(\\*|\\.antigravity(/|$)|\\.agents(/|$)|scripts(/|$)|\\.git(/|$))"}
+    },
+    "State": {
+      "enum": ["TECH_RADAR_SYNC", "CAPABILITY_BASELINED", "GENESIS_MORPHING", "GENESIS_LOCKED", "INTENT_CAPTURED", "RISK_CLASSIFIED", "HANDSHAKE_PENDING", "CONTRACT_DRAFTING", "CONTRACT_REVIEWED", "CONTRACT_LOCKED", "TESTS_ARMED_RED", "CHANGE_ADMITTED", "SANDBOX_EXECUTING", "WORKTREE_GREEN", "SECURITY_VERIFIED", "MUTATION_VERIFIED", "PERFORMANCE_VERIFIED", "PROOF_ASSEMBLED", "HUMAN_AUDIT_REQUIRED", "READY_TO_MERGE", "MERGED", "POST_DEPLOY_OBSERVING", "CLOSED", "BLOCKED_POLICY", "BUDGET_EXHAUSTED", "EVIDENCE_INCOMPLETE", "ROLLED_BACK", "QUARANTINED", "BREAK_GLASS_ACTIVE"]
+    },
+    "SshSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alg", "key_id", "namespace", "sig"],
+      "properties": {
+        "alg": {"const": "sshsig-ed25519"},
+        "key_id": {"type": "string", "pattern": "^SHA256:[A-Za-z0-9+/]{43}$"},
+        "namespace": {"type": "string", "pattern": "^metaos\\.[a-z.]+$"},
+        "sig": {"type": "string", "minLength": 1}
+      }
+    },
+    "Signature": {
+      "oneOf": [
+        {"$ref": "#/$defs/SshSignature"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason"],
+          "properties": {
+            "status": {"const": "UNSIGNED"},
+            "reason": {"enum": ["KEYS_NOT_PROVISIONED_UNTIL_A7"]}
+          }
+        }
+      ]
+    }
+  }
+}

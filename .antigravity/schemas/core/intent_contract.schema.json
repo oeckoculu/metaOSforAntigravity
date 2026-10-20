@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:core:intent_contract:1.0.0",
+  "title": "IntentContract",
+  "description": "Head of the requirement chain IntentContract -> DomainContract -> Invariants -> AcceptanceOracle -> ChangeProposal -> EvidenceReceipt. Invariants: I-06 (risk hints), I-12 (classification), I-13 (archetype binding), I-14 (untrusted inputs).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "intent_id", "parent_intent_id", "revised_hypothesis_ref", "author", "title", "problem_statement", "desired_outcomes", "non_goals", "constraints", "assumptions", "archetype_profile_ref", "data_classification", "risk_hints", "acceptance_oracles", "source_inputs", "status", "content_hash", "signatures"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "intent_id": {"$ref": "#/$defs/Uuid"},
+    "parent_intent_id": {"anyOf": [{"$ref": "#/$defs/Uuid"}, {"type": "null"}]},
+    "revised_hypothesis_ref": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+    "author": {"$ref": "#/$defs/Principal"},
+    "title": {"type": "string", "minLength": 1, "maxLength": 200},
+    "problem_statement": {"type": "string", "minLength": 1},
+    "desired_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "measurable_criterion"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^OUT-[0-9]{3}$"},
+          "statement": {"type": "string", "minLength": 1},
+          "measurable_criterion": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "non_goals": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "constraints": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "statement", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^ASM-[0-9]{3}$"},
+          "statement": {"type": "string", "minLength": 1},
+          "status": {"enum": ["OPEN", "CONFIRMED", "REJECTED"]}
+        }
+      }
+    },
+    "archetype_profile_ref": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+    "data_classification": {"enum": ["PUBLIC", "INTERNAL", "CONFIDENTIAL", "RESTRICTED"]},
+    "risk_hints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["impact", "reversibility", "data_sensitivity", "security", "cost"],
+      "properties": {
+        "impact": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+        "reversibility": {"enum": ["TRIVIAL", "PLANNED", "DIFFICULT", "IRREVERSIBLE"]},
+        "data_sensitivity": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+        "security": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+        "cost": {"enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]}
+      }
+    },
+    "acceptance_oracles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["oracle_id", "kind", "outcome_ids", "contract_ref"],
+        "properties": {
+          "oracle_id": {"type": "string", "pattern": "^ORC-[0-9]{3}$"},
+          "kind": {"enum": ["CONTRACT", "PROPERTY", "GOLDEN", "PERF", "SECURITY"]},
+          "outcome_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^OUT-[0-9]{3}$"}},
+          "contract_ref": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]}
+        }
+      }
+    },
+    "source_inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["envelope_ref", "trust"],
+        "properties": {
+          "envelope_ref": {"$ref": "#/$defs/Hash"},
+          "trust": {"enum": ["TRUSTED_HUMAN", "UNTRUSTED"]}
+        }
+      }
+    },
+    "status": {"enum": ["DRAFT", "VALIDATED", "SUPERSEDED"]},
+    "content_hash": {"$ref": "#/$defs/Hash"},
+    "signatures": {"type": "array", "items": {"$ref": "#/$defs/Signature"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "VALIDATED"}}, "required": ["status"], "additionalProperties": true},
+      "then": {"properties": {"archetype_profile_ref": {"$ref": "#/$defs/Hash"}, "signatures": {"minItems": 1}}, "additionalProperties": true}
+    }
+  ],
+  "$defs": {
+    "Hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "Uuid": {"type": "string", "format": "uuid"},
+    "Principal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principal_id", "kind"],
+      "properties": {
+        "principal_id": {"type": "string", "pattern": "^(human|agent|executor|kernel):[A-Za-z0-9._-]+$"},
+        "kind": {"enum": ["HUMAN", "AGENT", "EXECUTOR", "KERNEL"]},
+        "os_identity": {"type": "string", "minLength": 1}
+      }
+    },
+    "SshSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alg", "key_id", "namespace", "sig"],
+      "properties": {
+        "alg": {"const": "sshsig-ed25519"},
+        "key_id": {"type": "string", "pattern": "^SHA256:[A-Za-z0-9+/]{43}$"},
+        "namespace": {"type": "string", "pattern": "^metaos\\.[a-z.]+$"},
+        "sig": {"type": "string", "minLength": 1}
+      }
+    },
+    "Signature": {
+      "oneOf": [
+        {"$ref": "#/$defs/SshSignature"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason"],
+          "properties": {
+            "status": {"const": "UNSIGNED"},
+            "reason": {"enum": ["KEYS_NOT_PROVISIONED_UNTIL_A7"]}
+          }
+        }
+      ]
+    }
+  }
+}

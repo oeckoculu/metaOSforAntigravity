@@ -1,0 +1,85 @@
+{
+  "document_type": "GenesisBootstrapProposal",
+  "schema_version": "1.0.0",
+  "proposal_id": "GBP-0000",
+  "invariant_basis": "I-01 Day-0 bootstrap exception (user-approved GenesisBootstrapProposal)",
+  "run_id": "run-0000",
+  "proposer": {
+    "principal_id": "human:oeckoculu",
+    "kind": "HUMAN",
+    "os_identity": "oeckoculu"
+  },
+  "approved_at": "2026-10-20T10:12:47Z",
+  "substrate": "LOCAL_APFS_GIT",
+  "evidence": {
+    "blueprint_path": ".antigravity/genesis/blueprint/system_blueprint_v1.md",
+    "blueprint_sha256": "sha256:1460b6418ba8c4a14ef27b283cccedfba64fe9d60575f4e12c6ca20024b3bc97",
+    "approval_record_path": ".antigravity/genesis/user_approval_step26.md",
+    "approval_record_sha256": "sha256:0d36b8dba21a7abc43725a13d439fdeea921112bf6194af11df7849f5e7b2a61",
+    "authority_lock_path": ".antigravity/genesis/authority_lock.json",
+    "authority_lock_sha256": "sha256:5fdf784a85f3d22bd804f5244629462655d9462763d92e4c2fd6ae3f920dafbe",
+    "capability_manifest_path": ".antigravity/genesis/capability_manifest.json",
+    "capability_manifest_sha256": "sha256:2ae7cbf1c222e37972b564ce5ef72b4dd31b3f505af05224f9f6375798bfc023",
+    "tech_radar_delta_path": ".antigravity/genesis/tech_radar_delta.json",
+    "tech_radar_delta_sha256": "sha256:e9f14fb778d5deea0d5637d0d417da42150887eb0f43edf3d089401e3e9a79b3"
+  },
+  "accepted_patches": [
+    {
+      "id": "C-1",
+      "summary": "Bind HUMAN_AUDIT_REQUIRED to suspended_from origin; allow READY_TO_MERGE only when origin == PROOF_ASSEMBLED with CompleteProofReceiptPackage."
+    },
+    {
+      "id": "C-2",
+      "summary": "Allow EVIDENCE_INCOMPLETE -> SANDBOX_EXECUTING only when origin is in {CHANGE_ADMITTED..PROOF_ASSEMBLED}; otherwise return to origin."
+    },
+    {
+      "id": "C-3",
+      "summary": "Allow recovery from BREAK_GLASS_ACTIVE via RealignmentProjectionReceipt to GENESIS_LOCKED or new child run."
+    },
+    {
+      "id": "C-4",
+      "summary": "Define ANY_ACTIVE_STATE explicitly and enforce deterministic exception precedence."
+    },
+    {
+      "id": "C-5",
+      "summary": "Route ROLLED_BACK from genesis states to GENESIS_MORPHING instead of INTENT_CAPTURED."
+    },
+    {
+      "id": "C-6",
+      "summary": "Enforce both InitializedWorkspace and ValidatedIntentContract on GENESIS_LOCKED -> INTENT_CAPTURED."
+    },
+    {
+      "id": "C-7",
+      "summary": "Record pre-journal genesis transitions as retroactive entries (seq 0..k) backed by blueprint and user approval hashes."
+    },
+    {
+      "id": "C-8",
+      "summary": "Require CompensatingActionReceipt for post-merge rollback instead of WorktreeCleanupReceipt."
+    },
+    {
+      "id": "V12-01",
+      "summary": "Add HANDSHAKE_PENDING rejection (-> CONTRACT_DRAFTING) and timeout (-> INTENT_CAPTURED) transitions."
+    },
+    {
+      "id": "V12-02",
+      "summary": "Add BREAK_GLASS_ACTIVE -> GENESIS_LOCKED transition guarded by RealignmentProjectionReceipt."
+    },
+    {
+      "id": "V12-03",
+      "summary": "Use polymorphic abstract proof labels ArchetypeSecurityScanProof and ArchetypePerformanceScanProof."
+    },
+    {
+      "id": "V12-04",
+      "summary": "Route POST_DEPLOY_OBSERVING drift detection via AutomatedPatchProposal to INTENT_CAPTURED without direct live mutation."
+    },
+    {
+      "id": "V12-05",
+      "summary": "Enforce triple RED acceptance oracle on TESTS_ARMED_RED: CompilationSuccess == TRUE, RuntimeExecution == EXECUTED, TestExitCode != 0."
+    },
+    {
+      "id": "V12-06",
+      "summary": "Forbid direct merge after QUARANTINED; require return to INTENT_CAPTURED after human security audit."
+    }
+  ],
+  "content_hash": "sha256:1128b6720d6eca49d0271b9bc19f49f5f38fd31f6782749f7139e6f05f9d840a"
+}

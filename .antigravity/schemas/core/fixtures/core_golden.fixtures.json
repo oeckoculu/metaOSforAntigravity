@@ -1,0 +1,153 @@
+{
+  "fixture_set": "core-schemas-golden",
+  "schema_version": "1.0.0",
+  "description": "Golden fixtures. Each invalid case is derived from the named valid base by deterministic mutations (set/remove at a JSON path) and MUST be rejected.",
+  "cases": [
+    {
+      "schema": "intent_contract.schema.json",
+      "valid": {
+        "schema_version": "1.0.0",
+        "intent_id": "0192f3a4-0000-7000-8000-000000000001",
+        "parent_intent_id": null,
+        "revised_hypothesis_ref": null,
+        "author": {"principal_id": "human:oeckoculu", "kind": "HUMAN"},
+        "title": "Example intent",
+        "problem_statement": "Users need X.",
+        "desired_outcomes": [{"id": "OUT-001", "statement": "X works", "measurable_criterion": "p95 < 200ms"}],
+        "non_goals": [],
+        "constraints": [],
+        "assumptions": [{"id": "ASM-001", "statement": "Single tenant", "status": "OPEN"}],
+        "archetype_profile_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "data_classification": "INTERNAL",
+        "risk_hints": {"impact": "LOW", "reversibility": "TRIVIAL", "data_sensitivity": "LOW", "security": "LOW", "cost": "LOW"},
+        "acceptance_oracles": [{"oracle_id": "ORC-001", "kind": "CONTRACT", "outcome_ids": ["OUT-001"], "contract_ref": null}],
+        "source_inputs": [{"envelope_ref": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "trust": "UNTRUSTED"}],
+        "status": "VALIDATED",
+        "content_hash": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "signatures": [{"status": "UNSIGNED", "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7"}]
+      },
+      "invalid": [
+        {"name": "missing_problem_statement", "mutate": [{"op": "remove", "path": ["problem_statement"]}]},
+        {"name": "extra_property", "mutate": [{"op": "set", "path": ["free_text_memory"], "value": "x"}]},
+        {"name": "no_outcomes", "mutate": [{"op": "set", "path": ["desired_outcomes"], "value": []}]},
+        {"name": "bad_classification", "mutate": [{"op": "set", "path": ["data_classification"], "value": "SECRET"}]},
+        {"name": "validated_without_archetype", "mutate": [{"op": "set", "path": ["archetype_profile_ref"], "value": null}]},
+        {"name": "validated_without_signature", "mutate": [{"op": "set", "path": ["signatures"], "value": []}]},
+        {"name": "bad_hash", "mutate": [{"op": "set", "path": ["content_hash"], "value": "md5:abc"}]},
+        {"name": "bool_as_int_trap", "mutate": [{"op": "set", "path": ["status"], "value": true}]}
+      ]
+    },
+    {
+      "schema": "change_proposal.schema.json",
+      "valid": {
+        "schema_version": "1.0.0",
+        "proposal_id": "0192f3a4-0000-7000-8000-000000000002",
+        "run_id": "run-0001",
+        "intent_id": "0192f3a4-0000-7000-8000-000000000001",
+        "kind": "CODE",
+        "proposer": {"principal": {"principal_id": "agent:builder-1", "kind": "AGENT"}, "agent_role": "BuilderAgent", "task_envelope_id": "0192f3a4-0000-7000-8000-000000000003", "model_snapshot_ref": "snapshot:unverified"},
+        "base": {"commit_sha": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b", "tree_sha": "7877feb1485af80f1fb89155015753397cac0f3c", "spec_lock_hash": null, "policy_bundle_version": "1.1.0"},
+        "changes": [{"path": "src/app.py", "layer": "B", "op": "ADD", "pre_image_hash": null, "post_image_hash": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd", "patch_ref": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"}],
+        "self_modification": false,
+        "rationale": "Implements OUT-001.",
+        "evidence_refs": [],
+        "risk_class_requested": "R1",
+        "rollback_plan": {"strategy": "WORKTREE_DISCARD", "steps": ["git worktree remove --force <wt>"], "verified": false, "verification_ref": null},
+        "expires_at": "2026-10-21T00:00:00Z",
+        "content_hash": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+        "signatures": [{"status": "UNSIGNED", "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7"}]
+      },
+      "invalid": [
+        {"name": "missing_rollback_plan_I09", "mutate": [{"op": "remove", "path": ["rollback_plan"]}]},
+        {"name": "empty_rollback_steps", "mutate": [{"op": "set", "path": ["rollback_plan", "steps"], "value": []}]},
+        {"name": "verified_rollback_without_ref", "mutate": [{"op": "set", "path": ["rollback_plan", "verified"], "value": true}]},
+        {"name": "admission_status_inside_proposal_I01", "mutate": [{"op": "set", "path": ["status"], "value": "ADMITTED"}]},
+        {"name": "absolute_path", "mutate": [{"op": "set", "path": ["changes", 0, "path"], "value": "/etc/passwd"}]},
+        {"name": "parent_traversal", "mutate": [{"op": "set", "path": ["changes", 0, "path"], "value": "src/../../x"}]},
+        {"name": "add_with_pre_image", "mutate": [{"op": "set", "path": ["changes", 0, "pre_image_hash"], "value": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"}]},
+        {"name": "policy_change_not_flagged_self_mod_I05", "mutate": [{"op": "set", "path": ["kind"], "value": "POLICY"}]},
+        {"name": "automated_patch_without_intent", "mutate": [{"op": "set", "path": ["kind"], "value": "AUTOMATED_PATCH"}, {"op": "set", "path": ["intent_id"], "value": null}]},
+        {"name": "unsigned_missing", "mutate": [{"op": "set", "path": ["signatures"], "value": []}]},
+        {"name": "local_time_not_utc", "mutate": [{"op": "set", "path": ["expires_at"], "value": "2026-10-21T00:00:00+02:00"}]}
+      ]
+    },
+    {
+      "schema": "task_envelope.schema.json",
+      "valid": {
+        "schema_version": "1.0.0",
+        "task_id": "0192f3a4-0000-7000-8000-000000000003",
+        "run_id": "run-0001",
+        "parent_task_id": null,
+        "agent_role": "BuilderAgent",
+        "issued_in_state": "SANDBOX_EXECUTING",
+        "objective": "Make ORC-001 green.",
+        "input_refs": [{"ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "trust": "TRUSTED_KERNEL"}],
+        "capability_token": {
+          "token_id": "0192f3a4-0000-7000-8000-000000000004",
+          "issued_at": "2026-10-20T10:00:00Z",
+          "expires_at": "2026-10-20T10:30:00Z",
+          "scopes": {"file_read": ["src/**", "tests/**", "contracts/**"], "file_write": ["src/**"], "tools": ["run_tests"], "actions": ["READ", "PROPOSE", "EXECUTE_TEST"], "egress_allowlist": []},
+          "nonce": "0123456789abcdef0123456789abcdef",
+          "issuer_signature": {"status": "UNSIGNED", "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7"}
+        },
+        "budget": {"max_tokens": 200000, "max_usd_cents": 500, "max_retries": 3, "max_wall_seconds": 1800},
+        "context_slice": {"memory_refs": [{"kind": "FailedHypothesis", "ref": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}], "exclude": []},
+        "model_route": {"provider_port": "model.host", "model_snapshot_ref": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc", "params": {"temperature_milli": 200, "seed": 7}},
+        "verifier_isolation": {"blind": false, "deny_src_write": false},
+        "output_contract": {"artifact_type": "ChangeProposal", "schema_ref": "urn:metaos:schema:core:change_proposal:1.0.0"},
+        "redaction_profile_ref": "kernel.secret_scan.v1",
+        "data_classification_ceiling": "INTERNAL"
+      },
+      "invalid": [
+        {"name": "write_layer_a_kernel_I02", "mutate": [{"op": "set", "path": ["capability_token", "scopes", "file_write"], "value": [".antigravity/policies/x.json"]}]},
+        {"name": "write_agents_dir", "mutate": [{"op": "set", "path": ["capability_token", "scopes", "file_write"], "value": [".agents/hooks.json"]}]},
+        {"name": "write_scripts_dir", "mutate": [{"op": "set", "path": ["capability_token", "scopes", "file_write"], "value": ["scripts/x.sh"]}]},
+        {"name": "write_git_dir", "mutate": [{"op": "set", "path": ["capability_token", "scopes", "file_write"], "value": [".git/config"]}]},
+        {"name": "write_leading_wildcard", "mutate": [{"op": "set", "path": ["capability_token", "scopes", "file_write"], "value": ["**"]}]},
+        {"name": "write_absolute", "mutate": [{"op": "set", "path": ["capability_token", "scopes", "file_write"], "value": ["/tmp/x"]}]},
+        {"name": "privileged_action", "mutate": [{"op": "set", "path": ["capability_token", "scopes", "actions"], "value": ["COMMIT"]}]},
+        {"name": "float_free_budget_field", "mutate": [{"op": "remove", "path": ["budget", "max_usd_cents"]}, {"op": "set", "path": ["budget", "max_usd"], "value": 5}]},
+        {"name": "unbounded_retries", "mutate": [{"op": "set", "path": ["budget", "max_retries"], "value": 1000}]},
+        {"name": "verifier_can_write_src", "mutate": [{"op": "set", "path": ["agent_role"], "value": "RedTeamVerifierAgent"}]},
+        {"name": "unknown_state", "mutate": [{"op": "set", "path": ["issued_in_state"], "value": "YOLO_MERGE"}]},
+        {"name": "free_text_memory", "mutate": [{"op": "set", "path": ["context_slice", "memory_refs", 0, "kind"], "value": "ChatSummary"}]}
+      ]
+    },
+    {
+      "schema": "event_journal_entry.schema.json",
+      "valid": {
+        "schema_version": "1.0.0",
+        "seq": 1,
+        "event_id": "0192f3a4-0000-7000-8000-000000000005",
+        "run_id": "run-0000",
+        "parent_run_id": null,
+        "ts": "2026-10-20T10:20:00Z",
+        "occurred_at": "2026-10-20T03:34:01Z",
+        "retroactive": true,
+        "event_type": "STATE_TRANSITION",
+        "actor": {"principal_id": "kernel:genesis", "kind": "KERNEL"},
+        "transition": {"from_state": "TECH_RADAR_SYNC", "to_state": "CAPABILITY_BASELINED", "guard_id": "LC-01", "suspended_from": null, "evidence_refs": [{"kind": "CapabilityManifest", "ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "path": ".antigravity/genesis/capability_manifest.json"}], "waivers": []},
+        "payload": {},
+        "reproducibility": {"source_commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b", "toolchain_digest": null, "lockfile_hash": null, "image_digest": null, "test_seed": 0, "model_snapshot": null, "policy_version": "invariants_and_states@1.1.0", "unavailable_reasons": {"toolchain_digest": "X", "lockfile_hash": "X", "image_digest": "X", "model_snapshot": "X"}},
+        "redaction": {"profile": "kernel.secret_scan.v1", "result": "CLEAN"},
+        "prev_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+        "entry_hash": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "signature": {"status": "UNSIGNED", "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7"}
+      },
+      "invalid": [
+        {"name": "negative_seq", "mutate": [{"op": "set", "path": ["seq"], "value": -1}]},
+        {"name": "retroactive_without_occurred_at", "mutate": [{"op": "set", "path": ["occurred_at"], "value": null}]},
+        {"name": "transition_event_without_transition", "mutate": [{"op": "set", "path": ["transition"], "value": null}]},
+        {"name": "non_transition_event_with_transition", "mutate": [{"op": "set", "path": ["event_type"], "value": "TEST_RUN"}]},
+        {"name": "unknown_state", "mutate": [{"op": "set", "path": ["transition", "to_state"], "value": "DONE"}]},
+        {"name": "transition_payload_smuggling", "mutate": [{"op": "set", "path": ["payload", "note"], "value": "x"}]},
+        {"name": "unknown_event_type", "mutate": [{"op": "set", "path": ["event_type"], "value": "DELETE_EVENT"}]},
+        {"name": "missing_prev_hash", "mutate": [{"op": "remove", "path": ["prev_hash"]}]},
+        {"name": "lowercase_reason_code", "mutate": [{"op": "set", "path": ["reproducibility", "unavailable_reasons", "image_digest"], "value": "no docker"}]},
+        {"name": "break_glass_unsigned_I15", "mutate": [{"op": "set", "path": ["event_type"], "value": "BREAK_GLASS_OVERRIDE"}, {"op": "set", "path": ["transition"], "value": null}, {"op": "set", "path": ["actor"], "value": {"principal_id": "human:oeckoculu", "kind": "HUMAN"}}]},
+        {"name": "genesis_bootstrap_not_seq0", "mutate": [{"op": "set", "path": ["event_type"], "value": "GENESIS_BOOTSTRAP"}, {"op": "set", "path": ["transition"], "value": null}, {"op": "set", "path": ["payload"], "value": {"proposal_id": "GBP-0000", "proposal_path": "a.json", "proposal_ref": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "decision": "APPROVED", "approval_record": {"path": "b.md", "sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "channel": "ANTIGRAVITY_CONVERSATION", "conversation_id": "9372bdb3-ed43-4d40-be8a-ed888cfe77ce", "step_index": 26}, "blueprint": {"path": "c.md", "sha256": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}, "accepted_patch_ids": ["C-1"], "substrate": "LOCAL_APFS_GIT"}}]},
+        {"name": "fake_signature_alg", "mutate": [{"op": "set", "path": ["signature"], "value": {"alg": "none", "key_id": "x", "namespace": "metaos.x", "sig": "x"}}]}
+      ]
+    }
+  ]
+}

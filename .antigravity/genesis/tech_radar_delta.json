@@ -1,0 +1,66 @@
+{
+  "document_type": "TechRadarDelta",
+  "schema_version": "1.0.0",
+  "run_id": "run-0000",
+  "capability_manifest_ref": "sha256:2ae7cbf1c222e37972b564ce5ef72b4dd31b3f505af05224f9f6375798bfc023",
+  "live_web_horizon_scan": {
+    "status": "DEFERRED_TO_ARCHETYPE_LOCK",
+    "evidence_status": "UNVERIFIED",
+    "reason": "Command sandbox has default-deny network egress; Day-0 kernel uses zero external dependencies (stdlib only)."
+  },
+  "findings": [
+    {
+      "id": "TR-0001",
+      "component": "git_vcs_substrate",
+      "source_tier": "OFFICIAL",
+      "evidence_status": "VERIFIED",
+      "current_version": "2.50.1 (Apple Git-155)",
+      "checked_at": "2026-10-20T10:14:35Z",
+      "applicability": "REQUIRED",
+      "migration_cost": "NONE",
+      "security_impact": "POSITIVE_COMMIT_ATTESTATION",
+      "expected_benefit": "Enables I-04 commit/tree provenance and I-09 isolated worktrees on local APFS.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "TR-0002",
+      "component": "python3_stdlib_kernel_runtime",
+      "source_tier": "OFFICIAL",
+      "evidence_status": "VERIFIED",
+      "current_version": "3.9.6",
+      "checked_at": "2026-10-20T10:12:53Z",
+      "applicability": "REQUIRED",
+      "migration_cost": "LOW",
+      "security_impact": "ZERO_SUPPLY_CHAIN_SURFACE",
+      "expected_benefit": "Deterministic RFC 8785 JCS, SHA-256 hash chaining, and fail-closed schema validation without third-party packages.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "TR-0003",
+      "component": "sshsig_ed25519_signing",
+      "source_tier": "OFFICIAL",
+      "evidence_status": "VERIFIED",
+      "current_version": "OpenSSH_10.2p1",
+      "checked_at": "2026-10-20T03:34:47Z",
+      "applicability": "REQUIRED",
+      "migration_cost": "LOW",
+      "security_impact": "CRYPTOGRAPHIC_HUMAN_AND_KERNEL_SIGNATURES",
+      "expected_benefit": "Replaces missing LibreSSL Ed25519 CLI support with native ssh-keygen -Y sign/verify.",
+      "confidence": "HIGH"
+    },
+    {
+      "id": "TR-0004",
+      "component": "ephemeral_container_runtime",
+      "source_tier": "OFFICIAL",
+      "evidence_status": "VERIFIED",
+      "current_version": "NONE",
+      "checked_at": "2026-10-20T03:34:27Z",
+      "applicability": "UNSUPPORTED",
+      "migration_cost": "MEDIUM",
+      "security_impact": "DEGRADED_SANDBOX_ISOLATION",
+      "expected_benefit": "Degrades gracefully to ephemeral git worktrees under /tmp + human-approved executor until container engine is installed.",
+      "confidence": "HIGH"
+    }
+  ],
+  "content_hash": "sha256:114ad1a01d5fe446bf61c391fa5e29ca78d2660a7de934ad732c23dfdfd5b0ab"
+}

@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:core:change_proposal:1.0.0",
+  "title": "ChangeProposal",
+  "description": "Immutable, signable change proposal. Admission decisions are separate journal events, never fields of the proposal (I-01). Requires an executable rollback plan (I-09). Layer A or self-modifying changes force a human gate (I-05).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "proposal_id", "run_id", "intent_id", "kind", "proposer", "base", "changes", "self_modification", "rationale", "evidence_refs", "risk_class_requested", "rollback_plan", "expires_at", "content_hash", "signatures"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "proposal_id": {"$ref": "#/$defs/Uuid"},
+    "run_id": {"$ref": "#/$defs/RunId"},
+    "intent_id": {"anyOf": [{"$ref": "#/$defs/Uuid"}, {"type": "null"}]},
+    "kind": {"enum": ["CODE", "CONTRACT", "POLICY", "TEMPLATE", "DEPENDENCY", "GENESIS_BOOTSTRAP", "BREAK_GLASS", "AUTOMATED_PATCH"]},
+    "proposer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principal", "agent_role", "task_envelope_id", "model_snapshot_ref"],
+      "properties": {
+        "principal": {"$ref": "#/$defs/Principal"},
+        "agent_role": {"type": ["string", "null"]},
+        "task_envelope_id": {"anyOf": [{"$ref": "#/$defs/Uuid"}, {"type": "null"}]},
+        "model_snapshot_ref": {"type": ["string", "null"]}
+      }
+    },
+    "base": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commit_sha", "tree_sha", "spec_lock_hash", "policy_bundle_version"],
+      "properties": {
+        "commit_sha": {"$ref": "#/$defs/CommitSha"},
+        "tree_sha": {"$ref": "#/$defs/CommitSha"},
+        "spec_lock_hash": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+        "policy_bundle_version": {"type": "string", "minLength": 1}
+      }
+    },
+    "changes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "layer", "op", "pre_image_hash", "post_image_hash", "patch_ref"],
+        "properties": {
+          "path": {"$ref": "#/$defs/RelPath"},
+          "layer": {"enum": ["A", "B"]},
+          "op": {"enum": ["ADD", "MODIFY", "DELETE", "RENAME"]},
+          "pre_image_hash": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+          "post_image_hash": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+          "patch_ref": {"$ref": "#/$defs/Hash"}
+        },
+        "allOf": [
+          {"if": {"properties": {"op": {"const": "ADD"}}, "required": ["op"], "additionalProperties": true},
+           "then": {"properties": {"pre_image_hash": {"type": "null"}, "post_image_hash": {"$ref": "#/$defs/Hash"}}, "additionalProperties": true}},
+          {"if": {"properties": {"op": {"const": "DELETE"}}, "required": ["op"], "additionalProperties": true},
+           "then": {"properties": {"pre_image_hash": {"$ref": "#/$defs/Hash"}, "post_image_hash": {"type": "null"}}, "additionalProperties": true}},
+          {"if": {"properties": {"op": {"enum": ["MODIFY", "RENAME"]}}, "required": ["op"], "additionalProperties": true},
+           "then": {"properties": {"pre_image_hash": {"$ref": "#/$defs/Hash"}, "post_image_hash": {"$ref": "#/$defs/Hash"}}, "additionalProperties": true}}
+        ]
+      }
+    },
+    "self_modification": {"type": "boolean"},
+    "rationale": {"type": "string", "minLength": 1},
+    "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/Hash"}},
+    "risk_class_requested": {"enum": ["R0", "R1", "R2", "R3", "R4"]},
+    "rollback_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["strategy", "steps", "verified", "verification_ref"],
+      "properties": {
+        "strategy": {"enum": ["WORKTREE_DISCARD", "GIT_REVERT", "COMPENSATING_ACTION", "DB_BRANCH_DROP"]},
+        "steps": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "verified": {"type": "boolean"},
+        "verification_ref": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]}
+      },
+      "allOf": [
+        {"if": {"properties": {"verified": {"const": true}}, "required": ["verified"], "additionalProperties": true},
+         "then": {"properties": {"verification_ref": {"$ref": "#/$defs/Hash"}}, "additionalProperties": true}}
+      ]
+    },
+    "expires_at": {"$ref": "#/$defs/DateTime"},
+    "content_hash": {"$ref": "#/$defs/Hash"},
+    "signatures": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/Signature"}}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"kind": {"enum": ["POLICY", "TEMPLATE", "DEPENDENCY", "GENESIS_BOOTSTRAP", "BREAK_GLASS"]}}, "required": ["kind"], "additionalProperties": true},
+      "then": {"properties": {"self_modification": {"const": true}}, "additionalProperties": true}
+    },
+    {
+      "if": {"properties": {"kind": {"const": "AUTOMATED_PATCH"}}, "required": ["kind"], "additionalProperties": true},
+      "then": {"properties": {"intent_id": {"$ref": "#/$defs/Uuid"}}, "additionalProperties": true}
+    }
+  ],
+  "$defs": {
+    "Hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "CommitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "DateTime": {"type": "string", "format": "date-time"},
+    "Uuid": {"type": "string", "format": "uuid"},
+    "RunId": {"type": "string", "pattern": "^run-[0-9]{4,}$"},
+    "RelPath": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))[^\\x00]+$"},
+    "Principal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principal_id", "kind"],
+      "properties": {
+        "principal_id": {"type": "string", "pattern": "^(human|agent|executor|kernel):[A-Za-z0-9._-]+$"},
+        "kind": {"enum": ["HUMAN", "AGENT", "EXECUTOR", "KERNEL"]},
+        "os_identity": {"type": "string", "minLength": 1}
+      }
+    },
+    "SshSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alg", "key_id", "namespace", "sig"],
+      "properties": {
+        "alg": {"const": "sshsig-ed25519"},
+        "key_id": {"type": "string", "pattern": "^SHA256:[A-Za-z0-9+/]{43}$"},
+        "namespace": {"type": "string", "pattern": "^metaos\\.[a-z.]+$"},
+        "sig": {"type": "string", "minLength": 1}
+      }
+    },
+    "Signature": {
+      "oneOf": [
+        {"$ref": "#/$defs/SshSignature"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason"],
+          "properties": {
+            "status": {"const": "UNSIGNED"},
+            "reason": {"enum": ["KEYS_NOT_PROVISIONED_UNTIL_A7"]}
+          }
+        }
+      ]
+    }
+  }
+}

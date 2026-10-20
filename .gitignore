@@ -1,0 +1,11 @@
+# Meta-OS kernel hygiene (I-12): never commit secrets or local noise
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+*.pem
+*.key
+id_ed25519
+id_rsa
+.antigravity/keys/private/

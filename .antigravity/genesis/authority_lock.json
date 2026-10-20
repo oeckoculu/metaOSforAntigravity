@@ -1,0 +1,46 @@
+{
+  "lock_type": "AuthorityLock",
+  "schema_version": "1.0.0",
+  "authority_version": "1.1.0",
+  "canonicalization": {
+    "json": "RFC 8785 JCS (kernel implementation; integers only, floats rejected)",
+    "text": "UTF-8 without BOM, LF, Unicode NFC, no trailing whitespace, single final newline"
+  },
+  "entries": [
+    {
+      "path": "SPEC_META_OS_v1.1.md",
+      "role": "HUMAN_CONSTITUTION",
+      "sha256": "sha256:c33c4d90251c336f5a0ab9811ee7f2b9fa09df7608de15f5333b66e7666db511"
+    },
+    {
+      "path": ".antigravity/schemas/invariants_and_states.json",
+      "role": "MACHINE_AUTHORITY",
+      "sha256": "sha256:48deaeffd3f64c01a7c7712b71bcc634ffd2d10585abaef93955103794cc4700",
+      "jcs_sha256": "sha256:31b412a90f423a23328701dce1be271aedb24d236acdbccf592b86fd33704b31",
+      "state_count": 29
+    }
+  ],
+  "lineage": [
+    {
+      "source": "SPEC_META_OS.md",
+      "sha256": "sha256:1e9810610ceff163ff4117f82f3a520e8c9a6381a95bd712c3f2af97504f479e",
+      "kind": "UPSTREAM_DOCX_SNAPSHOT"
+    },
+    {
+      "source": "invariants_and_states.json",
+      "sha256": "sha256:13b60d910e97d181eec5544c5bfc94077f8eb6170f17b0a8a11e9481092d66f7",
+      "kind": "UPSTREAM_DOCX_SNAPSHOT"
+    },
+    {
+      "source": "git:SPEC_META_OS_v1.1.md",
+      "sha256": "sha256:3c47de082acc7e5d5b528a74740ac48a83cf0c3cd7e1ecd776c52f801e785156",
+      "kind": "PRE_NORMALIZATION_BLOB"
+    },
+    {
+      "source": "git:.antigravity/schemas/invariants_and_states_v1.1.json.md",
+      "sha256": "sha256:9912277da3c08e3ff3e5094621bd37f2db7713b3eb230109c825b51a3dffe2ef",
+      "kind": "PRE_NORMALIZATION_BLOB"
+    }
+  ],
+  "pending": "Accepted patchset GBP-0000 (C-1..C-8, V12-01..V12-06) is NOT reflected in this v1.1.0 baseline; compiled and tested at phase A5."
+}

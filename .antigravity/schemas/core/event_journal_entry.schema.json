@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:core:event_journal_entry:1.0.0",
+  "title": "EventJournalEntry",
+  "description": "One line of an append-only, hash-chained run journal (.antigravity/events/run-<id>.jsonl). Each line is the RFC 8785 JCS serialization of the entry. entry_hash = sha256(JCS(entry without entry_hash and signature)). Invariants: I-03, I-04, I-12, I-15.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "seq", "event_id", "run_id", "parent_run_id", "ts", "occurred_at", "retroactive", "event_type", "actor", "transition", "payload", "reproducibility", "redaction", "prev_hash", "entry_hash", "signature"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "seq": {"type": "integer", "minimum": 0},
+    "event_id": {"$ref": "#/$defs/Uuid"},
+    "run_id": {"$ref": "#/$defs/RunId"},
+    "parent_run_id": {"anyOf": [{"$ref": "#/$defs/RunId"}, {"type": "null"}]},
+    "ts": {"$ref": "#/$defs/DateTime"},
+    "occurred_at": {"anyOf": [{"$ref": "#/$defs/DateTime"}, {"type": "null"}]},
+    "retroactive": {"type": "boolean"},
+    "event_type": {
+      "enum": ["GENESIS_BOOTSTRAP", "STATE_TRANSITION", "PROPOSAL_SUBMITTED", "POLICY_EVALUATED", "ADMISSION_DECISION", "TOKEN_ISSUED", "TOKEN_REVOKED", "TEST_RUN", "EVIDENCE_RECORDED", "HUMAN_DECISION", "BUDGET_BREACH", "QUARANTINE", "ADAPTER_FALLBACK", "BREAK_GLASS_OVERRIDE"]
+    },
+    "actor": {"$ref": "#/$defs/Principal"},
+    "transition": {"anyOf": [{"$ref": "#/$defs/Transition"}, {"type": "null"}]},
+    "payload": {"type": "object", "additionalProperties": true},
+    "reproducibility": {"$ref": "#/$defs/Reproducibility"},
+    "redaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile", "result"],
+      "properties": {
+        "profile": {"type": "string", "minLength": 1},
+        "result": {"enum": ["CLEAN", "REDACTED"]}
+      }
+    },
+    "prev_hash": {"$ref": "#/$defs/Hash"},
+    "entry_hash": {"$ref": "#/$defs/Hash"},
+    "signature": {"$ref": "#/$defs/Signature"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"retroactive": {"const": true}}, "required": ["retroactive"], "additionalProperties": true},
+      "then": {"properties": {"occurred_at": {"$ref": "#/$defs/DateTime"}}, "additionalProperties": true}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "STATE_TRANSITION"}}, "required": ["event_type"], "additionalProperties": true},
+      "then": {"properties": {"transition": {"$ref": "#/$defs/Transition"}}, "additionalProperties": true},
+      "else": {"properties": {"transition": {"type": "null"}}, "additionalProperties": true}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "GENESIS_BOOTSTRAP"}}, "required": ["event_type"], "additionalProperties": true},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/GenesisBootstrapPayload"}, "seq": {"const": 0}}, "additionalProperties": true}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "EVIDENCE_RECORDED"}}, "required": ["event_type"], "additionalProperties": true},
+      "then": {"properties": {"payload": {"$ref": "#/$defs/EvidenceRecordedPayload"}}, "additionalProperties": true}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "STATE_TRANSITION"}}, "required": ["event_type"], "additionalProperties": true},
+      "then": {"properties": {"payload": {"type": "object", "additionalProperties": false, "properties": {}}}, "additionalProperties": true}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "BREAK_GLASS_OVERRIDE"}}, "required": ["event_type"], "additionalProperties": true},
+      "then": {"properties": {"signature": {"$ref": "#/$defs/SshSignature"}, "actor": {"properties": {"kind": {"const": "HUMAN"}}, "additionalProperties": true}}, "additionalProperties": true}
+    }
+  ],
+  "$defs": {
+    "Hash": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "CommitSha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "DateTime": {"type": "string", "format": "date-time"},
+    "Uuid": {"type": "string", "format": "uuid"},
+    "RunId": {"type": "string", "pattern": "^run-[0-9]{4,}$"},
+    "RelPath": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(^|/)\\.\\.(/|$))[^\\x00]+$"},
+    "Principal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principal_id", "kind"],
+      "properties": {
+        "principal_id": {"type": "string", "pattern": "^(human|agent|executor|kernel):[A-Za-z0-9._-]+$"},
+        "kind": {"enum": ["HUMAN", "AGENT", "EXECUTOR", "KERNEL"]},
+        "os_identity": {"type": "string", "minLength": 1}
+      }
+    },
+    "State": {
+      "enum": ["TECH_RADAR_SYNC", "CAPABILITY_BASELINED", "GENESIS_MORPHING", "GENESIS_LOCKED", "INTENT_CAPTURED", "RISK_CLASSIFIED", "HANDSHAKE_PENDING", "CONTRACT_DRAFTING", "CONTRACT_REVIEWED", "CONTRACT_LOCKED", "TESTS_ARMED_RED", "CHANGE_ADMITTED", "SANDBOX_EXECUTING", "WORKTREE_GREEN", "SECURITY_VERIFIED", "MUTATION_VERIFIED", "PERFORMANCE_VERIFIED", "PROOF_ASSEMBLED", "HUMAN_AUDIT_REQUIRED", "READY_TO_MERGE", "MERGED", "POST_DEPLOY_OBSERVING", "CLOSED", "BLOCKED_POLICY", "BUDGET_EXHAUSTED", "EVIDENCE_INCOMPLETE", "ROLLED_BACK", "QUARANTINED", "BREAK_GLASS_ACTIVE"]
+    },
+    "SshSignature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alg", "key_id", "namespace", "sig"],
+      "properties": {
+        "alg": {"const": "sshsig-ed25519"},
+        "key_id": {"type": "string", "pattern": "^SHA256:[A-Za-z0-9+/]{43}$"},
+        "namespace": {"type": "string", "pattern": "^metaos\\.[a-z.]+$"},
+        "sig": {"type": "string", "minLength": 1}
+      }
+    },
+    "Signature": {
+      "oneOf": [
+        {"$ref": "#/$defs/SshSignature"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason"],
+          "properties": {
+            "status": {"const": "UNSIGNED"},
+            "reason": {"enum": ["KEYS_NOT_PROVISIONED_UNTIL_A7"]}
+          }
+        }
+      ]
+    },
+    "Reproducibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_commit", "toolchain_digest", "lockfile_hash", "image_digest", "test_seed", "model_snapshot", "policy_version", "unavailable_reasons"],
+      "properties": {
+        "source_commit": {"anyOf": [{"$ref": "#/$defs/CommitSha"}, {"type": "null"}]},
+        "toolchain_digest": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+        "lockfile_hash": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+        "image_digest": {"anyOf": [{"$ref": "#/$defs/Hash"}, {"type": "null"}]},
+        "test_seed": {"type": ["integer", "null"]},
+        "model_snapshot": {"type": ["string", "null"]},
+        "policy_version": {"type": "string", "minLength": 1},
+        "unavailable_reasons": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[A-Z0-9_]+$"}}
+      }
+    },
+    "EvidenceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "ref"],
+      "properties": {
+        "kind": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9]+$"},
+        "ref": {"$ref": "#/$defs/Hash"},
+        "path": {"$ref": "#/$defs/RelPath"}
+      }
+    },
+    "Waiver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence", "reason", "approved_by_ref", "follow_up"],
+      "properties": {
+        "evidence": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9]+$"},
+        "reason": {"type": "string", "minLength": 1},
+        "approved_by_ref": {"$ref": "#/$defs/Hash"},
+        "follow_up": {"type": "string", "minLength": 1}
+      }
+    },
+    "Transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from_state", "to_state", "guard_id", "suspended_from", "evidence_refs", "waivers"],
+      "properties": {
+        "from_state": {"$ref": "#/$defs/State"},
+        "to_state": {"$ref": "#/$defs/State"},
+        "guard_id": {"type": ["string", "null"]},
+        "suspended_from": {"anyOf": [{"$ref": "#/$defs/State"}, {"type": "null"}]},
+        "evidence_refs": {"type": "array", "items": {"$ref": "#/$defs/EvidenceRef"}},
+        "waivers": {"type": "array", "items": {"$ref": "#/$defs/Waiver"}}
+      }
+    },
+    "GenesisBootstrapPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["proposal_id", "proposal_path", "proposal_ref", "decision", "approval_record", "blueprint", "accepted_patch_ids", "substrate"],
+      "properties": {
+        "proposal_id": {"type": "string", "pattern": "^GBP-[0-9]{4}$"},
+        "proposal_path": {"$ref": "#/$defs/RelPath"},
+        "proposal_ref": {"$ref": "#/$defs/Hash"},
+        "decision": {"enum": ["APPROVED"]},
+        "approval_record": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "channel", "conversation_id", "step_index"],
+          "properties": {
+            "path": {"$ref": "#/$defs/RelPath"},
+            "sha256": {"$ref": "#/$defs/Hash"},
+            "channel": {"enum": ["ANTIGRAVITY_CONVERSATION"]},
+            "conversation_id": {"$ref": "#/$defs/Uuid"},
+            "step_index": {"type": "integer", "minimum": 0}
+          }
+        },
+        "blueprint": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256"],
+          "properties": {"path": {"$ref": "#/$defs/RelPath"}, "sha256": {"$ref": "#/$defs/Hash"}}
+        },
+        "accepted_patch_ids": {"type": "array", "uniqueItems": true, "minItems": 1, "items": {"type": "string", "pattern": "^(C-[0-9]+|V12-[0-9]{2})$"}},
+        "substrate": {"enum": ["LOCAL_APFS_GIT"]}
+      }
+    },
+    "EvidenceRecordedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["phase", "receipt_path", "receipt_hash", "status"],
+      "properties": {
+        "phase": {"type": "string", "pattern": "^A[0-9]$"},
+        "receipt_path": {"$ref": "#/$defs/RelPath"},
+        "receipt_hash": {"$ref": "#/$defs/Hash"},
+        "status": {"enum": ["PASS"]}
+      }
+    }
+  }
+}

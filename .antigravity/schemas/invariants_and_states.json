@@ -1,0 +1,379 @@
+{
+  "title": "Meta-OS Deterministic Invariants and State Machine Specification",
+  "version": "1.1.0",
+  "description": "Authoritative machine-readable matrices for architectural invariants, sequential lifecycle transitions, and patched recovery loopbacks.",
+  "invariants": [
+    {
+      "id": "I-01",
+      "rule_name": "Proposal/Admission/Commit Separation",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Policy Engine & Privileged Executor",
+      "description": "LLM or agents only produce signable ChangeProposal. Policy Engine evaluates admission. Privileged Executor applies admitted proposal. Day-0 bootstrap exception: GenesisBootstrapProposal is user-signed."
+    },
+    {
+      "id": "I-02",
+      "rule_name": "Least Privilege",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Capability/Lease Manager",
+      "description": "Each agent receives short-lived capability tokens strictly bounded by task ID, time, file scope, tool scope, and action type."
+    },
+    {
+      "id": "I-03",
+      "rule_name": "Append-Only Evidence",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Event Journal & State Projector",
+      "description": "Events, policy evaluations, test runs, and approvals write solely to append-only journals. Mutable views are regenerated via replay."
+    },
+    {
+      "id": "I-04",
+      "rule_name": "Reproducibility",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Provenance & Attestation Registry",
+      "description": "No evidence is valid without source commit SHA, toolchain digest, lockfile hash, container image digest, test seed, and policy version."
+    },
+    {
+      "id": "I-05",
+      "rule_name": "No Silent Self-Modification",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Admission Controller & PDP",
+      "description": "The system cannot mutate its own prompt, policies, dependencies, model routing, or template without an explicit PR proposal with rationale and diff."
+    },
+    {
+      "id": "I-06",
+      "rule_name": "Risk-Based Human Gates & Gate Scheduling",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Risk Profile & Gate Scheduler",
+      "description": "Frequency and depth of heavy validation gates (mutation, deep perf, human approvals) are scheduled dynamically by risk_class."
+    },
+    {
+      "id": "I-07",
+      "rule_name": "Machine Authority, Human Projection",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Contract Registry & Deterministic Projections",
+      "description": "Machine authority belongs solely to schemas, policies, and tests. Human docs (Markdown, Confluence, Mermaid) are deterministically generated projections."
+    },
+    {
+      "id": "I-08",
+      "rule_name": "Fail Closed",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Policy Decision Point (PDP)",
+      "description": "If capabilities, permissions, provenance, or policy outcomes are ambiguous, the protected action is rejected immediately."
+    },
+    {
+      "id": "I-09",
+      "rule_name": "Reversible by Default",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Ephemeral Sandbox & Git Worktree",
+      "description": "Changes run inside ephemeral environments or worktrees. Any proposal lacking an executable rollback/compensation plan is rejected."
+    },
+    {
+      "id": "I-10",
+      "rule_name": "Evidence Before Claim",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "EvidenceAssemblerAgent",
+      "description": "Claims of security, verified status, or performance can only be asserted if backed by signed proof receipts."
+    },
+    {
+      "id": "I-11",
+      "rule_name": "No Vendor Lock-In at Core & Deterministic Fallback",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Integration Ports & Local Outbox Adapters",
+      "description": "External providers connect strictly through decoupled adapter interfaces. When remote adapters (Jira/Confluence) are unreachable, deterministic local file/Git outbox fallback activates automatically."
+    },
+    {
+      "id": "I-12",
+      "rule_name": "Privacy and Secret Safety",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Secret Broker & Redaction Policy",
+      "description": "Secrets, PII, and classified data are scrubbed before prompt submission, telemetry logging, or human-facing projection."
+    },
+    {
+      "id": "I-13",
+      "rule_name": "Polymorphic Adaptability",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "GenesisAgent & Topology Synthesizer",
+      "description": "Core kernel maintains zero language coupling. Domain and language setups bind dynamically via ProjectArchetypeProfile on Day-0."
+    },
+    {
+      "id": "I-14",
+      "rule_name": "Untrusted Input & Prompt Injection Isolation",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "UntrustedContentEnvelope & Sanitizer",
+      "description": "External inputs are encapsulated and sanitized; never executed directly as raw instructions."
+    },
+    {
+      "id": "I-15",
+      "rule_name": "Audited Break-Glass",
+      "requirement_level": "REQUIRED",
+      "enforcement_gatekeeper": "Break-Glass Controller & Event Journal",
+      "description": "Deterministic emergency override procedure requiring cryptographic human signature and audited BREAK_GLASS_OVERRIDE journal entry."
+    }
+  ],
+  "state_machine": {
+    "initial_state": "TECH_RADAR_SYNC",
+    "terminal_states": [
+      "CLOSED",
+      "BREAK_GLASS_ACTIVE"
+    ],
+    "lifecycle_transitions": [
+      {
+        "current_state": "TECH_RADAR_SYNC",
+        "allowed_next_states": [
+          "CAPABILITY_BASELINED"
+        ],
+        "required_evidence": "TechRadarDelta & CapabilityManifest",
+        "actor": "CapabilityDiscoveryAgent & TechRadarAgent"
+      },
+      {
+        "current_state": "CAPABILITY_BASELINED",
+        "allowed_next_states": [
+          "GENESIS_MORPHING"
+        ],
+        "required_evidence": "ValidatedEnvironmentProfile",
+        "actor": "GenesisAgent"
+      },
+      {
+        "current_state": "GENESIS_MORPHING",
+        "allowed_next_states": [
+          "GENESIS_LOCKED"
+        ],
+        "required_evidence": "UserApprovedProfile",
+        "actor": "GenesisAgent & HumanInteractionPort"
+      },
+      {
+        "current_state": "GENESIS_LOCKED",
+        "allowed_next_states": [
+          "INTENT_CAPTURED"
+        ],
+        "required_evidence": "InitializedWorkspace & ValidatedIntentContract",
+        "actor": "Privileged Executor & IntentCompilerAgent"
+      },
+      {
+        "current_state": "INTENT_CAPTURED",
+        "allowed_next_states": [
+          "RISK_CLASSIFIED"
+        ],
+        "required_evidence": "RiskClassAssignment & GateSchedule",
+        "actor": "Risk Profile & Gate Scheduler"
+      },
+      {
+        "current_state": "RISK_CLASSIFIED",
+        "allowed_next_states": [
+          "HANDSHAKE_PENDING",
+          "CONTRACT_DRAFTING"
+        ],
+        "required_evidence": "CounterfactualHandshakeResult or ContractDraft",
+        "actor": "IntentCompilerAgent & ContractAgent"
+      },
+      {
+        "current_state": "HANDSHAKE_PENDING",
+        "allowed_next_states": [
+          "CONTRACT_DRAFTING"
+        ],
+        "required_evidence": "HumanApprovalReceipt",
+        "actor": "HumanInteractionPort & ContractAgent"
+      },
+      {
+        "current_state": "CONTRACT_DRAFTING",
+        "allowed_next_states": [
+          "CONTRACT_REVIEWED"
+        ],
+        "required_evidence": "ThreatModelReport & ContractDiff",
+        "actor": "ThreatModelAgent & ContractAgent"
+      },
+      {
+        "current_state": "CONTRACT_REVIEWED",
+        "allowed_next_states": [
+          "CONTRACT_LOCKED"
+        ],
+        "required_evidence": "CanonicalSpecLockFile",
+        "actor": "ContractAgent & Policy Engine"
+      },
+      {
+        "current_state": "CONTRACT_LOCKED",
+        "allowed_next_states": [
+          "TESTS_ARMED_RED"
+        ],
+        "required_evidence": "PropertyBasedTestSet & GoldenCases",
+        "actor": "BuilderAgent & RedTeamVerifierAgent"
+      },
+      {
+        "current_state": "TESTS_ARMED_RED",
+        "allowed_next_states": [
+          "CHANGE_ADMITTED"
+        ],
+        "required_evidence": "AdmissionPolicyPassReceipt(RedExecutionVerified_NonZeroExit)",
+        "actor": "Admission Controller & PDP"
+      },
+      {
+        "current_state": "CHANGE_ADMITTED",
+        "allowed_next_states": [
+          "SANDBOX_EXECUTING"
+        ],
+        "required_evidence": "EphemeralSandboxAllocation",
+        "actor": "Privileged Executor"
+      },
+      {
+        "current_state": "SANDBOX_EXECUTING",
+        "allowed_next_states": [
+          "WORKTREE_GREEN"
+        ],
+        "required_evidence": "IsolatedWorktreeBuildSuccess",
+        "actor": "BuilderAgent"
+      },
+      {
+        "current_state": "WORKTREE_GREEN",
+        "allowed_next_states": [
+          "SECURITY_VERIFIED"
+        ],
+        "required_evidence": "SAST/DAST/Secret/SBOMScanPass",
+        "actor": "ThreatModelAgent & RedTeamVerifierAgent"
+      },
+      {
+        "current_state": "SECURITY_VERIFIED",
+        "allowed_next_states": [
+          "MUTATION_VERIFIED"
+        ],
+        "required_evidence": "MutationScorePass & Non-SurvivingInvariants",
+        "actor": "RedTeamVerifierAgent"
+      },
+      {
+        "current_state": "MUTATION_VERIFIED",
+        "allowed_next_states": [
+          "PERFORMANCE_VERIFIED"
+        ],
+        "required_evidence": "OTelBaselinePass & QueryCountCheck",
+        "actor": "PerformanceAgent"
+      },
+      {
+        "current_state": "PERFORMANCE_VERIFIED",
+        "allowed_next_states": [
+          "PROOF_ASSEMBLED"
+        ],
+        "required_evidence": "CompleteProofReceiptPackage",
+        "actor": "EvidenceAssemblerAgent"
+      },
+      {
+        "current_state": "PROOF_ASSEMBLED",
+        "allowed_next_states": [
+          "HUMAN_AUDIT_REQUIRED",
+          "READY_TO_MERGE"
+        ],
+        "required_evidence": "HumanAuditVerdict or AutomatedGatePass",
+        "actor": "HumanInteractionPort & Admission Controller"
+      },
+      {
+        "current_state": "HUMAN_AUDIT_REQUIRED",
+        "allowed_next_states": [
+          "READY_TO_MERGE",
+          "INTENT_CAPTURED"
+        ],
+        "required_evidence": "HumanApprovalToken or RejectionRationale",
+        "actor": "HumanInteractionPort"
+      },
+      {
+        "current_state": "READY_TO_MERGE",
+        "allowed_next_states": [
+          "MERGED"
+        ],
+        "required_evidence": "GitMergeSuccess & AppendOnlyEventRecord",
+        "actor": "Privileged Executor & Event Journal"
+      },
+      {
+        "current_state": "MERGED",
+        "allowed_next_states": [
+          "POST_DEPLOY_OBSERVING"
+        ],
+        "required_evidence": "CanaryDeploymentTelemetry",
+        "actor": "PerformanceAgent & DriftHealerAgent"
+      },
+      {
+        "current_state": "POST_DEPLOY_OBSERVING",
+        "allowed_next_states": [
+          "CLOSED"
+        ],
+        "required_evidence": "StabilityReceipt & FinalStateLock",
+        "actor": "EvidenceAssemblerAgent"
+      }
+    ],
+    "exception_and_circuit_breaker_transitions": [
+      {
+        "from_state": "ANY_ACTIVE_STATE",
+        "to_state": "BLOCKED_POLICY",
+        "trigger": "Policy violation or unadmitted capability call",
+        "required_evidence": "PolicyViolationRecord",
+        "actor": "Policy Engine"
+      },
+      {
+        "from_state": "BLOCKED_POLICY",
+        "to_state": "HUMAN_AUDIT_REQUIRED",
+        "trigger": "Policy exemption request or rule clarification",
+        "required_evidence": "PolicyExemptionReviewPacket",
+        "actor": "HumanInteractionPort & PDP"
+      },
+      {
+        "from_state": "ANY_ACTIVE_STATE",
+        "to_state": "BUDGET_EXHAUSTED",
+        "trigger": "Token, USD cost, or retry ceiling breached",
+        "required_evidence": "BudgetBreachRecord",
+        "actor": "Circuit Breaker"
+      },
+      {
+        "from_state": "BUDGET_EXHAUSTED",
+        "to_state": "HUMAN_AUDIT_REQUIRED",
+        "trigger": "Human budget increment or task scope reduction",
+        "required_evidence": "BudgetIncrementAuthorization",
+        "actor": "HumanInteractionPort"
+      },
+      {
+        "from_state": "ANY_ACTIVE_STATE",
+        "to_state": "EVIDENCE_INCOMPLETE",
+        "trigger": "Missing required attestation, hash, or audit receipt",
+        "required_evidence": "MissingEvidenceAuditReport",
+        "actor": "Admission Controller"
+      },
+      {
+        "from_state": "EVIDENCE_INCOMPLETE",
+        "to_state": "SANDBOX_EXECUTING",
+        "trigger": "Targeted evidence generation remediation task",
+        "required_evidence": "RemediationTaskEnvelope",
+        "actor": "BuilderAgent & Admission Controller"
+      },
+      {
+        "from_state": "ANY_ACTIVE_STATE",
+        "to_state": "ROLLED_BACK",
+        "trigger": "Worktree test failure, assertion fault, or sandbox crash",
+        "required_evidence": "FailureRecord & WorktreeCleanupReceipt",
+        "actor": "Privileged Executor"
+      },
+      {
+        "from_state": "ROLLED_BACK",
+        "to_state": "INTENT_CAPTURED",
+        "trigger": "Alternative hypothesis revision after failed proposal",
+        "required_evidence": "RevisedHypothesisRecord",
+        "actor": "IntentCompilerAgent"
+      },
+      {
+        "from_state": "ANY_ACTIVE_STATE",
+        "to_state": "QUARANTINED",
+        "trigger": "Prompt injection attempt, untrusted input breach, or malicious payload",
+        "required_evidence": "SecurityAnomalyReport",
+        "actor": "ThreatModelAgent"
+      },
+      {
+        "from_state": "QUARANTINED",
+        "to_state": "HUMAN_AUDIT_REQUIRED",
+        "trigger": "Security review and sanitation audit",
+        "required_evidence": "SanitizedAuditAttestation",
+        "actor": "HumanInteractionPort & ThreatModelAgent"
+      },
+      {
+        "from_state": "ANY_ACTIVE_STATE",
+        "to_state": "BREAK_GLASS_ACTIVE",
+        "trigger": "Emergency human intervention override",
+        "required_evidence": "CryptographicallySignedBreakGlassOverrideEvent",
+        "actor": "Break-Glass Controller"
+      }
+    ]
+  }
+}

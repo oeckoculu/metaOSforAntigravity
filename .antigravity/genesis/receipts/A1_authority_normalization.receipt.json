@@ -1,0 +1,140 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A1",
+  "name": "authority_normalization",
+  "status": "PASS",
+  "generated_at": "2026-10-20T19:42:01Z",
+  "input": {
+    "commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "tree": "7877feb1485af80f1fb89155015753397cac0f3c"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:699b0590ae9750bf2f840182ad17cb67505051c0f87c2a998ecca48a620ebefc"
+  },
+  "reproducibility": {
+    "source_commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A1-C01",
+      "description": "Input authority files exist at base paths",
+      "result": "PASS",
+      "detail": {
+        "spec": "SPEC_META_OS_v1.1.md",
+        "json_source": ".antigravity/schemas/invariants_and_states_v1.1.json.md",
+        "json_target_absent": true
+      }
+    },
+    {
+      "id": "A1-C02",
+      "description": "Inputs decode as strict UTF-8",
+      "result": "PASS",
+      "detail": {
+        "input_sha256": {
+          "SPEC_META_OS_v1.1.md": "sha256:3c47de082acc7e5d5b528a74740ac48a83cf0c3cd7e1ecd776c52f801e785156",
+          ".antigravity/schemas/invariants_and_states_v1.1.json.md": "sha256:9912277da3c08e3ff3e5094621bd37f2db7713b3eb230109c825b51a3dffe2ef"
+        }
+      }
+    },
+    {
+      "id": "A1-C03",
+      "description": "Trailing-whitespace removal in spec is rendering-neutral (all hard breaks end a block)",
+      "result": "PASS",
+      "detail": {
+        "trailing_whitespace_lines": 80,
+        "offending_lines": []
+      }
+    },
+    {
+      "id": "A1-C04",
+      "description": "Spec canonical text form is idempotent",
+      "result": "PASS"
+    },
+    {
+      "id": "A1-C05",
+      "description": "Spec letter content unchanged by normalization",
+      "result": "PASS",
+      "detail": {
+        "letters": 13108
+      }
+    },
+    {
+      "id": "A1-C06",
+      "description": "JSON source: only Markdown-export escapes \\[ \\] \\_ removed; no unknown escapes",
+      "result": "PASS",
+      "detail": {
+        "removed_markdown_escapes": {
+          "[": 26,
+          "]": 26,
+          "_": 266
+        }
+      }
+    },
+    {
+      "id": "A1-C07",
+      "description": "JSON strict parse (no duplicate keys, no floats, no NaN/Infinity)",
+      "result": "PASS"
+    },
+    {
+      "id": "A1-C08",
+      "description": "Authority structure: v1.1.0, I-01..I-15 REQUIRED, well-formed state machine",
+      "result": "PASS",
+      "detail": {
+        "problems": [],
+        "state_count": 29
+      }
+    },
+    {
+      "id": "A1-C09",
+      "description": "JSON pretty form is idempotent and round-trips to identical JCS",
+      "result": "PASS"
+    },
+    {
+      "id": "A1-C10",
+      "description": "Normalized JSON is semantically identical (JCS) to text extracted from the original .docx",
+      "result": "PASS",
+      "detail": {
+        "lineage_file_sha256": "sha256:5b0b327e0c3c6f8afa7fb55cb49a8d33bbae7ce2d4f6d35f14314cb13154a26d",
+        "jcs_equal": true
+      }
+    },
+    {
+      "id": "A1-C11",
+      "description": "Spec letter content identical to text extracted from the original .docx",
+      "result": "PASS",
+      "detail": {
+        "lineage_file_sha256": "sha256:a3fb7035a44a1eed3221dda8b053ddb886b4a89899643375f6a2ac2476bf4c67"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/genesis/authority_lock.json",
+      "sha256": "sha256:5fdf784a85f3d22bd804f5244629462655d9462763d92e4c2fd6ae3f920dafbe"
+    },
+    {
+      "path": ".antigravity/schemas/invariants_and_states.json",
+      "sha256": "sha256:48deaeffd3f64c01a7c7712b71bcc634ffd2d10585abaef93955103794cc4700",
+      "jcs_sha256": "sha256:31b412a90f423a23328701dce1be271aedb24d236acdbccf592b86fd33704b31"
+    },
+    {
+      "path": "SPEC_META_OS_v1.1.md",
+      "sha256": "sha256:c33c4d90251c336f5a0ab9811ee7f2b9fa09df7608de15f5333b66e7666db511"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:669cab368a6a449846bd3e5afcb544da6ae6ff62e063f794c174c4693570462e"
+}

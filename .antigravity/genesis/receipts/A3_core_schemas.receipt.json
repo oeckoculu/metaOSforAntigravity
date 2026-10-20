@@ -1,0 +1,344 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "A3",
+  "name": "core_schemas",
+  "status": "PASS",
+  "generated_at": "2026-10-20T19:42:01Z",
+  "input": {
+    "commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "tree": "7877feb1485af80f1fb89155015753397cac0f3c"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:699b0590ae9750bf2f840182ad17cb67505051c0f87c2a998ecca48a620ebefc"
+  },
+  "reproducibility": {
+    "source_commit": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "A3-C01",
+      "description": "All four core schemas parse strictly",
+      "result": "PASS",
+      "detail": {
+        "errors": {}
+      }
+    },
+    {
+      "id": "A3-C02",
+      "description": "Schemas pass fail-closed lint (supported keywords only, closed objects, resolvable refs)",
+      "result": "PASS",
+      "detail": {
+        "problems": {
+          "intent_contract.schema.json": [],
+          "change_proposal.schema.json": [],
+          "task_envelope.schema.json": [],
+          "event_journal_entry.schema.json": []
+        }
+      }
+    },
+    {
+      "id": "A3-C03",
+      "description": "Schema $id values are unique URNs",
+      "result": "PASS",
+      "detail": {
+        "ids": [
+          "urn:metaos:schema:core:change_proposal:1.0.0",
+          "urn:metaos:schema:core:event_journal_entry:1.0.0",
+          "urn:metaos:schema:core:intent_contract:1.0.0",
+          "urn:metaos:schema:core:task_envelope:1.0.0"
+        ]
+      }
+    },
+    {
+      "id": "A3-C04",
+      "description": "Shared $defs are byte-identical (JCS) across schemas (no definition drift)",
+      "result": "PASS",
+      "detail": {
+        "drifted": [],
+        "shared_defs": [
+          "CommitSha",
+          "DateTime",
+          "EvidenceRecordedPayload",
+          "EvidenceRef",
+          "GenesisBootstrapPayload",
+          "Hash",
+          "Principal",
+          "RelPath",
+          "Reproducibility",
+          "RunId",
+          "ScopeGlob",
+          "Signature",
+          "SshSignature",
+          "State",
+          "Transition",
+          "Uuid",
+          "Waiver",
+          "WriteScopeGlob"
+        ]
+      }
+    },
+    {
+      "id": "A3-C05",
+      "description": "State enums equal the state set derived from machine authority",
+      "result": "PASS",
+      "detail": {
+        "authority_state_count": 29,
+        "schemas_with_state_enum": [
+          "event_journal_entry.schema.json",
+          "task_envelope.schema.json"
+        ]
+      }
+    },
+    {
+      "id": "A3-C06",
+      "description": "Golden fixtures: every valid base accepted, every mutated invalid case rejected",
+      "result": "PASS",
+      "detail": {
+        "cases": [
+          {
+            "schema": "intent_contract.schema.json",
+            "valid_base_accepted": true,
+            "invalid": [
+              {
+                "name": "missing_problem_statement",
+                "rejected": true
+              },
+              {
+                "name": "extra_property",
+                "rejected": true
+              },
+              {
+                "name": "no_outcomes",
+                "rejected": true
+              },
+              {
+                "name": "bad_classification",
+                "rejected": true
+              },
+              {
+                "name": "validated_without_archetype",
+                "rejected": true
+              },
+              {
+                "name": "validated_without_signature",
+                "rejected": true
+              },
+              {
+                "name": "bad_hash",
+                "rejected": true
+              },
+              {
+                "name": "bool_as_int_trap",
+                "rejected": true
+              }
+            ]
+          },
+          {
+            "schema": "change_proposal.schema.json",
+            "valid_base_accepted": true,
+            "invalid": [
+              {
+                "name": "missing_rollback_plan_I09",
+                "rejected": true
+              },
+              {
+                "name": "empty_rollback_steps",
+                "rejected": true
+              },
+              {
+                "name": "verified_rollback_without_ref",
+                "rejected": true
+              },
+              {
+                "name": "admission_status_inside_proposal_I01",
+                "rejected": true
+              },
+              {
+                "name": "absolute_path",
+                "rejected": true
+              },
+              {
+                "name": "parent_traversal",
+                "rejected": true
+              },
+              {
+                "name": "add_with_pre_image",
+                "rejected": true
+              },
+              {
+                "name": "policy_change_not_flagged_self_mod_I05",
+                "rejected": true
+              },
+              {
+                "name": "automated_patch_without_intent",
+                "rejected": true
+              },
+              {
+                "name": "unsigned_missing",
+                "rejected": true
+              },
+              {
+                "name": "local_time_not_utc",
+                "rejected": true
+              }
+            ]
+          },
+          {
+            "schema": "task_envelope.schema.json",
+            "valid_base_accepted": true,
+            "invalid": [
+              {
+                "name": "write_layer_a_kernel_I02",
+                "rejected": true
+              },
+              {
+                "name": "write_agents_dir",
+                "rejected": true
+              },
+              {
+                "name": "write_scripts_dir",
+                "rejected": true
+              },
+              {
+                "name": "write_git_dir",
+                "rejected": true
+              },
+              {
+                "name": "write_leading_wildcard",
+                "rejected": true
+              },
+              {
+                "name": "write_absolute",
+                "rejected": true
+              },
+              {
+                "name": "privileged_action",
+                "rejected": true
+              },
+              {
+                "name": "float_free_budget_field",
+                "rejected": true
+              },
+              {
+                "name": "unbounded_retries",
+                "rejected": true
+              },
+              {
+                "name": "verifier_can_write_src",
+                "rejected": true
+              },
+              {
+                "name": "unknown_state",
+                "rejected": true
+              },
+              {
+                "name": "free_text_memory",
+                "rejected": true
+              }
+            ]
+          },
+          {
+            "schema": "event_journal_entry.schema.json",
+            "valid_base_accepted": true,
+            "invalid": [
+              {
+                "name": "negative_seq",
+                "rejected": true
+              },
+              {
+                "name": "retroactive_without_occurred_at",
+                "rejected": true
+              },
+              {
+                "name": "transition_event_without_transition",
+                "rejected": true
+              },
+              {
+                "name": "non_transition_event_with_transition",
+                "rejected": true
+              },
+              {
+                "name": "unknown_state",
+                "rejected": true
+              },
+              {
+                "name": "transition_payload_smuggling",
+                "rejected": true
+              },
+              {
+                "name": "unknown_event_type",
+                "rejected": true
+              },
+              {
+                "name": "missing_prev_hash",
+                "rejected": true
+              },
+              {
+                "name": "lowercase_reason_code",
+                "rejected": true
+              },
+              {
+                "name": "break_glass_unsigned_I15",
+                "rejected": true
+              },
+              {
+                "name": "genesis_bootstrap_not_seq0",
+                "rejected": true
+              },
+              {
+                "name": "fake_signature_alg",
+                "rejected": true
+              }
+            ]
+          }
+        ],
+        "invalid_total": 43
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/schemas/core/change_proposal.schema.json",
+      "sha256": "sha256:9f474d4814f739e219f39d93c405033d1ce013b56ac354dd1e8978be52ba4ed5",
+      "jcs_sha256": "sha256:cf67476ad63f29438be1a0f4ed3a919230773b4a3830a35c38868b568e05d2c7"
+    },
+    {
+      "path": ".antigravity/schemas/core/event_journal_entry.schema.json",
+      "sha256": "sha256:11078c46f22c5b2259364f17883229df56f999119d446a496306023813e34f43",
+      "jcs_sha256": "sha256:260dfe735135dca67931e435aaa95746cdb650c228eacf6f6636ccc69c788327"
+    },
+    {
+      "path": ".antigravity/schemas/core/fixtures/core_golden.fixtures.json",
+      "sha256": "sha256:67ea82d25d941ace50c99c60e1fa0511d1cdaa956e7ee9b70891820747a56a8c"
+    },
+    {
+      "path": ".antigravity/schemas/core/intent_contract.schema.json",
+      "sha256": "sha256:03904074e3d6e768525dd341c8b68d9849b0ad0034af2a5703a4191538594b3d",
+      "jcs_sha256": "sha256:98031b683da13d34fe3cd1f092b763335cb6287ba50b70ef22b8f034ca89daf4"
+    },
+    {
+      "path": ".antigravity/schemas/core/registry.json",
+      "sha256": "sha256:36c2d1d8e93dfd89860a2354f7cc8a263f8fefacf4b9e07aab55105ce7438212"
+    },
+    {
+      "path": ".antigravity/schemas/core/task_envelope.schema.json",
+      "sha256": "sha256:7182a5e15cffd2b40c8a78db71387186b2246dae343f3f90c3397e293ce686eb",
+      "jcs_sha256": "sha256:975967e4cf3218adcc75e9bfe27575ab77984c46a9c0136dc6931f5598f6371c"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:d84a2daae9d4767b1ad9c257aa16831c32685ff80bdd81a320743b4ae2302633"
+}

@@ -1,0 +1,99 @@
+{
+  "manifest_type": "CapabilityManifest",
+  "schema_version": "1.0.0",
+  "substrate": "LOCAL_APFS_GIT",
+  "toolchain": {
+    "os": "Darwin 26.5.2",
+    "arch": "arm64",
+    "python": {
+      "version": "3.9.6",
+      "executable_sha256": "sha256:bdea59019a38eb6600cc9e71e984a97fedadc406448431281e7657030f54987e"
+    },
+    "git": "git version 2.50.1 (Apple Git-155)"
+  },
+  "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+  "tools": {
+    "git": {
+      "present": true,
+      "version": "git version 2.50.1 (Apple Git-155)"
+    },
+    "python3": {
+      "present": true,
+      "version": "Python 3.9.6"
+    },
+    "jq": {
+      "present": true,
+      "version": "jq-1.7.1-apple"
+    },
+    "sqlite3": {
+      "present": true,
+      "version": "3.51.0 2025-06-12 13:14:41 f0ca7bba1c5e232e5d279fad6338121ab55af0c8c68c84cdfb18ba5114dcaapl (64-bit)"
+    },
+    "shasum": {
+      "present": true,
+      "version": "6.02"
+    },
+    "ssh-keygen": {
+      "present": true,
+      "version": "OpenSSH_10.2p1, LibreSSL 3.3.6"
+    },
+    "openssl": {
+      "present": true,
+      "version": "LibreSSL 3.3.6"
+    },
+    "node": {
+      "present": false,
+      "version": null
+    },
+    "uv": {
+      "present": false,
+      "version": null
+    },
+    "docker": {
+      "present": false,
+      "version": null
+    },
+    "podman": {
+      "present": false,
+      "version": null
+    },
+    "opa": {
+      "present": false,
+      "version": null
+    },
+    "cosign": {
+      "present": false,
+      "version": null
+    },
+    "syft": {
+      "present": false,
+      "version": null
+    },
+    "gitleaks": {
+      "present": false,
+      "version": null
+    },
+    "gh": {
+      "present": false,
+      "version": null
+    }
+  },
+  "git": {
+    "head": "d7f0c6adbb1a46d2d68c2e0a356625c21420465b",
+    "remote_origin": "https://github.com/oeckoculu/metaOSforAntigravity.git",
+    "remote_url_contains_credential": true
+  },
+  "labels": {
+    "ephemeral_container": "UNSUPPORTED",
+    "policy_engine_opa": "OPTIONAL_ABSENT",
+    "kernel_runtime": "python3-stdlib",
+    "json_schema_validator": "kernel-subset (EXPERIMENTAL; full 2020-12 meta-validation pending)",
+    "signatures": "sshsig-ed25519 via ssh-keygen -Y (keys provisioned at A7)"
+  },
+  "observations_from_blueprint_audit": {
+    "agent_sandbox_network": "DENIED",
+    "agent_sandbox_nested_sandbox_exec": "DENIED",
+    "agent_workspace_write_scope": "FULL_WORKSPACE_SAME_OS_USER",
+    "source": ".antigravity/genesis/blueprint/system_blueprint_v1.md"
+  }
+}

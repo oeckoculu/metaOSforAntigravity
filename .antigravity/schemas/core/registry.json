@@ -1,0 +1,40 @@
+{
+  "registry_type": "ContractRegistry",
+  "schema_version": "1.0.0",
+  "dialect": "https://json-schema.org/draft/2020-12/schema",
+  "validator": "metaos.kernel.schema (subset; EXPERIMENTAL until full meta-schema validation)",
+  "schemas": [
+    {
+      "title": "ChangeProposal",
+      "id": "urn:metaos:schema:core:change_proposal:1.0.0",
+      "path": ".antigravity/schemas/core/change_proposal.schema.json",
+      "sha256": "sha256:9f474d4814f739e219f39d93c405033d1ce013b56ac354dd1e8978be52ba4ed5",
+      "jcs_sha256": "sha256:cf67476ad63f29438be1a0f4ed3a919230773b4a3830a35c38868b568e05d2c7"
+    },
+    {
+      "title": "EventJournalEntry",
+      "id": "urn:metaos:schema:core:event_journal_entry:1.0.0",
+      "path": ".antigravity/schemas/core/event_journal_entry.schema.json",
+      "sha256": "sha256:11078c46f22c5b2259364f17883229df56f999119d446a496306023813e34f43",
+      "jcs_sha256": "sha256:260dfe735135dca67931e435aaa95746cdb650c228eacf6f6636ccc69c788327"
+    },
+    {
+      "title": "IntentContract",
+      "id": "urn:metaos:schema:core:intent_contract:1.0.0",
+      "path": ".antigravity/schemas/core/intent_contract.schema.json",
+      "sha256": "sha256:03904074e3d6e768525dd341c8b68d9849b0ad0034af2a5703a4191538594b3d",
+      "jcs_sha256": "sha256:98031b683da13d34fe3cd1f092b763335cb6287ba50b70ef22b8f034ca89daf4"
+    },
+    {
+      "title": "TaskEnvelope",
+      "id": "urn:metaos:schema:core:task_envelope:1.0.0",
+      "path": ".antigravity/schemas/core/task_envelope.schema.json",
+      "sha256": "sha256:7182a5e15cffd2b40c8a78db71387186b2246dae343f3f90c3397e293ce686eb",
+      "jcs_sha256": "sha256:975967e4cf3218adcc75e9bfe27575ab77984c46a9c0136dc6931f5598f6371c"
+    }
+  ],
+  "fixtures": {
+    "path": ".antigravity/schemas/core/fixtures/core_golden.fixtures.json",
+    "sha256": "sha256:67ea82d25d941ace50c99c60e1fa0511d1cdaa956e7ee9b70891820747a56a8c"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "current_state": "GENESIS_LOCKED",
+  "derived_from": {
+    "authority_jcs_sha256": "sha256:31b412a90f423a23328701dce1be271aedb24d236acdbccf592b86fd33704b31",
+    "authority_version": "1.1.0",
+    "head_hash": "sha256:7b846bfc725cf7ba4101ef717deb474c11391fa820f16b0e88985563f7861cb1",
+    "head_seq": 6,
+    "journal": ".antigravity/events/run-0000.jsonl"
+  },
+  "evidence": [
+    {
+      "phase": "A1",
+      "receipt_hash": "sha256:669cab368a6a449846bd3e5afcb544da6ae6ff62e063f794c174c4693570462e",
+      "receipt_path": ".antigravity/genesis/receipts/A1_authority_normalization.receipt.json",
+      "seq": 1,
+      "status": "PASS"
+    },
+    {
+      "phase": "A2",
+      "receipt_hash": "sha256:afef7b125234b07ee38d06f36b4e32ccabb012473fb85912b306aaac34c5b3fb",
+      "receipt_path": ".antigravity/genesis/receipts/A2_kernel_scaffold.receipt.json",
+      "seq": 2,
+      "status": "PASS"
+    },
+    {
+      "phase": "A3",
+      "receipt_hash": "sha256:d84a2daae9d4767b1ad9c257aa16831c32685ff80bdd81a320743b4ae2302633",
+      "receipt_path": ".antigravity/genesis/receipts/A3_core_schemas.receipt.json",
+      "seq": 3,
+      "status": "PASS"
+    }
+  ],
+  "genesis": {
+    "accepted_patch_ids": [
+      "C-1",
+      "C-2",
+      "C-3",
+      "C-4",
+      "C-5",
+      "C-6",
+      "C-7",
+      "C-8",
+      "V12-01",
+      "V12-02",
+      "V12-03",
+      "V12-04",
+      "V12-05",
+      "V12-06"
+    ],
+    "approval_record_sha256": "sha256:0d36b8dba21a7abc43725a13d439fdeea921112bf6194af11df7849f5e7b2a61",
+    "decision": "APPROVED",
+    "entry_hash": "sha256:847a001b445a575aa05a80b11128392347c3b7bee4a96301cbbd56cf684eafb6",
+    "proposal_id": "GBP-0000",
+    "proposal_ref": "sha256:8a93e2942048c17e70b212f789f115c4446ca2a61be0750f1b82be21bf7cec9c"
+  },
+  "history": [
+    {
+      "from": "TECH_RADAR_SYNC",
+      "guard_id": "LC-01",
+      "retroactive": true,
+      "satisfied_by": "TechRadarDelta & CapabilityManifest",
+      "seq": 4,
+      "to": "CAPABILITY_BASELINED"
+    },
+    {
+      "from": "CAPABILITY_BASELINED",
+      "guard_id": "LC-02",
+      "retroactive": true,
+      "satisfied_by": "ValidatedEnvironmentProfile",
+      "seq": 5,
+      "to": "GENESIS_MORPHING"
+    },
+    {
+      "from": "GENESIS_MORPHING",
+      "guard_id": "LC-03",
+      "retroactive": true,
+      "satisfied_by": "UserApprovedProfile",
+      "seq": 6,
+      "to": "GENESIS_LOCKED"
+    }
+  ],
+  "next": {
+    "allowed_next_states": [
+      "INTENT_CAPTURED"
+    ],
+    "guard_id": "LC-04",
+    "required_evidence": "InitializedWorkspace & ValidatedIntentContract"
+  },
+  "open_waivers": [],
+  "patchset_status": "ACCEPTED_NOT_COMPILED (guards compiled at A5)",
+  "run_id": "run-0000",
+  "signature_status": {
+    "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7",
+    "unsigned_entries": 7
+  },
+  "view": "state_board",
+  "view_version": "1.0.0"
+}
