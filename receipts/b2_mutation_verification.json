@@ -1,0 +1,68 @@
+{
+  "artifact_kind": "MutationVerificationReport",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-15",
+  "status": "PASS",
+  "evidence_labels": [
+    "MutationScorePass",
+    "Non-SurvivingInvariants"
+  ],
+  "total_mutants": 6,
+  "killed_mutants": 6,
+  "surviving_mutants": 0,
+  "surviving_critical_invariants": 0,
+  "mutation_score": "1.0",
+  "mutation_score_pct": 100,
+  "threshold_required_pct": 80,
+  "mutants": [
+    {
+      "mutant_id": "MUT-001",
+      "file": "src/metaos_ignite/archetypes.py",
+      "target": "\"security_scan_proof_kind\": \"ArchetypeSecurityScanProof\"",
+      "replacement": "\"security_scan_proof_kind\": \"MUTATED_INVALID_PROOF\"",
+      "status": "KILLED",
+      "kill_reason": "AssertionError: "
+    },
+    {
+      "mutant_id": "MUT-002",
+      "file": "src/metaos_ignite/archetypes.py",
+      "target": "\"schema_version\": \"1.0.0\",\n        \"archetype_id\": archetype_id",
+      "replacement": "\"schema_version\": \"9.9.9\",\n        \"archetype_id\": archetype_id",
+      "status": "KILLED",
+      "kill_reason": "AssertionError: Profile schema errors for Autonomous_Agent: [('$.schema_version', 'const mismatch')]"
+    },
+    {
+      "mutant_id": "MUT-003",
+      "file": "src/metaos_ignite/executor.py",
+      "target": "\"valid\": len(reasons) == 0",
+      "replacement": "\"valid\": True",
+      "status": "KILLED",
+      "kill_reason": "AssertionError: "
+    },
+    {
+      "mutant_id": "MUT-004",
+      "file": "src/metaos_ignite/cockpit.py",
+      "target": "\"llm_tokens_used\": 0",
+      "replacement": "\"llm_tokens_used\": 99",
+      "status": "KILLED",
+      "kill_reason": "RuntimeError: Cockpit manifest schema validation failed: [('$.llm_tokens_used', 'const mismatch')]"
+    },
+    {
+      "mutant_id": "MUT-005",
+      "file": "src/metaos_ignite/guide.py",
+      "target": "\"valid\": True",
+      "replacement": "\"valid\": False",
+      "status": "KILLED",
+      "kill_reason": "AssertionError: "
+    },
+    {
+      "mutant_id": "MUT-006",
+      "file": "src/metaos_ignite/compiler.py",
+      "target": "\"envelope_verified\": ver[\"valid\"]",
+      "replacement": "\"envelope_verified\": False",
+      "status": "KILLED",
+      "kill_reason": "AssertionError: "
+    }
+  ],
+  "content_hash": "sha256:6285a93e658b31f2d45ebd5aad48f3e5594b5080c9b3eaf0f7fe971a5e19dc29"
+}

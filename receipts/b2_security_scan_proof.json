@@ -1,0 +1,17 @@
+{
+  "artifact_kind": "ArchetypeSecurityScanProof",
+  "schema_version": "1.2.0",
+  "status": "PASS",
+  "guard_id": "LC-14",
+  "evidence_labels": [
+    "ArchetypeSecurityScanProof",
+    "SAST/DAST/Secret/SBOMScanPass"
+  ],
+  "sast_ast_dangerous_call_violations": [],
+  "secret_scan_hits": [],
+  "untrusted_envelope_verified": true,
+  "sbom_path": "provenance/sbom/layer_b_sbom.json",
+  "sbom_sha256": "sha256:e8c7f1e4b9a0b1dcf02a814f75808934d41a6d6a42f5ec532e5d8786d3ea69de",
+  "scanned_files_count": 30,
+  "content_hash": "sha256:8644db5ca6d0f12b312c5890cde88ecf125a943a5466b9499fe3c66276d2b49a"
+}

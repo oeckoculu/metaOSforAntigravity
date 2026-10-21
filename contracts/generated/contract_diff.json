@@ -1,0 +1,31 @@
+{
+  "artifact_kind": "ContractDiff",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "base_spec_lock": null,
+  "added_contracts": [
+    "contracts/src/project_archetype_profile.json",
+    "contracts/src/intent_contract.json",
+    "contracts/src/risk_classification.json",
+    "contracts/src/gate_schedule.json",
+    "contracts/src/counterfactual_handshake.json",
+    "contracts/src/domain_contracts.json",
+    "invariants/domain_invariants.json",
+    "contracts/src/schemas/archetype_profile.schema.json",
+    "contracts/src/schemas/worktree_oracle_report.schema.json",
+    "contracts/src/schemas/proof_receipt.schema.json",
+    "contracts/src/schemas/cockpit_manifest.schema.json",
+    "contracts/generated/threat_model_report.json",
+    "contracts/generated/module_interfaces.json"
+  ],
+  "modified_contracts": [],
+  "removed_contracts": [],
+  "backward_compatible": true,
+  "content_hash": "sha256:8cee43e50ede936221f09ed25eb5f9e6d55f78209f334f49bd6f54c84ea4c1cd",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEASBAWMkp39JF2pO9LgLgDzv9/IczPPEceZEIuuRic6dCG5G3RSJJ\n5tQSy8wFuT1YqsAKkg038fSVAKPxHtVx4A\n-----END SSH SIGNATURE-----"
+  }
+}

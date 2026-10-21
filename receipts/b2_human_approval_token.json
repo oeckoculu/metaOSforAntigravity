@@ -1,0 +1,19 @@
+{
+  "artifact_kind": "HumanApprovalToken",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-19A",
+  "run_id": "run-0000",
+  "outbox_id": "OBX-62f0450cd7e74b13",
+  "outbox_json_path": ".antigravity/outbox/OBX-62f0450cd7e74b13.json",
+  "decision": "APPROVED",
+  "approved_by": "human:oeckoculu",
+  "suspended_from": "PROOF_ASSEMBLED",
+  "proof_receipt_sha256": "sha256:8f54d2dfde3224c8b7ac795886c02dcb67727c753fef8bc3bfa29b9e3a9958e2",
+  "content_hash": "sha256:f68e9f6951c8bf0b0c20a80811693d43748deae37da8f947b6a8fb83ea903d5a",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+    "namespace": "metaos.journal",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgpCSQAdSjOtRdg9e8MpYgWbYFmm\nd1bwueDxmZYZ5KcX8AAAAObWV0YW9zLmpvdXJuYWwAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABA5zN97s8vDxj3edKXLsHRWHQFkiy/+MdB3pZjvzRI3jiTESCNgN\nGKbrgzzTMyE+QFPgcVU2hMGtWJBXOtacpxCg==\n-----END SSH SIGNATURE-----"
+  }
+}

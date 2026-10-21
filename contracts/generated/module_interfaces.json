@@ -1,0 +1,64 @@
+{
+  "artifact_kind": "GeneratedModuleInterfaces",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "package": "metaos_ignite",
+  "modules": {
+    "DO-1": {
+      "outcome_id": "OUT-001",
+      "files": [
+        "src/metaos_ignite/archetypes.py",
+        "src/metaos_ignite/compiler.py"
+      ],
+      "cli_entrypoint": "scripts/ignite",
+      "public_functions": [
+        "list_archetypes() -> list[str]",
+        "synthesize_archetype_profile(archetype_id: str, language: str = 'python') -> dict",
+        "compile_ignition_pack(root: str, manifest_path: str, briefing_path: str, init_new_project: bool = False, new_run_id: str = None, keystore_dir: str = None) -> dict"
+      ]
+    },
+    "DO-2": {
+      "outcome_id": "OUT-002",
+      "files": [
+        "src/metaos_ignite/executor.py",
+        "src/metaos_ignite/proof.py"
+      ],
+      "cli_entrypoints": [
+        "scripts/worktree_exec",
+        "scripts/assemble_proof"
+      ],
+      "public_functions": [
+        "evaluate_triple_red_oracle(run1_report: dict, run2_report: dict, allowed_oracle_ids: list[str]) -> dict",
+        "execute_in_worktree(root: str, seed: int = 42, mode: str = 'GREEN_VERIFY') -> dict",
+        "assemble_proof_package(root: str, run_id: str = 'run-0000', keystore_dir: str = None) -> dict"
+      ]
+    },
+    "DO-3": {
+      "outcome_id": "OUT-003",
+      "files": [
+        "src/metaos_ignite/cockpit.py"
+      ],
+      "cli_entrypoint": "scripts/project_cockpit",
+      "public_functions": [
+        "project_cockpit(root: str, output_dir: str = 'docs/cockpit') -> dict"
+      ]
+    },
+    "DO-4": {
+      "outcome_id": "OUT-004",
+      "files": [
+        "src/metaos_ignite/guide.py",
+        "docs/IGNITE_GUIDE.md"
+      ],
+      "public_functions": [
+        "render_ignite_guide(root: str, output_path: str = 'docs/IGNITE_GUIDE.md') -> dict"
+      ]
+    }
+  },
+  "oracles": [
+    "ORC-001",
+    "ORC-002",
+    "ORC-003",
+    "ORC-004",
+    "ORC-005"
+  ]
+}

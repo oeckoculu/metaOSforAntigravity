@@ -1,0 +1,178 @@
+{
+  "artifact_kind": "CompleteProofReceiptPackage",
+  "schema_version": "1.2.0",
+  "run_id": "run-0000",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "proposal_id": "0192f3a4-0000-7000-8000-000000000110",
+  "spec_lock_sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+  "archetype_security_scan_proof": {
+    "artifact_kind": "ArchetypeSecurityScanProof",
+    "schema_version": "1.2.0",
+    "status": "PASS",
+    "guard_id": "LC-14",
+    "evidence_labels": [
+      "ArchetypeSecurityScanProof",
+      "SAST/DAST/Secret/SBOMScanPass"
+    ],
+    "sast_ast_dangerous_call_violations": [],
+    "secret_scan_hits": [],
+    "untrusted_envelope_verified": true,
+    "sbom_path": "provenance/sbom/layer_b_sbom.json",
+    "sbom_sha256": "sha256:e8c7f1e4b9a0b1dcf02a814f75808934d41a6d6a42f5ec532e5d8786d3ea69de",
+    "scanned_files_count": 30,
+    "content_hash": "sha256:8644db5ca6d0f12b312c5890cde88ecf125a943a5466b9499fe3c66276d2b49a"
+  },
+  "archetype_performance_scan_proof": {
+    "artifact_kind": "ArchetypePerformanceScanProof",
+    "schema_version": "1.2.0",
+    "guard_id": "LC-16",
+    "status": "PASS",
+    "evidence_labels": [
+      "ArchetypePerformanceScanProof",
+      "OTelBaselinePass",
+      "QueryCountCheck"
+    ],
+    "iterations": 5,
+    "samples_ms": [
+      10,
+      10,
+      11,
+      11,
+      12
+    ],
+    "avg_latency_ms": 10,
+    "max_latency_ms": 12,
+    "budget_max_ms": 1000,
+    "external_network_calls": 0,
+    "n_plus_one_queries": 0,
+    "content_hash": "sha256:f20e505d3290401f5a9705a0ca5ec6f0b711213430693a179a37f58b0857d4f3"
+  },
+  "mutation_verification": {
+    "artifact_kind": "MutationVerificationReport",
+    "schema_version": "1.2.0",
+    "guard_id": "LC-15",
+    "status": "PASS",
+    "evidence_labels": [
+      "MutationScorePass",
+      "Non-SurvivingInvariants"
+    ],
+    "total_mutants": 6,
+    "killed_mutants": 6,
+    "surviving_mutants": 0,
+    "surviving_critical_invariants": 0,
+    "mutation_score": "1.0",
+    "mutation_score_pct": 100,
+    "threshold_required_pct": 80,
+    "mutants": [
+      {
+        "mutant_id": "MUT-001",
+        "file": "src/metaos_ignite/archetypes.py",
+        "target": "\"security_scan_proof_kind\": \"ArchetypeSecurityScanProof\"",
+        "replacement": "\"security_scan_proof_kind\": \"MUTATED_INVALID_PROOF\"",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      },
+      {
+        "mutant_id": "MUT-002",
+        "file": "src/metaos_ignite/archetypes.py",
+        "target": "\"schema_version\": \"1.0.0\",\n        \"archetype_id\": archetype_id",
+        "replacement": "\"schema_version\": \"9.9.9\",\n        \"archetype_id\": archetype_id",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: Profile schema errors for Autonomous_Agent: [('$.schema_version', 'const mismatch')]"
+      },
+      {
+        "mutant_id": "MUT-003",
+        "file": "src/metaos_ignite/executor.py",
+        "target": "\"valid\": len(reasons) == 0",
+        "replacement": "\"valid\": True",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      },
+      {
+        "mutant_id": "MUT-004",
+        "file": "src/metaos_ignite/cockpit.py",
+        "target": "\"llm_tokens_used\": 0",
+        "replacement": "\"llm_tokens_used\": 99",
+        "status": "KILLED",
+        "kill_reason": "RuntimeError: Cockpit manifest schema validation failed: [('$.llm_tokens_used', 'const mismatch')]"
+      },
+      {
+        "mutant_id": "MUT-005",
+        "file": "src/metaos_ignite/guide.py",
+        "target": "\"valid\": True",
+        "replacement": "\"valid\": False",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      },
+      {
+        "mutant_id": "MUT-006",
+        "file": "src/metaos_ignite/compiler.py",
+        "target": "\"envelope_verified\": ver[\"valid\"]",
+        "replacement": "\"envelope_verified\": False",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      }
+    ],
+    "content_hash": "sha256:6285a93e658b31f2d45ebd5aad48f3e5594b5080c9b3eaf0f7fe971a5e19dc29"
+  },
+  "meta_metrics": {
+    "total_lead_time_seconds": 420,
+    "llm_tokens_consumed": 0,
+    "estimated_cost_usd_cents": 0,
+    "circuit_breaker_trips": 0,
+    "false_positive_gate_count": 0,
+    "human_attention_seconds": 180
+  },
+  "evidence_chain": {
+    "intent_contract": {
+      "path": "contracts/src/intent_contract.json",
+      "sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891"
+    },
+    "domain_contracts": {
+      "path": "contracts/src/domain_contracts.json",
+      "sha256": "sha256:9ba525764063cca6a8b62d9ef4f7a1a02cbf8ca2961f313255c056fe201028c6"
+    },
+    "change_proposal": {
+      "path": "contracts/generated/b1_change_proposal.json",
+      "sha256": "sha256:944a459c4dff998fe1d87628db266fcf70faa1ec55711be71a5a62210225b03c"
+    },
+    "spec_lock": {
+      "path": "contracts/locks/spec.lock.json",
+      "sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64"
+    },
+    "triple_red_oracle_receipt": {
+      "path": "receipts/B1_admission_policy_pass.receipt.json",
+      "sha256": "sha256:dcfbf95f5c3cc217710e780c698097134fc38385d78eed677cf00bd5942f4a56"
+    },
+    "worktree_green_receipt": {
+      "path": "receipts/b2_worktree_green.json",
+      "sha256": "sha256:5ce774bc14e037c28dca48e63ef2158b167cc55e6371c18ebf8512a1ba65a240"
+    },
+    "security_scan_proof": {
+      "path": "receipts/b2_security_scan_proof.json",
+      "sha256": "sha256:44b9abddb62c998a5aa6311a2ab9b0022cf3e38770eb838718ab767f132aab74"
+    },
+    "mutation_verification": {
+      "path": "receipts/b2_mutation_verification.json",
+      "sha256": "sha256:5f202599df2fdb11fe238800c249e50c6c4c7e9f278cd004d99899b2d9b5377a"
+    },
+    "performance_scan_proof": {
+      "path": "receipts/b2_performance_scan_proof.json",
+      "sha256": "sha256:d60a6468e0062be3a4e0732d2bc8415bc7b67b6f4d11d92f276c6943f82e446e"
+    },
+    "pillar_9_2_summary": {
+      "lead_time_seconds": 420,
+      "token_cost_usd_cents": 0,
+      "circuit_breaker_trips": 0,
+      "false_positive_gate_blocks": 0,
+      "human_attention_minutes": 3
+    }
+  },
+  "content_hash": "sha256:de597e487325d1eb5f8556c0e425a5aeb38ea7bbd9238ead982257f921e50f01",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAVkNeeJL9P5ezkkliYQQR0C0eJSKhpi5hOooZvPvp+esL4Q8+Ef\n0qPUhwJCSnv15eMYMUZyVkVPAvqD3VXxueCA==\n-----END SSH SIGNATURE-----"
+  }
+}

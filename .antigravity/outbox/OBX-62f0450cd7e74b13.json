@@ -1,0 +1,35 @@
+{
+  "document_type": "HumanOutboxItem",
+  "schema_version": "1.0.0",
+  "outbox_id": "OBX-62f0450cd7e74b13",
+  "run_id": "run-0000",
+  "kind": "HUMAN_AUDIT_REVIEW",
+  "status": "ACKNOWLEDGED",
+  "idempotency_key": "sha256:62f0450cd7e74b1315779763aa92db2baee5f099ccec96bef6fc38e279a15917",
+  "created_at": "2026-10-21T06:15:42Z",
+  "title": "R2 Pre-Merge Audit for Meta-OS Universal Ignite & Cockpit Suite (LC-18A -> LC-19A)",
+  "summary": "CompleteProofReceiptPackage verified across 5 oracles, SBOM, 100% mutation score, and performance budget.",
+  "payload": {
+    "proposal_id": "0192f3a4-0000-7000-8000-000000000110",
+    "proof_pointer": "receipts/pointers/latest_proof.json",
+    "proof_sha256": "sha256:8f54d2dfde3224c8b7ac795886c02dcb67727c753fef8bc3bfa29b9e3a9958e2"
+  },
+  "acknowledgement": {
+    "actor": {
+      "principal_id": "human:oeckoculu",
+      "kind": "HUMAN"
+    },
+    "decision": "APPROVED",
+    "rationale": "Approved R2 pre-merge human audit gate (LC-19A -> READY_TO_MERGE)",
+    "acknowledged_at": "2026-10-21T06:15:43Z",
+    "signature": {
+      "status": "UNSIGNED",
+      "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7"
+    }
+  },
+  "redaction": {
+    "profile": "kernel.secret_scan.v1",
+    "result": "CLEAN"
+  },
+  "content_hash": "sha256:1c069a7ce67583edea1f89c754e809aebad190cc439e0f6a1e6d0d68c0d0cd67"
+}

@@ -1,0 +1,61 @@
+{
+  "artifact_kind": "ThreatModelReport",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "methodology": "STRIDE_AND_INVARIANT_BOUNDARY_ANALYSIS",
+  "threats": [
+    {
+      "threat_id": "THR-001",
+      "category": "TAMPERING_AND_PROMPT_INJECTION",
+      "target_module": "src/metaos_ignite/compiler.py",
+      "invariant_id": "I-14",
+      "description": "Hostile directives or leaked credentials embedded in NotebookLM research_briefing.md attempting to escalate privileges during IntentContract synthesis.",
+      "mitigation": "Mandatory UntrustedContentEnvelope wrapping (envelope.wrap_untrusted_content) with regex injection stripping, secret redaction, and NONE_DATA_ONLY authority enforcement.",
+      "verification_oracle": "ORC-005"
+    },
+    {
+      "threat_id": "THR-002",
+      "category": "ELEVATION_OF_PRIVILEGE_AND_DIRTY_WORKTREE",
+      "target_module": "src/metaos_ignite/executor.py",
+      "invariant_id": "I-09",
+      "description": "Sandbox test execution mutating live repository state or touching immutable Layer A files.",
+      "mitigation": "Isolated ephemeral git worktree under /tmp with automatic git worktree remove --force cleanup and Layer A path guard.",
+      "verification_oracle": "ORC-002"
+    },
+    {
+      "threat_id": "THR-003",
+      "category": "REPUDIATION_AND_FALSE_RED_ORACLE",
+      "target_module": "src/metaos_ignite/executor.py",
+      "invariant_id": "I-10",
+      "description": "Syntax errors, broken imports, or non-deterministic test failures masquerading as a valid TESTS_ARMED_RED state (V12-05).",
+      "mitigation": "Triple RED Oracle requires py_compile CompilationSuccess==True, RuntimeExecution=='EXECUTED', zero build/collection/infra errors, explicit oracle_id binding, and identical failure sets across two seeded runs.",
+      "verification_oracle": "ORC-002"
+    },
+    {
+      "threat_id": "THR-004",
+      "category": "INFORMATION_DISCLOSURE",
+      "target_module": "src/metaos_ignite/cockpit.py",
+      "invariant_id": "I-12",
+      "description": "Secret tokens leaking into generated Obsidian Markdown dashboards or ProofReceipt artifacts.",
+      "mitigation": "Pre-write envelope.redact_text and secrets.assert_clean gate on all generated Markdown and JSON projections.",
+      "verification_oracle": "ORC-005"
+    },
+    {
+      "threat_id": "THR-005",
+      "category": "SPOOFING_PROOF_RECEIPTS",
+      "target_module": "src/metaos_ignite/proof.py",
+      "invariant_id": "I-15",
+      "description": "Unsigned or tampered ProofReceipt packages claiming verification completion.",
+      "mitigation": "Ed25519 signature via ssh-keygen -Y sign under kernel:authority (metaos.receipt / metaos.kernel) verified against .antigravity/keys/allowed_signers.",
+      "verification_oracle": "ORC-001"
+    }
+  ],
+  "residual_risk": "LOW",
+  "content_hash": "sha256:437b39a3216c9e1eabd1ce05dc7688a9036e8036041a8b0402f618e2b0e10c58",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEB8ROuT/nIqRT4xA6SGawmzxPtnXSFO/eGZjIDlJAjgv42NhEqCb9\nXe3GBbdKoywjzmJBIlreyEOnBUSoXUJHAJ\n-----END SSH SIGNATURE-----"
+  }
+}

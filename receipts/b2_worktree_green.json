@@ -1,0 +1,26 @@
+{
+  "artifact_kind": "IsolatedWorktreeBuildSuccess",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-13",
+  "run_id": "run-0000",
+  "seed": 42,
+  "CompilationSuccess": true,
+  "RuntimeExecution": "EXECUTED",
+  "TestExitCode": 0,
+  "total_tests": 10,
+  "passed": 10,
+  "failures": 0,
+  "deterministic_two_run_match": true,
+  "run1_report_sha256": "sha256:b1c165c3c33da77ebc63dbfdb78a7be85a5f4a74b11199a2b5bbb806cad28e98",
+  "run2_report_sha256": "sha256:b1c165c3c33da77ebc63dbfdb78a7be85a5f4a74b11199a2b5bbb806cad28e98",
+  "junit_xml_sha256": "sha256:cba262914b3846d8942dd6ca22a47fc645b2527e87bf0e3a454fa37d9d28b47d",
+  "worktree_clean_restored": true,
+  "status": "PASS",
+  "content_hash": "sha256:09c4ed545201035e1c76a2a92f05c2910473ba7aafe8775cb0a0838830eb4c3f",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAOaGUb0SH3LbHpL3KwzemQrQ66uhrJjZBXDPNeIjA4O8wPWFaBh\nRYHB/rzbHkrWsw6VE+v5RWj24BpvuRf+dgBg==\n-----END SSH SIGNATURE-----"
+  }
+}

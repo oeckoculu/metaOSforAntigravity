@@ -1,0 +1,55 @@
+{
+  "artifact_kind": "GoldenCases",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "expected_archetypes": [
+    "Autonomous_Agent",
+    "Backend_API",
+    "CLI_SDK",
+    "Data_ML_Pipeline",
+    "Embedded_IoT",
+    "FullStack_Web"
+  ],
+  "expected_languages": [
+    "generic",
+    "go",
+    "python",
+    "rust",
+    "typescript"
+  ],
+  "expected_cockpit_files": [
+    "DASHBOARD.md",
+    "DECISION_QUEUE.md",
+    "EVIDENCE_LEDGER.md",
+    "STATE_GRAPH.md"
+  ],
+  "expected_wikilinks": [
+    "[[DASHBOARD]]",
+    "[[STATE_GRAPH]]",
+    "[[DECISION_QUEUE]]",
+    "[[EVIDENCE_LEDGER]]"
+  ],
+  "triple_red_counterexamples": [
+    {
+      "case_id": "GLD-RED-SYNTAX-ERROR",
+      "CompilationSuccess": false,
+      "RuntimeExecution": "NOT_EXECUTED",
+      "TestExitCode": 2,
+      "expected_valid_red": false
+    },
+    {
+      "case_id": "GLD-RED-ZERO-EXIT",
+      "CompilationSuccess": true,
+      "RuntimeExecution": "EXECUTED",
+      "TestExitCode": 0,
+      "expected_valid_red": false
+    },
+    {
+      "case_id": "GLD-RED-VALID-TRIPLE",
+      "CompilationSuccess": true,
+      "RuntimeExecution": "EXECUTED",
+      "TestExitCode": 1,
+      "expected_valid_red": true
+    }
+  ]
+}

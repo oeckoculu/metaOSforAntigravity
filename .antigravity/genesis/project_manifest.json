@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "project_name": "metaOSforAntigravity",
+  "archetype": "CLI_SDK",
+  "archetype_profile_alias": "CLI_Library_Archetype",
+  "language": "python",
+  "data_classification": "INTERNAL",
+  "risk_class": "R2",
+  "title": "Meta-OS Universal Day-0 Ignite, Polymorphic Archetype Synthesizer, Worktree Executor & Obsidian Cockpit Suite",
+  "problem_statement": "Katman A cekirdegi (A1..A9) kilitlenmis olmasina ragmen, bu sablon klonlanip yeni bir proje baslatildiginda; (1) 6 farkli proje arketipini (Backend_API, FullStack_Web, Data_ML_Pipeline, CLI_SDK, Autonomous_Agent, Embedded_IoT) dil-bagimsiz olarak baglayacak polimorfik profil sentezleyicinin, (2) NotebookLM'den gelen research_briefing.md ve project_manifest.json girdilerini I-14 (UntrustedContentEnvelope) ile temizleyip IntentContract uretecek derleyicinin, (3) degisiklikleri /tmp altinda izole git worktree icinde kosturup Uclu RED/GREEN Oracle (V12-05) ve imzali ProofReceipt uretecek yurutucunun, (4) sifir LLM token'i ile (I-07) Obsidian Graph View ([[wikilink]]) ve Mermaid diyagramli canli kokpit uretecek projeksiyon motorunun ve (5) Türkçe docs/IGNITE_GUIDE.md rehberinin Katman B'de insa edilmesi."
+}

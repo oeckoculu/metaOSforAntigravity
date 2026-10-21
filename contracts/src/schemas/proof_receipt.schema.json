@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:layerb:proof_receipt:1.0.0",
+  "title": "CompleteProofReceiptPackage",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_kind",
+    "schema_version",
+    "run_id",
+    "intent_id",
+    "proposal_id",
+    "spec_lock_sha256",
+    "archetype_security_scan_proof",
+    "archetype_performance_scan_proof",
+    "mutation_verification",
+    "meta_metrics",
+    "evidence_chain",
+    "content_hash",
+    "signature"
+  ],
+  "properties": {
+    "artifact_kind": {
+      "const": "CompleteProofReceiptPackage"
+    },
+    "schema_version": {
+      "const": "1.2.0"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^run-[0-9]{4,}$"
+    },
+    "intent_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "proposal_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "spec_lock_sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "archetype_security_scan_proof": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "archetype_performance_scan_proof": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "mutation_verification": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "meta_metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_lead_time_seconds",
+        "llm_tokens_consumed",
+        "estimated_cost_usd_cents",
+        "circuit_breaker_trips",
+        "false_positive_gate_count",
+        "human_attention_seconds"
+      ],
+      "properties": {
+        "total_lead_time_seconds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "llm_tokens_consumed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "estimated_cost_usd_cents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "circuit_breaker_trips": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "false_positive_gate_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "human_attention_seconds": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "evidence_chain": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "content_hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  }
+}

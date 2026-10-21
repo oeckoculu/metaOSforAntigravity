@@ -1,0 +1,197 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "B2",
+  "name": "execution_and_closure",
+  "status": "PASS",
+  "generated_at": "2026-10-21T06:20:55Z",
+  "input": {
+    "commit": "8eacc883b35b642e766dd7439b0adbea96365be4",
+    "tree": "62392a624315f1bbb8c1b95be03d6c1d22b34dfd"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:dd8d1f74acf152a290456ff5e01077e27a800cbc81f265d66a58348d0438a3a4"
+  },
+  "reproducibility": {
+    "source_commit": "8eacc883b35b642e766dd7439b0adbea96365be4",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "B2-C01",
+      "description": "Ephemeral /tmp git worktree sandbox allocated and isolated (I-09 / LC-12)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-12",
+        "status": "ALLOCATED"
+      }
+    },
+    {
+      "id": "B2-C02",
+      "description": "Isolated worktree 5-oracle suite GREEN verification and deterministic replay match (LC-13)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-13",
+        "tests_passed": 10,
+        "failures": 0,
+        "deterministic_match": true
+      }
+    },
+    {
+      "id": "B2-C03",
+      "description": "ArchetypeSecurityScanProof, AST dangerous-call audit, I-12 zero-secret, I-14 envelope, and hermetic SBOM verified (LC-14)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-14",
+        "sbom_components": 30,
+        "dangerous_calls": 0,
+        "secrets_leaked": 0
+      }
+    },
+    {
+      "id": "B2-C04",
+      "description": "AST deterministic mutation testing across src/metaos_ignite/ modules passes with 100% kill score and 0 surviving invariants (LC-15)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-15",
+        "mutation_score": "1.0",
+        "killed": 6,
+        "total": 6,
+        "surviving": 0
+      }
+    },
+    {
+      "id": "B2-C05",
+      "description": "ArchetypePerformanceScanProof: warm-up + repeated latency & memory benchmark under 1000ms budget (LC-16)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-16",
+        "budget_max_ms": 1000,
+        "passed": true
+      }
+    },
+    {
+      "id": "B2-C06",
+      "description": "CompleteProofReceiptPackage assembled, Ed25519-signed, and latest_proof.json pointer verified (LC-17)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-17",
+        "proof_pointer": "receipts/pointers/latest_proof.json"
+      }
+    },
+    {
+      "id": "B2-C07",
+      "description": "Transactional outbox review emitted and acknowledged with HumanApprovalToken (LC-18A & LC-19A)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-19A",
+        "decision": "APPROVED",
+        "suspended_from": "PROOF_ASSEMBLED"
+      }
+    },
+    {
+      "id": "B2-C08",
+      "description": "Worktree artifacts merged into main workspace and ephemeral sandboxes pruned (LC-20)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-20",
+        "status": "MERGED_AND_CLEANED"
+      }
+    },
+    {
+      "id": "B2-C09",
+      "description": "Canary dry-run of init-new-project completed in /tmp with clean telemetry (LC-21)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-21",
+        "telemetry_receipt": "receipts/b2_canary_telemetry.json"
+      }
+    },
+    {
+      "id": "B2-C10",
+      "description": "StabilityReceipt issued and final lifecycle state closed deterministically (LC-22A -> CLOSED)",
+      "result": "PASS",
+      "detail": {
+        "guard_id": "LC-22A",
+        "final_state": "CLOSED"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": "docs/IGNITE_GUIDE.md",
+      "sha256": "sha256:ab50a90f2335ca977c2b3c3b59138c802a86e543ed47b1a9534eb5838da50ebc"
+    },
+    {
+      "path": "docs/cockpit/DASHBOARD.md",
+      "sha256": "sha256:ccdd7bfcd426c92e29eb386b6cf13af88ece5ca544451bc704e9201ea1bf1ce5"
+    },
+    {
+      "path": "docs/cockpit/DECISION_QUEUE.md",
+      "sha256": "sha256:f4b929f98b4ae49797f7f318d4442cad3e26f318b80f6a65adc035b711613085"
+    },
+    {
+      "path": "docs/cockpit/EVIDENCE_LEDGER.md",
+      "sha256": "sha256:e4c4d75b0550080d291363480ae0565a3a6bd5ccfa49429b5d38f1784c7249cb"
+    },
+    {
+      "path": "docs/cockpit/STATE_GRAPH.md",
+      "sha256": "sha256:827a00bf612724061155082dc5cfffc33022b8144a440f8d8ce574ceabd5bac6"
+    },
+    {
+      "path": "receipts/b2_canary_telemetry.json",
+      "sha256": "sha256:0149ed48b34a1bc7a67bd95dd15ee57045073485cdbab27ad9ef395c8d3cedba"
+    },
+    {
+      "path": "receipts/b2_human_approval_token.json",
+      "sha256": "sha256:0a1b5848edc7224e212d89e7938dae9043d4aa61bff2a2a1deeb30f122d284c7"
+    },
+    {
+      "path": "receipts/b2_merge_and_worktree_cleanup.json",
+      "sha256": "sha256:396e5dce8d2fa950dc966a066582ff63447ed68c50e6d1ae069156b97b33892d"
+    },
+    {
+      "path": "receipts/b2_mutation_verification.json",
+      "sha256": "sha256:5f202599df2fdb11fe238800c249e50c6c4c7e9f278cd004d99899b2d9b5377a"
+    },
+    {
+      "path": "receipts/b2_performance_scan_proof.json",
+      "sha256": "sha256:d60a6468e0062be3a4e0732d2bc8415bc7b67b6f4d11d92f276c6943f82e446e"
+    },
+    {
+      "path": "receipts/b2_sandbox_allocation.json",
+      "sha256": "sha256:27792fa67d32b253baf8a990aba6cb852c6762379c5bb7075500f9ca877d1562"
+    },
+    {
+      "path": "receipts/b2_security_scan_proof.json",
+      "sha256": "sha256:44b9abddb62c998a5aa6311a2ab9b0022cf3e38770eb838718ab767f132aab74"
+    },
+    {
+      "path": "receipts/b2_stability_and_final_lock.json",
+      "sha256": "sha256:9a4cc8fef6cccc4446c18051eaaf7acd6f6e63028f4bee7a4e3aaa1f2a99dbe8"
+    },
+    {
+      "path": "receipts/b2_worktree_green.json",
+      "sha256": "sha256:5ce774bc14e037c28dca48e63ef2158b167cc55e6371c18ebf8512a1ba65a240"
+    },
+    {
+      "path": "receipts/pointers/latest_proof.json",
+      "sha256": "sha256:aa3574bf701455def61284ad9168947877fd33cef0c9742f2f237a8a2a1c7273"
+    }
+  ],
+  "notes": [
+    "Phase B2 execution and closure completed deterministically under Meta-OS v1.2.0 constitution."
+  ],
+  "receipt_hash": "sha256:63145f9000c83ba2c95fd3fdc8a1fdd1f5fb8c3bda0a2e913b59d3992c8e33b2"
+}

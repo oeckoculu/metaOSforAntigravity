@@ -1,0 +1,84 @@
+{
+  "artifact_kind": "ContractDraft",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "intent_sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891",
+  "archetype_profile_sha256": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004",
+  "domain_invariants_sha256": "sha256:4af87c92b03ebb4b30f8eeb72b1266e0b8b1342035e1f1a899f536fe5ab471d3",
+  "schemas": {
+    "archetype_profile": {
+      "path": "contracts/src/schemas/archetype_profile.schema.json",
+      "sha256": "sha256:00f8f78d5a05d25933f73a1ad8c2d6ed0e30681ebea52474dbcbe3cd2b9ca131"
+    },
+    "worktree_oracle_report": {
+      "path": "contracts/src/schemas/worktree_oracle_report.schema.json",
+      "sha256": "sha256:b5f1da26e5466cecde03975a64cb4f4e378987d1b67e6ca60cdafd0f10e9ba72"
+    },
+    "proof_receipt": {
+      "path": "contracts/src/schemas/proof_receipt.schema.json",
+      "sha256": "sha256:8f51606aa6a8553622c1f885162d84966492b7c4264f6daa3b12b4e12a76b2fe"
+    },
+    "cockpit_manifest": {
+      "path": "contracts/src/schemas/cockpit_manifest.schema.json",
+      "sha256": "sha256:32539a489baa3ec3a2474c11f7774dcf44498198b50a2e4d46a9f20ad076429f"
+    }
+  },
+  "modules": {
+    "DO-1": {
+      "outcome_id": "OUT-001",
+      "files": [
+        "src/metaos_ignite/archetypes.py",
+        "src/metaos_ignite/compiler.py"
+      ],
+      "cli_entrypoint": "scripts/ignite",
+      "public_functions": [
+        "list_archetypes() -> list[str]",
+        "synthesize_archetype_profile(archetype_id: str, language: str = 'python') -> dict",
+        "compile_ignition_pack(root: str, manifest_path: str, briefing_path: str, init_new_project: bool = False, new_run_id: str = None, keystore_dir: str = None) -> dict"
+      ]
+    },
+    "DO-2": {
+      "outcome_id": "OUT-002",
+      "files": [
+        "src/metaos_ignite/executor.py",
+        "src/metaos_ignite/proof.py"
+      ],
+      "cli_entrypoints": [
+        "scripts/worktree_exec",
+        "scripts/assemble_proof"
+      ],
+      "public_functions": [
+        "evaluate_triple_red_oracle(run1_report: dict, run2_report: dict, allowed_oracle_ids: list[str]) -> dict",
+        "execute_in_worktree(root: str, seed: int = 42, mode: str = 'GREEN_VERIFY') -> dict",
+        "assemble_proof_package(root: str, run_id: str = 'run-0000', keystore_dir: str = None) -> dict"
+      ]
+    },
+    "DO-3": {
+      "outcome_id": "OUT-003",
+      "files": [
+        "src/metaos_ignite/cockpit.py"
+      ],
+      "cli_entrypoint": "scripts/project_cockpit",
+      "public_functions": [
+        "project_cockpit(root: str, output_dir: str = 'docs/cockpit') -> dict"
+      ]
+    },
+    "DO-4": {
+      "outcome_id": "OUT-004",
+      "files": [
+        "src/metaos_ignite/guide.py",
+        "docs/IGNITE_GUIDE.md"
+      ],
+      "public_functions": [
+        "render_ignite_guide(root: str, output_path: str = 'docs/IGNITE_GUIDE.md') -> dict"
+      ]
+    }
+  },
+  "content_hash": "sha256:45d0c160f66ad5b23a80e5e61095e4dcfdbde26095ece7933e8c9a9399209173",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEAI+sOpH5tbL3MuEhKFueGWwoLM1FdtrrqvnfMZyD6lTggfwaKq4U\nPNwO6tDVmFE+AebzSIB32KT62CKh1CAbQE\n-----END SSH SIGNATURE-----"
+  }
+}

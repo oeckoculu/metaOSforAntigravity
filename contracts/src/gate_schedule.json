@@ -1,0 +1,36 @@
+{
+  "artifact_kind": "GateSchedule",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "risk_class": "R2",
+  "counterfactual_handshake_required": true,
+  "human_audit_required": true,
+  "mutation_tier": "TARGETED_MODULE",
+  "mutation_min_score_pct": 80,
+  "rollback_proof_required": true,
+  "required_gates": [
+    "G0_SCHEMA_AND_SECRET_SCAN",
+    "G0_COUNTERFACTUAL_HANDSHAKE",
+    "G1_TRIPLE_RED_ORACLE",
+    "G2_WORKTREE_BUILD_GREEN",
+    "G3_ARCHETYPE_SECURITY_SCAN",
+    "G4_MUTATION_TARGETED_MODULE",
+    "G5_ARCHETYPE_PERFORMANCE_SCAN",
+    "G6_PROOF_ASSEMBLY",
+    "G7_HUMAN_AUDIT"
+  ],
+  "required_oracles": [
+    "ORC-001",
+    "ORC-002",
+    "ORC-003",
+    "ORC-004",
+    "ORC-005"
+  ],
+  "content_hash": "sha256:af79d9ff8499905ee61a9a35312d02ec06a56fac15fa8e0b77907e9eab39e8b9",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEBkd0Rt+ECSt2eyXHcTAK3TTIxh+TgNCtT4qCndUoulbtj30xTiD8\noEdaKhCLpITzDN2D52T1QgJc6pPwNQ49sH\n-----END SSH SIGNATURE-----"
+  }
+}

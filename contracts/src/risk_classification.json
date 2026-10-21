@@ -1,0 +1,24 @@
+{
+  "artifact_kind": "RiskClassAssignment",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "risk_class": "R2",
+  "risk_rank": 2,
+  "pdp_risk_hints": {
+    "blast_radius": "SERVICE",
+    "estimated_loc_delta": 480,
+    "touches_public_api": true,
+    "touches_auth_or_crypto": false,
+    "touches_data_schema_or_migrations": false,
+    "touches_build_ci_or_deps": false
+  },
+  "data_classification": "INTERNAL",
+  "rationale": "R2 (Moderate Risk): Layer B suite introducing 4 new CLI tools and domain contracts without mutating Layer A kernel.",
+  "content_hash": "sha256:da3c8a128b09839be77b4938c105efb449db5fbc830f48ff071dba5e02eb4deb",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEDEMVsQ60PLSwWwMBX+dplEASo+oCIj3QR298YdbvydZTWGIh08r9\n/pgc4ggJtazhdq9t4AvzpagoGIyj2J1AAL\n-----END SSH SIGNATURE-----"
+  }
+}

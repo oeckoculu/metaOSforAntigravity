@@ -1,0 +1,16 @@
+{
+  "artifact_kind": "LatestProofPointer",
+  "schema_version": "1.2.0",
+  "run_id": "run-0000",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "proposal_id": "0192f3a4-0000-7000-8000-000000000110",
+  "proof_receipt_path": "receipts/by-run/run-0000/de597e487325d1eb5f8556c0e425a5aeb38ea7bbd9238ead982257f921e50f01.json",
+  "proof_receipt_sha256": "sha256:8f54d2dfde3224c8b7ac795886c02dcb67727c753fef8bc3bfa29b9e3a9958e2",
+  "proof_content_hash": "sha256:de597e487325d1eb5f8556c0e425a5aeb38ea7bbd9238ead982257f921e50f01",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAVkNeeJL9P5ezkkliYQQR0C0eJSKhpi5hOooZvPvp+esL4Q8+Ef\n0qPUhwJCSnv15eMYMUZyVkVPAvqD3VXxueCA==\n-----END SSH SIGNATURE-----"
+  }
+}

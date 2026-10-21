@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0.0",
+  "project_name": "Yeni_MetaOS_Projesi",
+  "primary_archetype": "Backend_API",
+  "secondary_archetypes": [
+    "Data_ML_Pipeline"
+  ],
+  "language": "python",
+  "risk_class": "R2",
+  "owner": "human:oeckoculu",
+  "budgets": {
+    "max_budget_usd": 10,
+    "max_wall_clock_minutes": 60
+  },
+  "notes": "primary_archetype alani 6 evrensel arketipten biri olmalidir: Backend_API, FullStack_Web, Data_ML_Pipeline, CLI_SDK, Autonomous_Agent, Embedded_IoT"
+}

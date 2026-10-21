@@ -1,0 +1,25 @@
+{
+  "artifact_kind": "ArchetypePerformanceScanProof",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-16",
+  "status": "PASS",
+  "evidence_labels": [
+    "ArchetypePerformanceScanProof",
+    "OTelBaselinePass",
+    "QueryCountCheck"
+  ],
+  "iterations": 5,
+  "samples_ms": [
+    10,
+    10,
+    11,
+    11,
+    12
+  ],
+  "avg_latency_ms": 10,
+  "max_latency_ms": 12,
+  "budget_max_ms": 1000,
+  "external_network_calls": 0,
+  "n_plus_one_queries": 0,
+  "content_hash": "sha256:f20e505d3290401f5a9705a0ca5ec6f0b711213430693a179a37f58b0857d4f3"
+}

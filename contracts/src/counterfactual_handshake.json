@@ -1,0 +1,34 @@
+{
+  "artifact_kind": "CounterfactualHandshakeResult",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "risk_class": "R2",
+  "decision": "APPROVED",
+  "resolved_architectural_boundaries": {
+    "active_archetype": "CLI_Library_Archetype",
+    "supported_polymorphic_archetypes": [
+      "Autonomous_Agent",
+      "Backend_API",
+      "CLI_SDK",
+      "Data_ML_Pipeline",
+      "Embedded_IoT",
+      "FullStack_Web"
+    ],
+    "runtime_boundary": "python3-stdlib + posix-sh + sqlite3 + git + ssh-keygen (zero third-party deps, zero network)",
+    "data_classification": "INTERNAL",
+    "mandatory_oracle_kinds": [
+      "CONTRACT",
+      "PROPERTY",
+      "GOLDEN",
+      "PERF",
+      "SECURITY"
+    ]
+  },
+  "content_hash": "sha256:ba85739a4fc3cc0f476aafd31bee405d9267d5a2d00c7b0cf0d757132bd2ac49",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+    "namespace": "metaos.human",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgpCSQAdSjOtRdg9e8MpYgWbYFmm\nd1bwueDxmZYZ5KcX8AAAAMbWV0YW9zLmh1bWFuAAAAAAAAAAZzaGE1MTIAAABTAAAAC3Nz\naC1lZDI1NTE5AAAAQOobphPPu/YlPEDEifwk4tqEBb5nD8qqFJa5WHbFe6rRUVPEnpxd7g\n0/AAVALgc6Ux0AB3cl7gXp6lF21vAsAAQ=\n-----END SSH SIGNATURE-----"
+  }
+}

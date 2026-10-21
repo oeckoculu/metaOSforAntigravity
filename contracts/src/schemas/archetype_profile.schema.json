@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:layerb:archetype_profile:1.0.0",
+  "title": "SynthesizedArchetypeProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "archetype_id",
+    "language",
+    "default_directories",
+    "toolchain",
+    "security_scan_proof_kind",
+    "performance_scan_proof_kind",
+    "perf_budgets",
+    "required_oracles"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "archetype_id": {
+      "enum": [
+        "Backend_API",
+        "FullStack_Web",
+        "Data_ML_Pipeline",
+        "CLI_SDK",
+        "Autonomous_Agent",
+        "Embedded_IoT"
+      ]
+    },
+    "language": {
+      "enum": [
+        "python",
+        "typescript",
+        "go",
+        "rust",
+        "generic"
+      ]
+    },
+    "default_directories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "security_scan_proof_kind": {
+      "const": "ArchetypeSecurityScanProof"
+    },
+    "performance_scan_proof_kind": {
+      "const": "ArchetypePerformanceScanProof"
+    },
+    "perf_budgets": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "required_oracles": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "enum": [
+          "CONTRACT",
+          "PROPERTY",
+          "GOLDEN",
+          "PERF",
+          "SECURITY"
+        ]
+      }
+    }
+  }
+}

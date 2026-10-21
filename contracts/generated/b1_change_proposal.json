@@ -1,0 +1,117 @@
+{
+  "schema_version": "1.0.0",
+  "proposal_id": "0192f3a4-0000-7000-8000-000000000102",
+  "run_id": "run-0000",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "kind": "CODE",
+  "proposer": {
+    "principal": {
+      "principal_id": "agent:builder-1",
+      "kind": "AGENT",
+      "os_identity": "oeckoculu"
+    },
+    "agent_role": "BuilderAgent",
+    "task_envelope_id": "0192f3a4-0000-7000-8000-000000000007",
+    "model_snapshot_ref": null
+  },
+  "base": {
+    "commit_sha": "8eacc883b35b642e766dd7439b0adbea96365be4",
+    "tree_sha": "62392a624315f1bbb8c1b95be03d6c1d22b34dfd",
+    "spec_lock_hash": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+    "policy_bundle_version": "urn:metaos:policy:bundle:1.2.0"
+  },
+  "changes": [
+    {
+      "path": "src/metaos_ignite/__init__.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:31626f6e18d57cae133bb7694a37028e2d180ad5f2af4004eec740d584243b0b",
+      "patch_ref": "sha256:31626f6e18d57cae133bb7694a37028e2d180ad5f2af4004eec740d584243b0b"
+    },
+    {
+      "path": "src/metaos_ignite/archetypes.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:f5002e0579c3b8f9c2c2f439a9c8cc60a1687b47ed286a55965126dbf8fc35df",
+      "patch_ref": "sha256:f5002e0579c3b8f9c2c2f439a9c8cc60a1687b47ed286a55965126dbf8fc35df"
+    },
+    {
+      "path": "src/metaos_ignite/cli.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:9bee30f7e9da76b26edaf0a234a4446d267a14cc304625eee5ed8deb0b44ae1c",
+      "patch_ref": "sha256:9bee30f7e9da76b26edaf0a234a4446d267a14cc304625eee5ed8deb0b44ae1c"
+    },
+    {
+      "path": "src/metaos_ignite/cockpit.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:09c9a6e9a77dae8bb5755e670ea9d02b4d852ee1eff7c02c4942fc930094d51d",
+      "patch_ref": "sha256:09c9a6e9a77dae8bb5755e670ea9d02b4d852ee1eff7c02c4942fc930094d51d"
+    },
+    {
+      "path": "src/metaos_ignite/compiler.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:f96aacfd4a8b238af80d05a18d4703fe960bd39f6f405dc46e7f9ee9c4095909",
+      "patch_ref": "sha256:f96aacfd4a8b238af80d05a18d4703fe960bd39f6f405dc46e7f9ee9c4095909"
+    },
+    {
+      "path": "src/metaos_ignite/executor.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:40ad80d2bac4194171b763fcc47254165711ebf155e344e8078387936d59ed70",
+      "patch_ref": "sha256:40ad80d2bac4194171b763fcc47254165711ebf155e344e8078387936d59ed70"
+    },
+    {
+      "path": "src/metaos_ignite/guide.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:2cc791103b0122beca65d1942c6e2acfdfccbd9cf375208b614f80ef0bd618e8",
+      "patch_ref": "sha256:2cc791103b0122beca65d1942c6e2acfdfccbd9cf375208b614f80ef0bd618e8"
+    },
+    {
+      "path": "src/metaos_ignite/proof.py",
+      "layer": "B",
+      "op": "ADD",
+      "pre_image_hash": null,
+      "post_image_hash": "sha256:2adf9e60c78191879bb19cbb8a75beabc87392e4578ef4f89f97c8f12ed10113",
+      "patch_ref": "sha256:2adf9e60c78191879bb19cbb8a75beabc87392e4578ef4f89f97c8f12ed10113"
+    }
+  ],
+  "self_modification": false,
+  "rationale": "Layer B Universal Ignite & Cockpit Suite (DO-1..DO-4) admitted at TESTS_ARMED_RED under V12-05 Triple RED Oracle.",
+  "evidence_refs": [
+    "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+    "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066",
+    "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066",
+    "sha256:05d246a14c32418d618c45632cbe5a1be4aaae620a11623f5d0e39ed93cc4579"
+  ],
+  "risk_class_requested": "R2",
+  "rollback_plan": {
+    "strategy": "WORKTREE_DISCARD",
+    "steps": [
+      "git worktree remove --force /tmp/metaos-worktree-b2",
+      "git checkout -- src/metaos_ignite"
+    ],
+    "verified": true,
+    "verification_ref": "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066"
+  },
+  "expires_at": "2026-10-21T02:00:00Z",
+  "content_hash": "sha256:41a4b1f181c32ae0c241dd2ff66e2fc78be6320cbde677b742eb2ec0e351b08c",
+  "signatures": [
+    {
+      "alg": "sshsig-ed25519",
+      "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+      "namespace": "metaos.proposal",
+      "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgpCSQAdSjOtRdg9e8MpYgWbYFmm\nd1bwueDxmZYZ5KcX8AAAAPbWV0YW9zLnByb3Bvc2FsAAAAAAAAAAZzaGE1MTIAAABTAAAA\nC3NzaC1lZDI1NTE5AAAAQHSVj4BzyUvlzdR6B797hPvKAVvSh72nCRHmoEgD9Jd+ZYp3JU\nb/BqfujSwga6S0HTIBMa1vwAPVJuzGD+916gY=\n-----END SSH SIGNATURE-----"
+    }
+  ]
+}

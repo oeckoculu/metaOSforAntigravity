@@ -1,0 +1,88 @@
+{
+  "artifact_kind": "CanonicalSpecLockFile",
+  "schema_version": "1.2.0",
+  "locked_at": "2026-10-21T01:00:00Z",
+  "run_id": "run-0000",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "risk_class": "R2",
+  "merkle_root_sha256": "sha256:067855c8b0d213977596f7d0fcfb351d2f1b817d73b1f515e7bbde9224feec77",
+  "locked_files": {
+    "contracts/generated/contract_diff.json": {
+      "file_sha256": "sha256:67f7096483643b252a1392eb4a404b12e09ec141f0d6ac0527412093bc9e0c75",
+      "jcs_sha256": "sha256:5809edb68e59a30c1ee7f8b4510a414f54f05da9b157a09028a8dc2b69fef6f8",
+      "bytes": 1484
+    },
+    "contracts/generated/module_interfaces.json": {
+      "file_sha256": "sha256:092ee91b5cd4d40385632b992a7b800ebdd32d5c65589209d188ed10060bd46d",
+      "jcs_sha256": "sha256:40034392c5478af2e56dbc121b6da1148589cedc5556a3943839a5f2b9492b6f",
+      "bytes": 1990
+    },
+    "contracts/generated/threat_model_report.json": {
+      "file_sha256": "sha256:70254339506efe06fc70ef5a40f334902cc63e13944a3b1f499f10cae612f3d6",
+      "jcs_sha256": "sha256:1fc12507373fef9b15de7ce367ee0d672f38cced75e09330b76e619d2fa769a1",
+      "bytes": 3420
+    },
+    "contracts/src/counterfactual_handshake.json": {
+      "file_sha256": "sha256:e315a107369e4b24196ad9ce0d64f3ec929024862059628b14fd595c8c331bd3",
+      "jcs_sha256": "sha256:75abf35599d3001b3ff09a88d19ca6994220ecf676cdc5b91b6ce95947329bcd",
+      "bytes": 1314
+    },
+    "contracts/src/domain_contracts.json": {
+      "file_sha256": "sha256:9ba525764063cca6a8b62d9ef4f7a1a02cbf8ca2961f313255c056fe201028c6",
+      "jcs_sha256": "sha256:437e1398bd09389d3a155cdd9992838691e999d4c992fe500d36db1ac21c7758",
+      "bytes": 3519
+    },
+    "contracts/src/gate_schedule.json": {
+      "file_sha256": "sha256:0af181e53974f6b8a69425b6662612a91153345af825404f293f8f239e0c1d99",
+      "jcs_sha256": "sha256:c4ab5f312dbeb6d05836f7eda41f0b49ebd459bb3009ee120626378af28631eb",
+      "bytes": 1305
+    },
+    "contracts/src/intent_contract.json": {
+      "file_sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891",
+      "jcs_sha256": "sha256:9d9b6395fdd214bc1afe5fbc3380a891806691ec2ba0d3ff6e0f1affc9b82977",
+      "bytes": 6825
+    },
+    "contracts/src/project_archetype_profile.json": {
+      "file_sha256": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004",
+      "jcs_sha256": "sha256:56b02fe276859ed3e08edaac8e50d8dcca2e9a57b4dfd3bb27722af2db061174",
+      "bytes": 10059
+    },
+    "contracts/src/risk_classification.json": {
+      "file_sha256": "sha256:4948c1ff40a333df90ef0c810969e3c463627ab19afb4a0c18a3262bd19d27f8",
+      "jcs_sha256": "sha256:f6accf18dcfefc73bd1ed5eceb0b35b8cb17fdf051f7cd9d01edc62c72136ff4",
+      "bytes": 1155
+    },
+    "contracts/src/schemas/archetype_profile.schema.json": {
+      "file_sha256": "sha256:00f8f78d5a05d25933f73a1ad8c2d6ed0e30681ebea52474dbcbe3cd2b9ca131",
+      "jcs_sha256": "sha256:58e7cc48640102fb2fb8125214d6e397aa4f5d99e4c0faa3fba4666a847c2cc7",
+      "bytes": 1601
+    },
+    "contracts/src/schemas/cockpit_manifest.schema.json": {
+      "file_sha256": "sha256:32539a489baa3ec3a2474c11f7774dcf44498198b50a2e4d46a9f20ad076429f",
+      "jcs_sha256": "sha256:35fc3bdd7429063889dd0fccc35c869fbd993190ee71400dbf499bdc786a5a0a",
+      "bytes": 1358
+    },
+    "contracts/src/schemas/proof_receipt.schema.json": {
+      "file_sha256": "sha256:8f51606aa6a8553622c1f885162d84966492b7c4264f6daa3b12b4e12a76b2fe",
+      "jcs_sha256": "sha256:ea5b493ea7ee7a8f1b4f866f3cfb2446f583e5633ea176118fe8e835b81b96ea",
+      "bytes": 2547
+    },
+    "contracts/src/schemas/worktree_oracle_report.schema.json": {
+      "file_sha256": "sha256:b5f1da26e5466cecde03975a64cb4f4e378987d1b67e6ca60cdafd0f10e9ba72",
+      "jcs_sha256": "sha256:1167665574c985d208b00ab1b7e386e8adfe42419f8999db75f57ff8b17485d2",
+      "bytes": 1944
+    },
+    "invariants/domain_invariants.json": {
+      "file_sha256": "sha256:4af87c92b03ebb4b30f8eeb72b1266e0b8b1342035e1f1a899f536fe5ab471d3",
+      "jcs_sha256": "sha256:a0e92fcc3cfcb469b77ad9bb0d7c250ae57c7f1e0c7743860b6890786ca7d656",
+      "bytes": 3123
+    }
+  },
+  "content_hash": "sha256:adeec09935ff54eac52110f84be545bad611c9fdfa05b8c59f24d83e17231272",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEDDeVBQlq9/Yu8TVguExhGLsxGtKfRiBQVZ8wt9SrXh68n1n2vqcJ\nLC7lVkjY5EvNeoiqtFPFbth/6QRy9T8mMB\n-----END SSH SIGNATURE-----"
+  }
+}

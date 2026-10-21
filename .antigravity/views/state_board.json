@@ -10,12 +10,12 @@
       "seq": 10
     }
   ],
-  "current_state": "GENESIS_LOCKED",
+  "current_state": "CLOSED",
   "derived_from": {
     "authority_jcs_sha256": "sha256:31b412a90f423a23328701dce1be271aedb24d236acdbccf592b86fd33704b31",
     "authority_version": "1.1.0",
-    "head_hash": "sha256:f4e7e105c5136da135ef21d94a87cd4e80bf6fdc9e5f357e4d7c8fc826d43fcb",
-    "head_seq": 14,
+    "head_hash": "sha256:ef4ffb062d7b0cc736e72fe79b525a72b5b4f219ca447ebc585fccae6e0c9e16",
+    "head_seq": 32,
     "journal": ".antigravity/events/run-0000.jsonl"
   },
   "evidence": [
@@ -132,6 +132,150 @@
       "satisfied_by": "CryptographicallySignedBreakGlassReviewRecord & RealignmentProjectionReceipt",
       "seq": 12,
       "to": "GENESIS_LOCKED"
+    },
+    {
+      "from": "GENESIS_LOCKED",
+      "guard_id": "LC-04",
+      "retroactive": false,
+      "satisfied_by": "InitializedWorkspace & ValidatedIntentContract",
+      "seq": 15,
+      "to": "INTENT_CAPTURED"
+    },
+    {
+      "from": "INTENT_CAPTURED",
+      "guard_id": "LC-05",
+      "retroactive": false,
+      "satisfied_by": "RiskClassAssignment & GateSchedule",
+      "seq": 16,
+      "to": "RISK_CLASSIFIED"
+    },
+    {
+      "from": "RISK_CLASSIFIED",
+      "guard_id": "LC-06B",
+      "retroactive": false,
+      "satisfied_by": "ContractDraft & CounterfactualHandshakeResult",
+      "seq": 17,
+      "to": "CONTRACT_DRAFTING"
+    },
+    {
+      "from": "CONTRACT_DRAFTING",
+      "guard_id": "LC-08",
+      "retroactive": false,
+      "satisfied_by": "ThreatModelReport & ContractDiff",
+      "seq": 18,
+      "to": "CONTRACT_REVIEWED"
+    },
+    {
+      "from": "CONTRACT_REVIEWED",
+      "guard_id": "LC-09",
+      "retroactive": false,
+      "satisfied_by": "CanonicalSpecLockFile",
+      "seq": 19,
+      "to": "CONTRACT_LOCKED"
+    },
+    {
+      "from": "CONTRACT_LOCKED",
+      "guard_id": "LC-10",
+      "retroactive": false,
+      "satisfied_by": "PropertyBasedTestSet & GoldenCases",
+      "seq": 20,
+      "to": "TESTS_ARMED_RED"
+    },
+    {
+      "from": "TESTS_ARMED_RED",
+      "guard_id": "LC-11",
+      "retroactive": false,
+      "satisfied_by": "AdmissionPolicyPassReceipt(RedExecutionVerified_NonZeroExit)",
+      "seq": 21,
+      "to": "CHANGE_ADMITTED"
+    },
+    {
+      "from": "CHANGE_ADMITTED",
+      "guard_id": "LC-12",
+      "retroactive": false,
+      "satisfied_by": "EphemeralSandboxAllocation",
+      "seq": 22,
+      "to": "SANDBOX_EXECUTING"
+    },
+    {
+      "from": "SANDBOX_EXECUTING",
+      "guard_id": "LC-13",
+      "retroactive": false,
+      "satisfied_by": "IsolatedWorktreeBuildSuccess",
+      "seq": 23,
+      "to": "WORKTREE_GREEN"
+    },
+    {
+      "from": "WORKTREE_GREEN",
+      "guard_id": "LC-14",
+      "retroactive": false,
+      "satisfied_by": "ArchetypeSecurityScanProof",
+      "seq": 24,
+      "to": "SECURITY_VERIFIED"
+    },
+    {
+      "from": "SECURITY_VERIFIED",
+      "guard_id": "LC-15",
+      "retroactive": false,
+      "satisfied_by": "MutationScorePass & Non-SurvivingInvariants",
+      "seq": 25,
+      "to": "MUTATION_VERIFIED"
+    },
+    {
+      "from": "MUTATION_VERIFIED",
+      "guard_id": "LC-16",
+      "retroactive": false,
+      "satisfied_by": "ArchetypePerformanceScanProof",
+      "seq": 26,
+      "to": "PERFORMANCE_VERIFIED"
+    },
+    {
+      "from": "PERFORMANCE_VERIFIED",
+      "guard_id": "LC-17",
+      "retroactive": false,
+      "satisfied_by": "CompleteProofReceiptPackage",
+      "seq": 27,
+      "to": "PROOF_ASSEMBLED"
+    },
+    {
+      "from": "PROOF_ASSEMBLED",
+      "guard_id": "LC-18A",
+      "retroactive": false,
+      "satisfied_by": "CompleteProofReceiptPackage",
+      "seq": 28,
+      "to": "HUMAN_AUDIT_REQUIRED"
+    },
+    {
+      "from": "HUMAN_AUDIT_REQUIRED",
+      "guard_id": "LC-19A",
+      "retroactive": false,
+      "satisfied_by": "CompleteProofReceiptPackage & HumanApprovalToken",
+      "seq": 29,
+      "to": "READY_TO_MERGE"
+    },
+    {
+      "from": "READY_TO_MERGE",
+      "guard_id": "LC-20",
+      "retroactive": false,
+      "satisfied_by": "GitMergeSuccess & AppendOnlyEventRecord",
+      "seq": 30,
+      "to": "MERGED"
+    },
+    {
+      "from": "MERGED",
+      "guard_id": "LC-21",
+      "retroactive": false,
+      "satisfied_by": "CanaryDeploymentTelemetry",
+      "seq": 31,
+      "to": "POST_DEPLOY_OBSERVING"
+    },
+    {
+      "from": "POST_DEPLOY_OBSERVING",
+      "guard_id": "LC-22A",
+      "retroactive": false,
+      "satisfied_by": "FinalStateLock & StabilityReceipt",
+      "seq": 32,
+      "to": "CLOSED"
     }
   ],
   "issued_tokens": [
@@ -144,19 +288,13 @@
       "token_sha256": "sha256:e164c62e74adc5aa040e979c3d8787834606b74d242aaa0b11232e0c1d4fb503"
     }
   ],
-  "next": {
-    "allowed_next_states": [
-      "INTENT_CAPTURED"
-    ],
-    "guard_id": "LC-04",
-    "required_evidence": "InitializedWorkspace & ValidatedIntentContract"
-  },
+  "next": null,
   "open_waivers": [],
   "patchset_status": "COMPILED_V1.2.0_ACTIVE",
   "run_id": "run-0000",
   "signature_status": {
     "reason": "PRE_A7_GENESIS_ENTRIES_UNSIGNED",
-    "signed_entries": 8,
+    "signed_entries": 26,
     "unsigned_entries": 7
   },
   "view": "state_board",

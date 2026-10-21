@@ -1,0 +1,162 @@
+{
+  "artifact_kind": "LayerBSBOM",
+  "schema_version": "1.2.0",
+  "spdx_version": "SPDX-2.3-hermetic-profile",
+  "package_name": "metaos_ignite",
+  "runtime_dependency_policy": "STDLIB_ONLY_ZERO_THIRD_PARTY",
+  "external_dependencies": [],
+  "components_count": 30,
+  "components": [
+    {
+      "path": "src/metaos_ignite/__init__.py",
+      "sha256": "sha256:27cf3f93c658037d41e7cea6edb4e6d0896cae46d74c55b147071392b076be42",
+      "bytes": 137
+    },
+    {
+      "path": "src/metaos_ignite/archetypes.py",
+      "sha256": "sha256:4494c4e4356d179d7eb194c0834d158e818d04373bb47849764a4aaaae1fac9a",
+      "bytes": 9507
+    },
+    {
+      "path": "src/metaos_ignite/cli.py",
+      "sha256": "sha256:7f0f6b0560e4271e95f0b79a22608f7588cbe65ce234c4958b557558a403c53b",
+      "bytes": 4991
+    },
+    {
+      "path": "src/metaos_ignite/cockpit.py",
+      "sha256": "sha256:7211dccecc267aa0a75235496b9f69c1f0eeb2a3e49d5e68452b4bfc1f49268d",
+      "bytes": 12595
+    },
+    {
+      "path": "src/metaos_ignite/compiler.py",
+      "sha256": "sha256:fc619a0927b4c6e028b2a2943c536950bf404287ab0036861a0c38ab7c28ab4c",
+      "bytes": 11717
+    },
+    {
+      "path": "src/metaos_ignite/executor.py",
+      "sha256": "sha256:04bfbd4244b35aa756d6430fff878977791a79aae37c90403617095995e7a359",
+      "bytes": 19582
+    },
+    {
+      "path": "src/metaos_ignite/guide.py",
+      "sha256": "sha256:4bb1993d7a13e64bb9cd1c8ea732d78960b511679c21dea511537d9d5982289b",
+      "bytes": 10798
+    },
+    {
+      "path": "src/metaos_ignite/proof.py",
+      "sha256": "sha256:29c7a8caa832e741f59bd5ce80978752b366eef1c5ee08cdcce9c42399699b87",
+      "bytes": 7668
+    },
+    {
+      "path": "tests/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "tests/property_strategies.py",
+      "sha256": "sha256:08f3a31fd9856ef271bd7d8a99fb84b47c60d894a6669d2a42c46344fa01e6ab",
+      "bytes": 1063
+    },
+    {
+      "path": "tests/run_suite.py",
+      "sha256": "sha256:20d0b3c80bcb8915bbfb2d8fe50fd0e76c1150e035344a3b5f543b35f611b30b",
+      "bytes": 15414
+    },
+    {
+      "path": "tests/golden/golden_cases.json",
+      "sha256": "sha256:5a8727051c8cdf13689a8c63858cb7e39c3f72978394dea4d567d1e4214b3c38",
+      "bytes": 1222
+    },
+    {
+      "path": "contracts/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "contracts/generated/b1_change_proposal.json",
+      "sha256": "sha256:944a459c4dff998fe1d87628db266fcf70faa1ec55711be71a5a62210225b03c",
+      "bytes": 4821
+    },
+    {
+      "path": "contracts/generated/contract_diff.json",
+      "sha256": "sha256:67f7096483643b252a1392eb4a404b12e09ec141f0d6ac0527412093bc9e0c75",
+      "bytes": 1484
+    },
+    {
+      "path": "contracts/generated/module_interfaces.json",
+      "sha256": "sha256:092ee91b5cd4d40385632b992a7b800ebdd32d5c65589209d188ed10060bd46d",
+      "bytes": 1990
+    },
+    {
+      "path": "contracts/generated/threat_model_report.json",
+      "sha256": "sha256:70254339506efe06fc70ef5a40f334902cc63e13944a3b1f499f10cae612f3d6",
+      "bytes": 3420
+    },
+    {
+      "path": "contracts/locks/spec.lock.json",
+      "sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+      "bytes": 4689
+    },
+    {
+      "path": "contracts/src/counterfactual_handshake.json",
+      "sha256": "sha256:e315a107369e4b24196ad9ce0d64f3ec929024862059628b14fd595c8c331bd3",
+      "bytes": 1314
+    },
+    {
+      "path": "contracts/src/domain_contracts.json",
+      "sha256": "sha256:9ba525764063cca6a8b62d9ef4f7a1a02cbf8ca2961f313255c056fe201028c6",
+      "bytes": 3519
+    },
+    {
+      "path": "contracts/src/gate_schedule.json",
+      "sha256": "sha256:0af181e53974f6b8a69425b6662612a91153345af825404f293f8f239e0c1d99",
+      "bytes": 1305
+    },
+    {
+      "path": "contracts/src/intent_contract.json",
+      "sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891",
+      "bytes": 6825
+    },
+    {
+      "path": "contracts/src/project_archetype_profile.json",
+      "sha256": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004",
+      "bytes": 10059
+    },
+    {
+      "path": "contracts/src/risk_classification.json",
+      "sha256": "sha256:4948c1ff40a333df90ef0c810969e3c463627ab19afb4a0c18a3262bd19d27f8",
+      "bytes": 1155
+    },
+    {
+      "path": "contracts/src/schemas/archetype_profile.schema.json",
+      "sha256": "sha256:00f8f78d5a05d25933f73a1ad8c2d6ed0e30681ebea52474dbcbe3cd2b9ca131",
+      "bytes": 1601
+    },
+    {
+      "path": "contracts/src/schemas/cockpit_manifest.schema.json",
+      "sha256": "sha256:32539a489baa3ec3a2474c11f7774dcf44498198b50a2e4d46a9f20ad076429f",
+      "bytes": 1358
+    },
+    {
+      "path": "contracts/src/schemas/proof_receipt.schema.json",
+      "sha256": "sha256:8f51606aa6a8553622c1f885162d84966492b7c4264f6daa3b12b4e12a76b2fe",
+      "bytes": 2547
+    },
+    {
+      "path": "contracts/src/schemas/worktree_oracle_report.schema.json",
+      "sha256": "sha256:b5f1da26e5466cecde03975a64cb4f4e378987d1b67e6ca60cdafd0f10e9ba72",
+      "bytes": 1944
+    },
+    {
+      "path": "invariants/.gitkeep",
+      "sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "invariants/domain_invariants.json",
+      "sha256": "sha256:4af87c92b03ebb4b30f8eeb72b1266e0b8b1342035e1f1a899f536fe5ab471d3",
+      "bytes": 3123
+    }
+  ],
+  "content_hash": "sha256:cced0116bc26ff0a5436d4527f010667d8151c9bad1d0aafd888849fe40b83b2"
+}

@@ -1,0 +1,338 @@
+{
+  "receipt_type": "PhaseReceipt",
+  "schema_version": "1.0.0",
+  "phase": "B1",
+  "name": "contracts_and_red_tests",
+  "status": "PASS",
+  "generated_at": "2026-10-21T01:23:36Z",
+  "input": {
+    "commit": "8eacc883b35b642e766dd7439b0adbea96365be4",
+    "tree": "62392a624315f1bbb8c1b95be03d6c1d22b34dfd"
+  },
+  "kernel": {
+    "version": "0.1.0-genesis",
+    "digest": "sha256:8fc78c5c4ae0a5c3b86535c29f519871b6594944926b3be6e676d52a774bc777"
+  },
+  "reproducibility": {
+    "source_commit": "8eacc883b35b642e766dd7439b0adbea96365be4",
+    "toolchain_digest": "sha256:bab380cf72cee17c4c412a4c12cd19afa0007df4b962c0cc12955998b650b02b",
+    "lockfile_hash": null,
+    "image_digest": null,
+    "test_seed": 0,
+    "model_snapshot": null,
+    "policy_version": "invariants_and_states@1.1.0",
+    "unavailable_reasons": {
+      "lockfile_hash": "NO_THIRD_PARTY_DEPENDENCIES_STDLIB_ONLY",
+      "image_digest": "NO_CONTAINER_RUNTIME_UNSUPPORTED",
+      "model_snapshot": "DETERMINISTIC_KERNEL_STEP_NO_MODEL_INVOLVED"
+    }
+  },
+  "checks": [
+    {
+      "id": "B1-C01",
+      "description": "LC-04: NotebookLM research_briefing.md wrapped in I-14 UntrustedContentEnvelope; ProjectArchetypeProfile (6 archetypes) and signed VALIDATED IntentContract emitted",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-13",
+        "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+        "intent_sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891",
+        "archetype_profile_sha256": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004",
+        "briefing_envelope_sha256": "sha256:b8afc95d44c39a4dd03115949475eb8546c6ef9251e9b719849084cc000a7556",
+        "registered_archetypes": [
+          "Autonomous_Agent",
+          "Backend_API",
+          "CLI_SDK",
+          "Data_ML_Pipeline",
+          "Embedded_IoT",
+          "FullStack_Web"
+        ]
+      }
+    },
+    {
+      "id": "B1-C02",
+      "description": "LC-05 & LC-06B: R2 RiskClassAssignment, GateSchedule, CounterfactualHandshakeResult, 4 domain JSON Schemas, and DOM-INV-01..08 materialized",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-06",
+        "risk_class": "R2",
+        "required_gates": [
+          "G0_SCHEMA_AND_SECRET_SCAN",
+          "G0_COUNTERFACTUAL_HANDSHAKE",
+          "G1_TRIPLE_RED_ORACLE",
+          "G2_WORKTREE_BUILD_GREEN",
+          "G3_ARCHETYPE_SECURITY_SCAN",
+          "G4_MUTATION_TARGETED_MODULE",
+          "G5_ARCHETYPE_PERFORMANCE_SCAN",
+          "G6_PROOF_ASSEMBLY",
+          "G7_HUMAN_AUDIT"
+        ],
+        "domain_contracts_sha256": "sha256:9ba525764063cca6a8b62d9ef4f7a1a02cbf8ca2961f313255c056fe201028c6",
+        "domain_invariants_sha256": "sha256:4af87c92b03ebb4b30f8eeb72b1266e0b8b1342035e1f1a899f536fe5ab471d3",
+        "schemas": {
+          "contracts/src/schemas/archetype_profile.schema.json": "sha256:00f8f78d5a05d25933f73a1ad8c2d6ed0e30681ebea52474dbcbe3cd2b9ca131",
+          "contracts/src/schemas/worktree_oracle_report.schema.json": "sha256:b5f1da26e5466cecde03975a64cb4f4e378987d1b67e6ca60cdafd0f10e9ba72",
+          "contracts/src/schemas/proof_receipt.schema.json": "sha256:8f51606aa6a8553622c1f885162d84966492b7c4264f6daa3b12b4e12a76b2fe",
+          "contracts/src/schemas/cockpit_manifest.schema.json": "sha256:32539a489baa3ec3a2474c11f7774dcf44498198b50a2e4d46a9f20ad076429f"
+        }
+      }
+    },
+    {
+      "id": "B1-C03",
+      "description": "LC-08 & LC-09: STRIDE ThreatModelReport, ContractDiff, and signed CanonicalSpecLockFile (contracts/locks/spec.lock.json) frozen",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-07",
+        "threat_model_sha256": "sha256:70254339506efe06fc70ef5a40f334902cc63e13944a3b1f499f10cae612f3d6",
+        "contract_diff_sha256": "sha256:67f7096483643b252a1392eb4a404b12e09ec141f0d6ac0527412093bc9e0c75",
+        "spec_lock_sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+        "spec_lock_merkle_root": "sha256:067855c8b0d213977596f7d0fcfb351d2f1b817d73b1f515e7bbde9224feec77"
+      }
+    },
+    {
+      "id": "B1-C04",
+      "description": "LC-10: Contract-first stubs (src/metaos_ignite/*.py), PropertyBasedTestSet, GoldenCases, and 5-oracle runner (tests/run_suite.py) armed",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-10",
+        "stubs_count": 8,
+        "property_strategies_sha256": "sha256:08f3a31fd9856ef271bd7d8a99fb84b47c60d894a6669d2a42c46344fa01e6ab",
+        "golden_cases_sha256": "sha256:5a8727051c8cdf13689a8c63858cb7e39c3f72978394dea4d567d1e4214b3c38",
+        "run_suite_sha256": "sha256:20d0b3c80bcb8915bbfb2d8fe50fd0e76c1150e035344a3b5f543b35f611b30b"
+      }
+    },
+    {
+      "id": "B1-C05",
+      "description": "V12-05 Triple RED Oracle verified: CompilationSuccess==True, RuntimeExecution=='EXECUTED', TestExitCode!=0, all 5 oracle types (ORC-001..005) armed, and dual-replay failure sets identical (seed=42)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-10",
+        "CompilationSuccess": true,
+        "RuntimeExecution": "EXECUTED",
+        "TestExitCode": 1,
+        "total_tests": 10,
+        "failures": 10,
+        "failed_test_ids": [
+          "TST-001",
+          "TST-002",
+          "TST-003",
+          "TST-004",
+          "TST-005",
+          "TST-006",
+          "TST-007",
+          "TST-008",
+          "TST-009",
+          "TST-010"
+        ],
+        "failed_oracle_ids": [
+          "ORC-001",
+          "ORC-002",
+          "ORC-003",
+          "ORC-004",
+          "ORC-005"
+        ],
+        "dual_replay_identical": true,
+        "run1_report_sha256": "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066",
+        "run2_report_sha256": "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066",
+        "junit_xml_sha256": "sha256:05d246a14c32418d618c45632cbe5a1be4aaae620a11623f5d0e39ed93cc4579"
+      }
+    },
+    {
+      "id": "B1-C06",
+      "description": "LC-11: Signed ChangeProposal passes PDP admission controller and emits signed AdmissionPolicyPassReceipt",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-01",
+        "proposal_id": "0192f3a4-0000-7000-8000-000000000102",
+        "proposal_sha256": "sha256:944a459c4dff998fe1d87628db266fcf70faa1ec55711be71a5a62210225b03c",
+        "admission_receipt_sha256": "sha256:dcfbf95f5c3cc217710e780c698097134fc38385d78eed677cf00bd5942f4a56",
+        "risk_class": "R2"
+      }
+    },
+    {
+      "id": "B1-C07",
+      "description": "Event journal (.antigravity/events/run-0000.jsonl, seq 0..21) records signed transitions LC-04..LC-11 and projects deterministically to CHANGE_ADMITTED",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-03",
+        "total_entries": 22,
+        "signed_entries": 15,
+        "head_seq": 21,
+        "head_hash": "sha256:e690bb478fc19788142bc2605796402675cf403b753756be402c28b7e75ee895",
+        "current_state": "CHANGE_ADMITTED",
+        "state_board_sha256": "sha256:b782da8646a77d44a97ab8f3dcbdfb9122a03468a586aa22a4b967b78ba63e8f"
+      }
+    },
+    {
+      "id": "B1-C08",
+      "description": "Layer A kernel_lock.json and Genesis journal prefix (seq 0..14) remain 100% unmodified and valid after Phase B1 (I-09)",
+      "result": "PASS",
+      "detail": {
+        "invariant_id": "I-09",
+        "kernel_lock_valid": true,
+        "total_locked_files": 95,
+        "merkle_root_sha256": "sha256:7fd8e370bf3a591971417bc5e42ee2caa8de6550be2f9d667d722fe681068e2e",
+        "journal_anchor_seq": 14
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "path": ".antigravity/events/run-0000.jsonl",
+      "sha256": "sha256:2945a8bfd1071eb74259ed08ff5ef18d6baa288fd5e81c43f5d8338c7d867a63"
+    },
+    {
+      "path": ".antigravity/genesis/active_profile.json",
+      "sha256": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004"
+    },
+    {
+      "path": ".antigravity/genesis/project_manifest.json",
+      "sha256": "sha256:5ebaa100b91859e08fbf8470b44fb06a65fa4be5cb0711f96168c90a0a9f7d51"
+    },
+    {
+      "path": ".antigravity/genesis/research_briefing.md",
+      "sha256": "sha256:dd8b8ef879774158ed727a49111617074358abe8fb54ec11b5d505aa02a7bf61"
+    },
+    {
+      "path": ".antigravity/genesis/templates/project_manifest.template.json",
+      "sha256": "sha256:fb6ed5e38c937825edf41cb8f4aa29d7aab0b810a4196a3506305abe2a03a77e"
+    },
+    {
+      "path": ".antigravity/genesis/templates/research_briefing.template.md",
+      "sha256": "sha256:5aeccde75f687011c9b36a51224255d11782291071b21c5f0e47e6c50c19faf1"
+    },
+    {
+      "path": ".antigravity/views/state_board.json",
+      "sha256": "sha256:b782da8646a77d44a97ab8f3dcbdfb9122a03468a586aa22a4b967b78ba63e8f"
+    },
+    {
+      "path": "contracts/generated/b1_change_proposal.json",
+      "sha256": "sha256:944a459c4dff998fe1d87628db266fcf70faa1ec55711be71a5a62210225b03c"
+    },
+    {
+      "path": "contracts/generated/contract_diff.json",
+      "sha256": "sha256:67f7096483643b252a1392eb4a404b12e09ec141f0d6ac0527412093bc9e0c75"
+    },
+    {
+      "path": "contracts/generated/module_interfaces.json",
+      "sha256": "sha256:092ee91b5cd4d40385632b992a7b800ebdd32d5c65589209d188ed10060bd46d"
+    },
+    {
+      "path": "contracts/generated/threat_model_report.json",
+      "sha256": "sha256:70254339506efe06fc70ef5a40f334902cc63e13944a3b1f499f10cae612f3d6"
+    },
+    {
+      "path": "contracts/locks/spec.lock.json",
+      "sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64"
+    },
+    {
+      "path": "contracts/src/counterfactual_handshake.json",
+      "sha256": "sha256:e315a107369e4b24196ad9ce0d64f3ec929024862059628b14fd595c8c331bd3"
+    },
+    {
+      "path": "contracts/src/domain_contracts.json",
+      "sha256": "sha256:9ba525764063cca6a8b62d9ef4f7a1a02cbf8ca2961f313255c056fe201028c6"
+    },
+    {
+      "path": "contracts/src/gate_schedule.json",
+      "sha256": "sha256:0af181e53974f6b8a69425b6662612a91153345af825404f293f8f239e0c1d99"
+    },
+    {
+      "path": "contracts/src/intent_contract.json",
+      "sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891"
+    },
+    {
+      "path": "contracts/src/project_archetype_profile.json",
+      "sha256": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004"
+    },
+    {
+      "path": "contracts/src/risk_classification.json",
+      "sha256": "sha256:4948c1ff40a333df90ef0c810969e3c463627ab19afb4a0c18a3262bd19d27f8"
+    },
+    {
+      "path": "contracts/src/schemas/archetype_profile.schema.json",
+      "sha256": "sha256:00f8f78d5a05d25933f73a1ad8c2d6ed0e30681ebea52474dbcbe3cd2b9ca131"
+    },
+    {
+      "path": "contracts/src/schemas/cockpit_manifest.schema.json",
+      "sha256": "sha256:32539a489baa3ec3a2474c11f7774dcf44498198b50a2e4d46a9f20ad076429f"
+    },
+    {
+      "path": "contracts/src/schemas/proof_receipt.schema.json",
+      "sha256": "sha256:8f51606aa6a8553622c1f885162d84966492b7c4264f6daa3b12b4e12a76b2fe"
+    },
+    {
+      "path": "contracts/src/schemas/worktree_oracle_report.schema.json",
+      "sha256": "sha256:b5f1da26e5466cecde03975a64cb4f4e378987d1b67e6ca60cdafd0f10e9ba72"
+    },
+    {
+      "path": "invariants/domain_invariants.json",
+      "sha256": "sha256:4af87c92b03ebb4b30f8eeb72b1266e0b8b1342035e1f1a899f536fe5ab471d3"
+    },
+    {
+      "path": "provenance/research_briefing.envelope.json",
+      "sha256": "sha256:b8afc95d44c39a4dd03115949475eb8546c6ef9251e9b719849084cc000a7556"
+    },
+    {
+      "path": "receipts/B1_admission_policy_pass.receipt.json",
+      "sha256": "sha256:dcfbf95f5c3cc217710e780c698097134fc38385d78eed677cf00bd5942f4a56"
+    },
+    {
+      "path": "receipts/b1_red_oracle_junit.xml",
+      "sha256": "sha256:05d246a14c32418d618c45632cbe5a1be4aaae620a11623f5d0e39ed93cc4579"
+    },
+    {
+      "path": "receipts/b1_red_oracle_run1.json",
+      "sha256": "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066"
+    },
+    {
+      "path": "receipts/b1_red_oracle_run2.json",
+      "sha256": "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066"
+    },
+    {
+      "path": "src/metaos_ignite/__init__.py",
+      "sha256": "sha256:31626f6e18d57cae133bb7694a37028e2d180ad5f2af4004eec740d584243b0b"
+    },
+    {
+      "path": "src/metaos_ignite/archetypes.py",
+      "sha256": "sha256:f5002e0579c3b8f9c2c2f439a9c8cc60a1687b47ed286a55965126dbf8fc35df"
+    },
+    {
+      "path": "src/metaos_ignite/cli.py",
+      "sha256": "sha256:9bee30f7e9da76b26edaf0a234a4446d267a14cc304625eee5ed8deb0b44ae1c"
+    },
+    {
+      "path": "src/metaos_ignite/cockpit.py",
+      "sha256": "sha256:09c9a6e9a77dae8bb5755e670ea9d02b4d852ee1eff7c02c4942fc930094d51d"
+    },
+    {
+      "path": "src/metaos_ignite/compiler.py",
+      "sha256": "sha256:f96aacfd4a8b238af80d05a18d4703fe960bd39f6f405dc46e7f9ee9c4095909"
+    },
+    {
+      "path": "src/metaos_ignite/executor.py",
+      "sha256": "sha256:40ad80d2bac4194171b763fcc47254165711ebf155e344e8078387936d59ed70"
+    },
+    {
+      "path": "src/metaos_ignite/guide.py",
+      "sha256": "sha256:2cc791103b0122beca65d1942c6e2acfdfccbd9cf375208b614f80ef0bd618e8"
+    },
+    {
+      "path": "src/metaos_ignite/proof.py",
+      "sha256": "sha256:2adf9e60c78191879bb19cbb8a75beabc87392e4578ef4f89f97c8f12ed10113"
+    },
+    {
+      "path": "tests/golden/golden_cases.json",
+      "sha256": "sha256:5a8727051c8cdf13689a8c63858cb7e39c3f72978394dea4d567d1e4214b3c38"
+    },
+    {
+      "path": "tests/property_strategies.py",
+      "sha256": "sha256:08f3a31fd9856ef271bd7d8a99fb84b47c60d894a6669d2a42c46344fa01e6ab"
+    },
+    {
+      "path": "tests/run_suite.py",
+      "sha256": "sha256:20d0b3c80bcb8915bbfb2d8fe50fd0e76c1150e035344a3b5f543b35f611b30b"
+    }
+  ],
+  "notes": [],
+  "receipt_hash": "sha256:5c06f9316be334a62a70cb161639c364d259ec2b5ba076b7ae5630f6ce098d60"
+}

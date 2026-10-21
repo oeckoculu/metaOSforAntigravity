@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:metaos:schema:layerb:cockpit_manifest:1.0.0",
+  "title": "ObsidianCockpitProjectionManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "llm_tokens_used",
+    "current_state",
+    "views",
+    "wikilinks_verified",
+    "mermaid_blocks_verified"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "llm_tokens_used": {
+      "const": 0
+    },
+    "current_state": {
+      "type": "string",
+      "minLength": 1
+    },
+    "views": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "DASHBOARD",
+        "STATE_GRAPH",
+        "DECISION_QUEUE",
+        "EVIDENCE_LEDGER"
+      ],
+      "properties": {
+        "DASHBOARD": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "STATE_GRAPH": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "DECISION_QUEUE": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "EVIDENCE_LEDGER": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+    "wikilinks_verified": {
+      "type": "boolean"
+    },
+    "mermaid_blocks_verified": {
+      "type": "boolean"
+    }
+  }
+}

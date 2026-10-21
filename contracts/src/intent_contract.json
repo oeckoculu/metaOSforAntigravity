@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "parent_intent_id": null,
+  "revised_hypothesis_ref": null,
+  "author": {
+    "principal_id": "human:oeckoculu",
+    "kind": "HUMAN",
+    "os_identity": "oeckoculu"
+  },
+  "title": "Meta-OS Universal Day-0 Ignite, Polymorphic Archetype Synthesizer, Worktree Executor & Obsidian Cockpit Suite",
+  "problem_statement": "Katman A cekirdegi (A1..A9) kilitlenmis olmasina ragmen, bu sablon klonlanip yeni bir proje baslatildiginda; (1) 6 farkli proje arketipini (Backend_API, FullStack_Web, Data_ML_Pipeline, CLI_SDK, Autonomous_Agent, Embedded_IoT) dil-bagimsiz olarak baglayacak polimorfik profil sentezleyicinin, (2) NotebookLM'den gelen .antigravity/genesis/research_briefing.md ve project_manifest.json girdilerini I-14 (UntrustedContentEnvelope) ile temizleyip IntentContract uretecek derleyicinin, (3) degisiklikleri /tmp altinda izole git worktree icinde kosturup Uclu RED/GREEN Oracle (V12-05) ve imzali ProofReceipt (receipts/pointers/latest_proof.json) uretecek yurutucunun, (4) sifir LLM token'i ile (I-07) Obsidian Graph View ([[wikilink]]) ve Mermaid diyagramli canli kokpit uretecek projeksiyon motorunun ve (5) kullanicinin hicbir adimi unutmamasi icin basvuracagi Türkçe docs/IGNITE_GUIDE.md rehberinin Katman B'de insa edilmesi.",
+  "desired_outcomes": [
+    {
+      "id": "OUT-001",
+      "statement": "DO-1: Polymorphic Archetype Registry & Ignite Compiler (src/metaos_ignite/archetypes.py & compiler.py, ./scripts/ignite)",
+      "measurable_criterion": "All 6 universal archetypes and 5 language toolchain templates synthesize deterministically; research_briefing.md + project_manifest.json compile through I-14 into a schema-valid IntentContract and ProjectArchetypeProfile."
+    },
+    {
+      "id": "OUT-002",
+      "statement": "DO-2: Worktree Sandbox Executor, Triple RED Oracle & Proof Assembler (src/metaos_ignite/executor.py & proof.py, ./scripts/worktree_exec, ./scripts/assemble_proof)",
+      "measurable_criterion": "Executes inside isolated /tmp git worktree (I-09), enforces V12-05 Triple RED/GREEN oracle with dual seeded replay stability, and emits Ed25519-signed ProofReceipt with Meta-Metrics at receipts/by-run/<run_id>/<hash>.json and receipts/pointers/latest_proof.json."
+    },
+    {
+      "id": "OUT-003",
+      "statement": "DO-3: Obsidian Vault & Mermaid Cockpit Projector (src/metaos_ignite/cockpit.py, ./scripts/project_cockpit)",
+      "measurable_criterion": "Zero-LLM-token deterministic projection (I-07) generates docs/cockpit/{DASHBOARD,STATE_GRAPH,DECISION_QUEUE,EVIDENCE_LEDGER}.md with valid [[wikilink]] edges and Mermaid state/evidence diagrams."
+    },
+    {
+      "id": "OUT-004",
+      "statement": "DO-4: Unutmama Kilavuzu & Hazir Baslangic Sablonlari (docs/IGNITE_GUIDE.md & .antigravity/genesis/templates/)",
+      "measurable_criterion": "Comprehensive Turkish step-by-step operator guide (NotebookLM -> Antigravity -> Obsidian) and starter templates exist and pass secret/link verification."
+    }
+  ],
+  "non_goals": [
+    "Live Jira/Confluence/GitHub remote API calls (local outbox and file projections are primary per I-11).",
+    "External Docker containers or third-party pip/npm packages (100% hermetic stdlib-only runtime)."
+  ],
+  "constraints": [
+    "Strict compliance with Meta-OS Architectural Invariants I-01..I-15 and patches C-1..C-8, V12-01..V12-06.",
+    "100% hermetic Python 3 standard library, POSIX sh, sqlite3, git, and ssh-keygen runtime.",
+    "Zero external network calls and zero secret literals in repository."
+  ],
+  "assumptions": [
+    {
+      "id": "ASM-001",
+      "statement": "Host provides python3, git, sqlite3, and OpenSSH ssh-keygen with -Y signing support.",
+      "status": "CONFIRMED"
+    },
+    {
+      "id": "ASM-002",
+      "statement": "Ed25519 private keys remain isolated in /tmp/metaos-keystore outside repository working tree.",
+      "status": "CONFIRMED"
+    }
+  ],
+  "archetype_profile_ref": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004",
+  "data_classification": "INTERNAL",
+  "risk_hints": {
+    "impact": "MEDIUM",
+    "reversibility": "TRIVIAL",
+    "data_sensitivity": "LOW",
+    "security": "MEDIUM",
+    "cost": "LOW"
+  },
+  "acceptance_oracles": [
+    {
+      "oracle_id": "ORC-001",
+      "kind": "CONTRACT",
+      "outcome_ids": [
+        "OUT-001",
+        "OUT-002",
+        "OUT-003",
+        "OUT-004"
+      ],
+      "contract_ref": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004"
+    },
+    {
+      "oracle_id": "ORC-002",
+      "kind": "PROPERTY",
+      "outcome_ids": [
+        "OUT-001",
+        "OUT-002",
+        "OUT-003"
+      ],
+      "contract_ref": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004"
+    },
+    {
+      "oracle_id": "ORC-003",
+      "kind": "GOLDEN",
+      "outcome_ids": [
+        "OUT-001",
+        "OUT-002",
+        "OUT-003",
+        "OUT-004"
+      ],
+      "contract_ref": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004"
+    },
+    {
+      "oracle_id": "ORC-004",
+      "kind": "PERF",
+      "outcome_ids": [
+        "OUT-002",
+        "OUT-003"
+      ],
+      "contract_ref": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004"
+    },
+    {
+      "oracle_id": "ORC-005",
+      "kind": "SECURITY",
+      "outcome_ids": [
+        "OUT-001",
+        "OUT-002",
+        "OUT-003"
+      ],
+      "contract_ref": "sha256:5c945afb416b989b637f9075c4b99f7bf4d87fcf19d43fdee85e7407b086c004"
+    }
+  ],
+  "source_inputs": [
+    {
+      "envelope_ref": "sha256:9ce513bdaf98351f7a7356e95ef0d44fdebe0ec7c6276009f61f6ac872aa42dc",
+      "trust": "UNTRUSTED"
+    }
+  ],
+  "status": "VALIDATED",
+  "content_hash": "sha256:95fcee70506a235784774d9ce45c40d04b811e66a78cc34963a606a9efc19c03",
+  "signatures": [
+    {
+      "alg": "sshsig-ed25519",
+      "key_id": "SHA256:0KpeXfIqVHhWBKz5bfRXdbxiG8fsW6KwAALXbBOrJvw",
+      "namespace": "metaos.human",
+      "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgpCSQAdSjOtRdg9e8MpYgWbYFmm\nd1bwueDxmZYZ5KcX8AAAAMbWV0YW9zLmh1bWFuAAAAAAAAAAZzaGE1MTIAAABTAAAAC3Nz\naC1lZDI1NTE5AAAAQICMz0VdRPMHWl7ng5XR4pkhu7VAtr48ik5I0VDJMV7Arb4yPr+LOm\nOrPBRBlpPuagkER+/w/KL2VunyDkVQ9wQ=\n-----END SSH SIGNATURE-----"
+    },
+    {
+      "alg": "sshsig-ed25519",
+      "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+      "namespace": "metaos.kernel",
+      "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEDYjvq3gvZ9bsSuOrPel+bGoYa9lg9y7W2XsRsz04/UCw2G1xuyPF\nP2idDFJbAeKgfZblcmujAKHvAdJbTxamUL\n-----END SSH SIGNATURE-----"
+    }
+  ]
+}

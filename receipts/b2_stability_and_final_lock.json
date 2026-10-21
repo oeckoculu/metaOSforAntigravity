@@ -1,0 +1,20 @@
+{
+  "artifact_kind": "StabilityReceipt",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-22A",
+  "run_id": "run-0000",
+  "evidence_labels": [
+    "StabilityReceipt",
+    "FinalStateLock"
+  ],
+  "final_state": "CLOSED",
+  "all_invariants_satisfied": true,
+  "status": "LOCKED_CLOSED",
+  "content_hash": "sha256:81fde89edf9c33c5b1f7b61eedcc499717c4f95567ce5a567965d5a5aec53a50",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAjFo3t6znF7H3EbDiwG83YgdCIlHwoP1PhaDIrgHwp9reiQX0vr\nOBYEYYVcwCRVhRAeSikWLAC2xxIUE4UA7JCg==\n-----END SSH SIGNATURE-----"
+  }
+}

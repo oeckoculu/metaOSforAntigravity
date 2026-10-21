@@ -1,0 +1,95 @@
+{
+  "artifact_kind": "CompleteProofReceiptPackage",
+  "schema_version": "1.2.0",
+  "run_id": "run-0000",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "proposal_id": "0192f3a4-0000-7000-8000-000000000110",
+  "spec_lock_sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+  "archetype_security_scan_proof": {
+    "artifact_kind": "ArchetypeSecurityScanProof",
+    "status": "PASS",
+    "guard_id": "LC-14",
+    "sast_ast_dangerous_call_violations": [],
+    "secret_scan_hits": [],
+    "untrusted_envelope_verified": true,
+    "sbom_path": "provenance/sbom/layer_b_sbom.json"
+  },
+  "archetype_performance_scan_proof": {
+    "artifact_kind": "ArchetypePerformanceScanProof",
+    "status": "PASS",
+    "guard_id": "LC-16",
+    "budget_max_ms": 1000,
+    "external_network_calls": 0,
+    "n_plus_one_queries": 0
+  },
+  "mutation_verification": {
+    "artifact_kind": "MutationVerificationReport",
+    "status": "PASS",
+    "guard_id": "LC-15",
+    "total_mutants": 6,
+    "killed_mutants": 6,
+    "surviving_critical_invariants": 0,
+    "mutation_score": "1.0",
+    "mutation_score_pct": 100
+  },
+  "meta_metrics": {
+    "total_lead_time_seconds": 420,
+    "llm_tokens_consumed": 0,
+    "estimated_cost_usd_cents": 0,
+    "circuit_breaker_trips": 0,
+    "false_positive_gate_count": 0,
+    "human_attention_seconds": 180
+  },
+  "evidence_chain": {
+    "intent_contract": {
+      "path": "contracts/src/intent_contract.json",
+      "sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891"
+    },
+    "domain_contracts": {
+      "path": "contracts/src/domain_contracts.json",
+      "sha256": "sha256:9ba525764063cca6a8b62d9ef4f7a1a02cbf8ca2961f313255c056fe201028c6"
+    },
+    "change_proposal": {
+      "path": "contracts/generated/b1_change_proposal.json",
+      "sha256": "sha256:944a459c4dff998fe1d87628db266fcf70faa1ec55711be71a5a62210225b03c"
+    },
+    "spec_lock": {
+      "path": "contracts/locks/spec.lock.json",
+      "sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64"
+    },
+    "triple_red_oracle_receipt": {
+      "path": "receipts/B1_admission_policy_pass.receipt.json",
+      "sha256": "sha256:dcfbf95f5c3cc217710e780c698097134fc38385d78eed677cf00bd5942f4a56"
+    },
+    "worktree_green_receipt": {
+      "path": "receipts/b2_worktree_green.json",
+      "sha256": null
+    },
+    "security_scan_proof": {
+      "path": "receipts/b2_security_scan_proof.json",
+      "sha256": null
+    },
+    "mutation_verification": {
+      "path": "receipts/b2_mutation_verification.json",
+      "sha256": null
+    },
+    "performance_scan_proof": {
+      "path": "receipts/b2_performance_scan_proof.json",
+      "sha256": null
+    },
+    "pillar_9_2_summary": {
+      "lead_time_seconds": 420,
+      "token_cost_usd_cents": 0,
+      "circuit_breaker_trips": 0,
+      "false_positive_gate_blocks": 0,
+      "human_attention_minutes": 3
+    }
+  },
+  "content_hash": "sha256:cc2c128b522e6eca64976ebebda5550c7befc543f30a1b9ed357de1314e19e0c",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABA9my5FAUgZueU1l/5GemIYsEa3GNoAJmz5OseymLP+U4SXVanET\nnh3LCHx5PJ6pQ/Dgrr4c+qMDMeMYQ0bqMgAA==\n-----END SSH SIGNATURE-----"
+  }
+}

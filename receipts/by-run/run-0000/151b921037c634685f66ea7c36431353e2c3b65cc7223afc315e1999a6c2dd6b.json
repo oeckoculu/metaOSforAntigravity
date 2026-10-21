@@ -1,0 +1,161 @@
+{
+  "artifact_kind": "CompleteProofReceiptPackage",
+  "schema_version": "1.2.0",
+  "run_id": "run-0000",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "proposal_id": "0192f3a4-0000-7000-8000-000000000110",
+  "spec_lock_sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+  "archetype_security_scan_proof": {
+    "artifact_kind": "ArchetypeSecurityScanProof",
+    "schema_version": "1.2.0",
+    "status": "PASS",
+    "guard_id": "LC-14",
+    "evidence_labels": [
+      "ArchetypeSecurityScanProof",
+      "SAST/DAST/Secret/SBOMScanPass"
+    ],
+    "sast_ast_dangerous_call_violations": [],
+    "secret_scan_hits": [],
+    "untrusted_envelope_verified": true,
+    "sbom_path": "provenance/sbom/layer_b_sbom.json",
+    "sbom_sha256": "sha256:a658c8c7cad9f6f8b7530e11f813b6d1e5615a58072ac51aa61c72be9c03c836",
+    "scanned_files_count": 30,
+    "content_hash": "sha256:682c0d0c570fe3573a5c85c272793346c31c70dda407464c0c0ed809a480a383"
+  },
+  "archetype_performance_scan_proof": {
+    "artifact_kind": "ArchetypePerformanceScanProof",
+    "status": "PASS",
+    "guard_id": "LC-16",
+    "budget_max_ms": 1000,
+    "external_network_calls": 0,
+    "n_plus_one_queries": 0
+  },
+  "mutation_verification": {
+    "artifact_kind": "MutationVerificationReport",
+    "schema_version": "1.2.0",
+    "guard_id": "LC-15",
+    "status": "PASS",
+    "evidence_labels": [
+      "MutationScorePass",
+      "Non-SurvivingInvariants"
+    ],
+    "total_mutants": 6,
+    "killed_mutants": 6,
+    "surviving_mutants": 0,
+    "surviving_critical_invariants": 0,
+    "mutation_score": "1.0",
+    "mutation_score_pct": 100,
+    "threshold_required_pct": 80,
+    "mutants": [
+      {
+        "mutant_id": "MUT-001",
+        "file": "src/metaos_ignite/archetypes.py",
+        "target": "\"security_scan_proof_kind\": \"ArchetypeSecurityScanProof\"",
+        "replacement": "\"security_scan_proof_kind\": \"MUTATED_INVALID_PROOF\"",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      },
+      {
+        "mutant_id": "MUT-002",
+        "file": "src/metaos_ignite/archetypes.py",
+        "target": "\"schema_version\": \"1.0.0\",\n        \"archetype_id\": archetype_id",
+        "replacement": "\"schema_version\": \"9.9.9\",\n        \"archetype_id\": archetype_id",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: Profile schema errors for Autonomous_Agent: [('$.schema_version', 'const mismatch')]"
+      },
+      {
+        "mutant_id": "MUT-003",
+        "file": "src/metaos_ignite/executor.py",
+        "target": "\"valid\": len(reasons) == 0",
+        "replacement": "\"valid\": True",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      },
+      {
+        "mutant_id": "MUT-004",
+        "file": "src/metaos_ignite/cockpit.py",
+        "target": "\"llm_tokens_used\": 0",
+        "replacement": "\"llm_tokens_used\": 99",
+        "status": "KILLED",
+        "kill_reason": "RuntimeError: Cockpit manifest schema validation failed: [('$.llm_tokens_used', 'const mismatch')]"
+      },
+      {
+        "mutant_id": "MUT-005",
+        "file": "src/metaos_ignite/guide.py",
+        "target": "\"valid\": True",
+        "replacement": "\"valid\": False",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      },
+      {
+        "mutant_id": "MUT-006",
+        "file": "src/metaos_ignite/compiler.py",
+        "target": "\"envelope_verified\": ver[\"valid\"]",
+        "replacement": "\"envelope_verified\": False",
+        "status": "KILLED",
+        "kill_reason": "AssertionError: "
+      }
+    ],
+    "content_hash": "sha256:6285a93e658b31f2d45ebd5aad48f3e5594b5080c9b3eaf0f7fe971a5e19dc29"
+  },
+  "meta_metrics": {
+    "total_lead_time_seconds": 420,
+    "llm_tokens_consumed": 0,
+    "estimated_cost_usd_cents": 0,
+    "circuit_breaker_trips": 0,
+    "false_positive_gate_count": 0,
+    "human_attention_seconds": 180
+  },
+  "evidence_chain": {
+    "intent_contract": {
+      "path": "contracts/src/intent_contract.json",
+      "sha256": "sha256:2f16f515ebff0d8aacfb305f28125e70e026f9afd57adee419d531f36e6a0891"
+    },
+    "domain_contracts": {
+      "path": "contracts/src/domain_contracts.json",
+      "sha256": "sha256:9ba525764063cca6a8b62d9ef4f7a1a02cbf8ca2961f313255c056fe201028c6"
+    },
+    "change_proposal": {
+      "path": "contracts/generated/b1_change_proposal.json",
+      "sha256": "sha256:944a459c4dff998fe1d87628db266fcf70faa1ec55711be71a5a62210225b03c"
+    },
+    "spec_lock": {
+      "path": "contracts/locks/spec.lock.json",
+      "sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64"
+    },
+    "triple_red_oracle_receipt": {
+      "path": "receipts/B1_admission_policy_pass.receipt.json",
+      "sha256": "sha256:dcfbf95f5c3cc217710e780c698097134fc38385d78eed677cf00bd5942f4a56"
+    },
+    "worktree_green_receipt": {
+      "path": "receipts/b2_worktree_green.json",
+      "sha256": "sha256:5ce774bc14e037c28dca48e63ef2158b167cc55e6371c18ebf8512a1ba65a240"
+    },
+    "security_scan_proof": {
+      "path": "receipts/b2_security_scan_proof.json",
+      "sha256": "sha256:53acd3588dfe33ff009a39c0e7b66599e344ab4d686b40610d923c849cc832b6"
+    },
+    "mutation_verification": {
+      "path": "receipts/b2_mutation_verification.json",
+      "sha256": "sha256:5f202599df2fdb11fe238800c249e50c6c4c7e9f278cd004d99899b2d9b5377a"
+    },
+    "performance_scan_proof": {
+      "path": "receipts/b2_performance_scan_proof.json",
+      "sha256": null
+    },
+    "pillar_9_2_summary": {
+      "lead_time_seconds": 420,
+      "token_cost_usd_cents": 0,
+      "circuit_breaker_trips": 0,
+      "false_positive_gate_blocks": 0,
+      "human_attention_minutes": 3
+    }
+  },
+  "content_hash": "sha256:151b921037c634685f66ea7c36431353e2c3b65cc7223afc315e1999a6c2dd6b",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAugV2y1eNGZ7huPymnVM4TJJdC12+e/vk2LE1CJtBuk6AEMpvzl\nRWnfrr93FTDfjCBkhWyg/FYpQwLXbsK/SdCg==\n-----END SSH SIGNATURE-----"
+  }
+}

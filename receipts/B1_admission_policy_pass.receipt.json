@@ -1,0 +1,52 @@
+{
+  "artifact_kind": "AdmissionPolicyPassReceipt",
+  "schema_version": "1.2.0",
+  "issued_at": "2026-10-21T01:00:00Z",
+  "run_id": "run-0000",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "proposal_id": "0192f3a4-0000-7000-8000-000000000102",
+  "proposal_sha256": "sha256:944a459c4dff998fe1d87628db266fcf70faa1ec55711be71a5a62210225b03c",
+  "spec_lock_sha256": "sha256:d8bea3fb27add18e3c3eb1102f56c582a397fbfffdb769ad4c12cba563b76b64",
+  "pdp_decision": "ALLOW",
+  "declared_risk_class": "R2",
+  "computed_risk_class": "R2",
+  "triple_red_oracle": {
+    "CompilationSuccess": true,
+    "RuntimeExecution": "EXECUTED",
+    "TestExitCode": 1,
+    "build_errors": 0,
+    "collection_errors": 0,
+    "infra_errors": 0,
+    "failures": 10,
+    "failed_test_ids": [
+      "TST-001",
+      "TST-002",
+      "TST-003",
+      "TST-004",
+      "TST-005",
+      "TST-006",
+      "TST-007",
+      "TST-008",
+      "TST-009",
+      "TST-010"
+    ],
+    "failed_oracle_ids": [
+      "ORC-001",
+      "ORC-002",
+      "ORC-003",
+      "ORC-004",
+      "ORC-005"
+    ],
+    "dual_seeded_replay_identical": true,
+    "run1_report_sha256": "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066",
+    "run2_report_sha256": "sha256:82d40609fbe5ebefdd085307755c007f5a195c13423f80d79e49773e0a848066",
+    "junit_xml_sha256": "sha256:05d246a14c32418d618c45632cbe5a1be4aaae620a11623f5d0e39ed93cc4579"
+  },
+  "content_hash": "sha256:e6cf2bf30d3b184097538359845765f0739d00424644905b1aca4bdbacbf4d4d",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABA/gDu7MD55kvUc4k3zSE/T9F22ZE1DNwOmLHPexjKeNivGVnstu\nk4sAPv6Qa9X2cSKlr34YOyX4SBOQZ44Wc4DQ==\n-----END SSH SIGNATURE-----"
+  }
+}

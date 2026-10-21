@@ -13,7 +13,19 @@
       "created_at": "2026-10-20T10:12:47Z",
       "acknowledged_at": "2026-10-20T10:12:47Z",
       "decision": "APPROVED"
+    },
+    "OBX-62f0450cd7e74b13": {
+      "outbox_id": "OBX-62f0450cd7e74b13",
+      "kind": "HUMAN_AUDIT_REVIEW",
+      "status": "ACKNOWLEDGED",
+      "idempotency_key": "sha256:62f0450cd7e74b1315779763aa92db2baee5f099ccec96bef6fc38e279a15917",
+      "json_path": ".antigravity/outbox/OBX-62f0450cd7e74b13.json",
+      "markdown_path": ".antigravity/outbox/OBX-62f0450cd7e74b13.md",
+      "content_hash": "sha256:1c069a7ce67583edea1f89c754e809aebad190cc439e0f6a1e6d0d68c0d0cd67",
+      "created_at": "2026-10-21T06:15:42Z",
+      "acknowledged_at": "2026-10-21T06:15:43Z",
+      "decision": "APPROVED"
     }
   },
-  "content_hash": "sha256:6ecb6dfa67773ebb7b05609470e2b318707d1888e6a1035b8cd869a20ecf3b6d"
+  "content_hash": "sha256:74780a2ac0d52ece2a8fd7f75f0413b6c10a827746963c2869b837d58e9b2b9a"
 }

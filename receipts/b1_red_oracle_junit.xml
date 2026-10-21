@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="metaos_ignite_5_oracle_suite" tests="10" failures="10" errors="0">
+  <testcase classname="metaos_ignite.CONTRACT" name="TST-001 (ORC-001)">
+    <failure message="RED_STUB: list_archetypes not implemented until Phase B2 (ORC-001)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.CONTRACT" name="TST-002 (ORC-001)">
+    <failure message="RED_STUB: assemble_proof_package not implemented until Phase B2 (ORC-001)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.PROPERTY" name="TST-003 (ORC-002)">
+    <failure message="RED_STUB: synthesize_archetype_profile not implemented until Phase B2 (ORC-001)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.PROPERTY" name="TST-004 (ORC-002)">
+    <failure message="RED_STUB: evaluate_triple_red_oracle not implemented until Phase B2 (ORC-002)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.GOLDEN" name="TST-005 (ORC-003)">
+    <failure message="RED_STUB: project_cockpit not implemented until Phase B2 (ORC-003)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.GOLDEN" name="TST-006 (ORC-003)">
+    <failure message="RED_STUB: render_ignite_guide not implemented until Phase B2 (ORC-004)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.PERF" name="TST-007 (ORC-004)">
+    <failure message="RED_STUB: list_archetypes not implemented until Phase B2 (ORC-001)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.PERF" name="TST-008 (ORC-004)">
+    <failure message="RED_STUB: execute_in_worktree not implemented until Phase B2 (ORC-002)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.SECURITY" name="TST-009 (ORC-005)">
+    <failure message="RED_STUB: compile_ignition_pack not implemented until Phase B2 (ORC-005)" type="NotImplementedError"/>
+  </testcase>
+  <testcase classname="metaos_ignite.SECURITY" name="TST-010 (ORC-005)">
+    <failure message="RED_STUB: project_cockpit not implemented until Phase B2 (ORC-003)" type="NotImplementedError"/>
+  </testcase>
+</testsuite>

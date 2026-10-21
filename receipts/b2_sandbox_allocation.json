@@ -1,0 +1,16 @@
+{
+  "artifact_kind": "EphemeralSandboxAllocation",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-12",
+  "run_id": "run-0000",
+  "sandbox_root": "/tmp/metaos-wt-b2-exec",
+  "isolation_invariant": "I-09",
+  "status": "ALLOCATED",
+  "content_hash": "sha256:a9108ba3f024937b4d549d29e39f5e5106f2052b7f90f600ba446644aede0b3a",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABANQvgdTQs5R8p6dz7zs4Z1x7o1Q8buVOEnJd3yGRKNgDlyVMFji\nX367cKrWDl6pwI6+zXstInrv6s9ey6WmT4CQ==\n-----END SSH SIGNATURE-----"
+  }
+}

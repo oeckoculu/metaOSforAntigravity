@@ -1,0 +1,29 @@
+{
+  "artifact_kind": "WorktreeCleanupReceipt",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-20",
+  "run_id": "run-0000",
+  "evidence_labels": [
+    "GitMergeSuccess",
+    "AppendOnlyEventRecord"
+  ],
+  "materialized_modules": [
+    "src/metaos_ignite/__init__.py",
+    "src/metaos_ignite/archetypes.py",
+    "src/metaos_ignite/compiler.py",
+    "src/metaos_ignite/executor.py",
+    "src/metaos_ignite/proof.py",
+    "src/metaos_ignite/cockpit.py",
+    "src/metaos_ignite/guide.py",
+    "src/metaos_ignite/cli.py"
+  ],
+  "ephemeral_worktrees_removed": true,
+  "status": "MERGED_AND_CLEANED",
+  "content_hash": "sha256:7cd9a4c13afcd3f7e86d98967730afb0ef57c88a0d74d612fac18d98e4d08358",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAOlXD4StQpKGxArNkxRLNiieU4qmWhsZwomnbWN3z1FZgMK313/\nL+vXt1Q7e0ZcOR7DP8+FPPgZEnGPJbrXJECA==\n-----END SSH SIGNATURE-----"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "artifact_kind": "DomainInvariantsRegistry",
+  "schema_version": "1.2.0",
+  "intent_id": "0192f3a4-0000-7000-8000-000000000101",
+  "invariants": [
+    {
+      "id": "DOM-INV-01",
+      "kernel_invariant": "I-13",
+      "oracle_id": "ORC-001",
+      "module": "src/metaos_ignite/archetypes.py",
+      "rule": "Registry must deterministically synthesize all 6 universal archetypes (Backend_API, FullStack_Web, Data_ML_Pipeline, CLI_SDK, Autonomous_Agent, Embedded_IoT) and 5 language toolchains (python, typescript, go, rust, generic) with polymorphic proof bindings."
+    },
+    {
+      "id": "DOM-INV-02",
+      "kernel_invariant": "I-14",
+      "oracle_id": "ORC-005",
+      "module": "src/metaos_ignite/compiler.py",
+      "rule": "Ignite compiler must pass research_briefing.md through UntrustedContentEnvelope (stripping prompt injections and redacting secrets) before synthesizing IntentContract; --init-new-project initializes a clean seq:0 journal."
+    },
+    {
+      "id": "DOM-INV-03",
+      "kernel_invariant": "I-09",
+      "oracle_id": "ORC-002",
+      "module": "src/metaos_ignite/executor.py",
+      "rule": "Worktree executor must allocate an ephemeral git worktree under /tmp, run tests without mutating the primary repository working tree, and clean up the worktree on exit."
+    },
+    {
+      "id": "DOM-INV-04",
+      "kernel_invariant": "I-10",
+      "oracle_id": "ORC-002",
+      "module": "src/metaos_ignite/executor.py",
+      "rule": "Triple RED Oracle (V12-05) must reject syntax/import/collection errors as false RED, require CompilationSuccess==True && RuntimeExecution=='EXECUTED' && TestExitCode!=0, bind every failed test to an AcceptanceOracle.oracle_id, and produce identical failure sets across two runs with the same seed."
+    },
+    {
+      "id": "DOM-INV-05",
+      "kernel_invariant": "I-10",
+      "oracle_id": "ORC-001",
+      "module": "src/metaos_ignite/proof.py",
+      "rule": "Proof assembler must emit Ed25519-signed CompleteProofReceiptPackage with Pillar 9.2 Meta-Metrics to receipts/by-run/<run_id>/<receipt_hash>.json and update receipts/pointers/latest_proof.json."
+    },
+    {
+      "id": "DOM-INV-06",
+      "kernel_invariant": "I-07",
+      "oracle_id": "ORC-003",
+      "module": "src/metaos_ignite/cockpit.py",
+      "rule": "Cockpit projector must generate DASHBOARD.md, STATE_GRAPH.md, DECISION_QUEUE.md, and EVIDENCE_LEDGER.md with zero LLM tokens (llm_tokens_used == 0), valid [[wikilink]] links, and Mermaid diagrams."
+    },
+    {
+      "id": "DOM-INV-07",
+      "kernel_invariant": "I-12",
+      "oracle_id": "ORC-005",
+      "module": "src/metaos_ignite/cockpit.py",
+      "rule": "All projected Obsidian Markdown views and proof artifacts must pass secrets.scan_text with zero secret pattern hits."
+    },
+    {
+      "id": "DOM-INV-08",
+      "kernel_invariant": "I-06",
+      "oracle_id": "ORC-004",
+      "module": "src/metaos_ignite/guide.py",
+      "rule": "docs/IGNITE_GUIDE.md and .antigravity/genesis/templates/ must cover the full NotebookLM -> Antigravity -> Obsidian workflow in Turkish and execute within performance budgets."
+    }
+  ]
+}

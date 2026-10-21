@@ -1,0 +1,415 @@
+{
+  "artifact_kind": "ProjectArchetypeProfile",
+  "schema_version": "1.2.0",
+  "profile_id": "PRF-CLI-LIBRARY-0001",
+  "active_archetype": "CLI_SDK",
+  "active_archetype_alias": "CLI_Library_Archetype",
+  "execution_boundary": "HERMETIC_LOCAL_STDLIB_ONLY",
+  "active_language": "python",
+  "language_toolchain_port": {
+    "language": "python",
+    "runtime": "python3-stdlib",
+    "compile_cmd": [
+      "python3",
+      "-m",
+      "py_compile"
+    ],
+    "test_cmd": [
+      "python3",
+      "tests/run_suite.py"
+    ],
+    "security_scan_cmd": [
+      "python3",
+      "tests/run_suite.py",
+      "--oracle",
+      "SECURITY"
+    ],
+    "perf_scan_cmd": [
+      "python3",
+      "tests/run_suite.py",
+      "--oracle",
+      "PERF"
+    ],
+    "hermetic": true
+  },
+  "polymorphic_archetype_registry": {
+    "Backend_API": {
+      "archetype_id": "Backend_API",
+      "display_name": "Backend Service & API Archetype",
+      "default_directories": [
+        "contracts/openapi",
+        "invariants",
+        "src/service",
+        "tests/integration",
+        "receipts",
+        "provenance",
+        "infra/migrations",
+        "docs"
+      ],
+      "supported_languages": [
+        "python",
+        "typescript",
+        "go",
+        "rust",
+        "generic"
+      ],
+      "contract_formats": [
+        "OpenAPI-3.1",
+        "Protobuf-v3",
+        "JSON-Schema-2020-12"
+      ],
+      "security_scan_proof_kind": "ArchetypeSecurityScanProof",
+      "performance_scan_proof_kind": "ArchetypePerformanceScanProof",
+      "perf_budgets": {
+        "p99_latency_ms": 150,
+        "max_queries_per_request": 4,
+        "max_memory_mb": 256
+      },
+      "required_oracles": [
+        "CONTRACT",
+        "PROPERTY",
+        "GOLDEN",
+        "PERF",
+        "SECURITY"
+      ]
+    },
+    "FullStack_Web": {
+      "archetype_id": "FullStack_Web",
+      "display_name": "Full-Stack Web Application Archetype",
+      "default_directories": [
+        "contracts/ui_state",
+        "invariants",
+        "src/web",
+        "src/api",
+        "tests/e2e",
+        "receipts",
+        "provenance",
+        "infra",
+        "docs"
+      ],
+      "supported_languages": [
+        "typescript",
+        "python",
+        "go",
+        "generic"
+      ],
+      "contract_formats": [
+        "JSON-Schema-2020-12",
+        "OpenAPI-3.1",
+        "WCAG-2.1-AA"
+      ],
+      "security_scan_proof_kind": "ArchetypeSecurityScanProof",
+      "performance_scan_proof_kind": "ArchetypePerformanceScanProof",
+      "perf_budgets": {
+        "max_bundle_kb": 250,
+        "lcp_ms": 1800,
+        "cls_max_milli": 100
+      },
+      "required_oracles": [
+        "CONTRACT",
+        "PROPERTY",
+        "GOLDEN",
+        "PERF",
+        "SECURITY"
+      ]
+    },
+    "Data_ML_Pipeline": {
+      "archetype_id": "Data_ML_Pipeline",
+      "display_name": "Data Engineering & ML Pipeline Archetype",
+      "default_directories": [
+        "contracts/datasets",
+        "invariants/drift",
+        "src/pipeline",
+        "tests/data_quality",
+        "receipts",
+        "provenance/lineage",
+        "infra",
+        "docs"
+      ],
+      "supported_languages": [
+        "python",
+        "rust",
+        "generic"
+      ],
+      "contract_formats": [
+        "JSON-Schema-2020-12",
+        "Parquet-Schema",
+        "DataLineage-v1"
+      ],
+      "security_scan_proof_kind": "ArchetypeSecurityScanProof",
+      "performance_scan_proof_kind": "ArchetypePerformanceScanProof",
+      "perf_budgets": {
+        "min_rows_per_sec": 10000,
+        "max_memory_mb": 1024,
+        "deterministic_seed_required": 1
+      },
+      "required_oracles": [
+        "CONTRACT",
+        "PROPERTY",
+        "GOLDEN",
+        "PERF",
+        "SECURITY"
+      ]
+    },
+    "CLI_SDK": {
+      "archetype_id": "CLI_SDK",
+      "profile_alias": "CLI_Library_Archetype",
+      "display_name": "CLI Tool & Reusable SDK Library Archetype",
+      "default_directories": [
+        "contracts/src",
+        "contracts/generated",
+        "contracts/locks",
+        "invariants",
+        "src/metaos_ignite",
+        "tests/golden",
+        "receipts/by-run",
+        "receipts/pointers",
+        "provenance",
+        "infra",
+        "docs/cockpit"
+      ],
+      "supported_languages": [
+        "python",
+        "rust",
+        "go",
+        "typescript",
+        "generic"
+      ],
+      "contract_formats": [
+        "JSON-Schema-2020-12",
+        "POSIX-CLI-Spec-v1",
+        "SemVer-2.0.0"
+      ],
+      "security_scan_proof_kind": "ArchetypeSecurityScanProof",
+      "performance_scan_proof_kind": "ArchetypePerformanceScanProof",
+      "perf_budgets": {
+        "max_cli_cold_start_ms": 500,
+        "max_cockpit_projection_ms": 1000,
+        "max_memory_mb": 128
+      },
+      "required_oracles": [
+        "CONTRACT",
+        "PROPERTY",
+        "GOLDEN",
+        "PERF",
+        "SECURITY"
+      ]
+    },
+    "Autonomous_Agent": {
+      "archetype_id": "Autonomous_Agent",
+      "display_name": "Autonomous Multi-Agent & Tooling Archetype",
+      "default_directories": [
+        "contracts/tools",
+        "invariants/guardrails",
+        "src/agents",
+        "tests/redteam",
+        "receipts",
+        "provenance",
+        "infra",
+        "docs"
+      ],
+      "supported_languages": [
+        "python",
+        "typescript",
+        "rust",
+        "generic"
+      ],
+      "contract_formats": [
+        "JSON-Schema-2020-12",
+        "MCP-Tool-Contract-v1",
+        "UntrustedContentEnvelope-v1"
+      ],
+      "security_scan_proof_kind": "ArchetypeSecurityScanProof",
+      "performance_scan_proof_kind": "ArchetypePerformanceScanProof",
+      "perf_budgets": {
+        "max_tokens_per_run": 50000,
+        "max_cost_usd_cents": 200,
+        "max_tool_hops": 12
+      },
+      "required_oracles": [
+        "CONTRACT",
+        "PROPERTY",
+        "GOLDEN",
+        "PERF",
+        "SECURITY"
+      ]
+    },
+    "Embedded_IoT": {
+      "archetype_id": "Embedded_IoT",
+      "display_name": "Embedded Systems & Edge IoT Archetype",
+      "default_directories": [
+        "contracts/hal",
+        "invariants/timing",
+        "src/firmware",
+        "tests/hil_sim",
+        "receipts",
+        "provenance",
+        "infra",
+        "docs"
+      ],
+      "supported_languages": [
+        "rust",
+        "generic",
+        "python"
+      ],
+      "contract_formats": [
+        "JSON-Schema-2020-12",
+        "SVD-Register-Map",
+        "StateTimingContract-v1"
+      ],
+      "security_scan_proof_kind": "ArchetypeSecurityScanProof",
+      "performance_scan_proof_kind": "ArchetypePerformanceScanProof",
+      "perf_budgets": {
+        "max_flash_kb": 512,
+        "max_stack_bytes": 16384,
+        "max_isr_latency_us": 50
+      },
+      "required_oracles": [
+        "CONTRACT",
+        "PROPERTY",
+        "GOLDEN",
+        "PERF",
+        "SECURITY"
+      ]
+    }
+  },
+  "language_toolchain_templates": {
+    "python": {
+      "language": "python",
+      "runtime": "python3-stdlib",
+      "compile_cmd": [
+        "python3",
+        "-m",
+        "py_compile"
+      ],
+      "test_cmd": [
+        "python3",
+        "tests/run_suite.py"
+      ],
+      "security_scan_cmd": [
+        "python3",
+        "tests/run_suite.py",
+        "--oracle",
+        "SECURITY"
+      ],
+      "perf_scan_cmd": [
+        "python3",
+        "tests/run_suite.py",
+        "--oracle",
+        "PERF"
+      ],
+      "hermetic": true
+    },
+    "typescript": {
+      "language": "typescript",
+      "runtime": "node",
+      "compile_cmd": [
+        "npx",
+        "--no-install",
+        "tsc",
+        "--noEmit"
+      ],
+      "test_cmd": [
+        "node",
+        "--test"
+      ],
+      "security_scan_cmd": [
+        "npm",
+        "audit",
+        "--offline"
+      ],
+      "perf_scan_cmd": [
+        "node",
+        "tests/perf_bench.js"
+      ],
+      "hermetic": true
+    },
+    "go": {
+      "language": "go",
+      "runtime": "go",
+      "compile_cmd": [
+        "go",
+        "build",
+        "./..."
+      ],
+      "test_cmd": [
+        "go",
+        "test",
+        "-v",
+        "./..."
+      ],
+      "security_scan_cmd": [
+        "go",
+        "vet",
+        "./..."
+      ],
+      "perf_scan_cmd": [
+        "go",
+        "test",
+        "-bench=.",
+        "./..."
+      ],
+      "hermetic": true
+    },
+    "rust": {
+      "language": "rust",
+      "runtime": "cargo",
+      "compile_cmd": [
+        "cargo",
+        "check",
+        "--offline"
+      ],
+      "test_cmd": [
+        "cargo",
+        "test",
+        "--offline"
+      ],
+      "security_scan_cmd": [
+        "cargo",
+        "clippy",
+        "--offline"
+      ],
+      "perf_scan_cmd": [
+        "cargo",
+        "test",
+        "--release",
+        "--offline"
+      ],
+      "hermetic": true
+    },
+    "generic": {
+      "language": "generic",
+      "runtime": "posix-sh",
+      "compile_cmd": [
+        "sh",
+        "-n"
+      ],
+      "test_cmd": [
+        "sh",
+        "tests/run_suite.sh"
+      ],
+      "security_scan_cmd": [
+        "sh",
+        "tests/security_scan.sh"
+      ],
+      "perf_scan_cmd": [
+        "sh",
+        "tests/perf_scan.sh"
+      ],
+      "hermetic": true
+    }
+  },
+  "polymorphic_proof_bindings": {
+    "ArchetypeSecurityScanProof": "AST static safety + secret scan + untrusted envelope verification",
+    "ArchetypePerformanceScanProof": "Cold-start CLI latency + cockpit projection time + memory ceiling verification"
+  },
+  "data_classification": "INTERNAL",
+  "target_risk_class": "R2",
+  "content_hash": "sha256:672eaefe1e89a5372a82247ae46cfb45edd5b642e085c15a332857b25624747e",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.kernel",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAANbWV0YW9zLmtlcm5lbAAAAAAAAAAGc2hhNTEyAAAAUwAAAAtz\nc2gtZWQyNTUxOQAAAEA9vXisH15YxUqPzF2ACqW3ou8yNtCu65iY5+3V5pbfQabkeGEZRp\nOJ/05tWwt6O3YVODKE1NzvXfc/aVbUFv0D\n-----END SSH SIGNATURE-----"
+  }
+}

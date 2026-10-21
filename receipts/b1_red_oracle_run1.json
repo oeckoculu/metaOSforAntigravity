@@ -1,0 +1,126 @@
+{
+  "schema_version": "1.0.0",
+  "mode": "RED_VERIFY",
+  "seed": 42,
+  "CompilationSuccess": true,
+  "RuntimeExecution": "EXECUTED",
+  "TestExitCode": 1,
+  "build_errors": 0,
+  "collection_errors": 0,
+  "infra_errors": 0,
+  "total_tests": 10,
+  "passed": 0,
+  "failures": 10,
+  "failed_test_ids": [
+    "TST-001",
+    "TST-002",
+    "TST-003",
+    "TST-004",
+    "TST-005",
+    "TST-006",
+    "TST-007",
+    "TST-008",
+    "TST-009",
+    "TST-010"
+  ],
+  "failed_oracle_ids": [
+    "ORC-001",
+    "ORC-002",
+    "ORC-003",
+    "ORC-004",
+    "ORC-005"
+  ],
+  "oracle_results": [
+    {
+      "test_id": "TST-001",
+      "oracle_id": "ORC-001",
+      "oracle_kind": "CONTRACT",
+      "outcome_id": "OUT-001",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: list_archetypes not implemented until Phase B2 (ORC-001)"
+    },
+    {
+      "test_id": "TST-002",
+      "oracle_id": "ORC-001",
+      "oracle_kind": "CONTRACT",
+      "outcome_id": "OUT-002",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: assemble_proof_package not implemented until Phase B2 (ORC-001)"
+    },
+    {
+      "test_id": "TST-003",
+      "oracle_id": "ORC-002",
+      "oracle_kind": "PROPERTY",
+      "outcome_id": "OUT-001",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: synthesize_archetype_profile not implemented until Phase B2 (ORC-001)"
+    },
+    {
+      "test_id": "TST-004",
+      "oracle_id": "ORC-002",
+      "oracle_kind": "PROPERTY",
+      "outcome_id": "OUT-002",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: evaluate_triple_red_oracle not implemented until Phase B2 (ORC-002)"
+    },
+    {
+      "test_id": "TST-005",
+      "oracle_id": "ORC-003",
+      "oracle_kind": "GOLDEN",
+      "outcome_id": "OUT-003",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: project_cockpit not implemented until Phase B2 (ORC-003)"
+    },
+    {
+      "test_id": "TST-006",
+      "oracle_id": "ORC-003",
+      "oracle_kind": "GOLDEN",
+      "outcome_id": "OUT-004",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: render_ignite_guide not implemented until Phase B2 (ORC-004)"
+    },
+    {
+      "test_id": "TST-007",
+      "oracle_id": "ORC-004",
+      "oracle_kind": "PERF",
+      "outcome_id": "OUT-003",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: list_archetypes not implemented until Phase B2 (ORC-001)"
+    },
+    {
+      "test_id": "TST-008",
+      "oracle_id": "ORC-004",
+      "oracle_kind": "PERF",
+      "outcome_id": "OUT-002",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: execute_in_worktree not implemented until Phase B2 (ORC-002)"
+    },
+    {
+      "test_id": "TST-009",
+      "oracle_id": "ORC-005",
+      "oracle_kind": "SECURITY",
+      "outcome_id": "OUT-001",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: compile_ignition_pack not implemented until Phase B2 (ORC-005)"
+    },
+    {
+      "test_id": "TST-010",
+      "oracle_id": "ORC-005",
+      "oracle_kind": "SECURITY",
+      "outcome_id": "OUT-003",
+      "status": "FAIL",
+      "exception_type": "NotImplementedError",
+      "error": "RED_STUB: project_cockpit not implemented until Phase B2 (ORC-003)"
+    }
+  ],
+  "worktree_clean_restored": true
+}

@@ -1,0 +1,39 @@
+{
+  "artifact_kind": "CanaryDeploymentTelemetry",
+  "schema_version": "1.2.0",
+  "guard_id": "LC-21",
+  "run_id": "run-0000",
+  "canary_command": "python3 -m src.metaos_ignite.cli init-new-project --run-id run-0001 --dry-run",
+  "canary_result": {
+    "status": "DRY_RUN_READY",
+    "run_id": "run-0001",
+    "primary_archetype": "Backend_API",
+    "language": "python",
+    "risk_class": "R2",
+    "default_directories": [
+      "contracts/openapi",
+      "contracts/asyncapi",
+      "invariants",
+      "src/api",
+      "src/domain",
+      "src/adapters",
+      "tests/contract",
+      "tests/property",
+      "tests/integration",
+      "receipts",
+      "provenance",
+      "infra/migrations",
+      "docs/cockpit"
+    ],
+    "intent_sha256": "sha256:87bfb730c3ae2e60eeb6218b10905d1b430ee7cc92db4a5acec2a5945ca148b6",
+    "profile_sha256": "sha256:0ccad8bf016642968f0e8b8fee243f2ce3aa7ac73d6c5b260001d23dfdcd158a"
+  },
+  "status": "PASS",
+  "content_hash": "sha256:15e6e94196df5aaf4d83c87bb01485367d112cae18b4380f50089e92d73b7a89",
+  "signature": {
+    "alg": "sshsig-ed25519",
+    "key_id": "SHA256:KSJqN7E/iGFtcl/3WP127Fvx2VymIDu3/sl717oOJDU",
+    "namespace": "metaos.receipt",
+    "sig": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg7ui/ox50u7aNUZSlzF/DoneDMa\ndG7e0nmfNjWm4MzecAAAAObWV0YW9zLnJlY2VpcHQAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAY6qSqLjTs5Jjjaec4Yw+BduWgZiRXbahDF9uNIjZTUbOixqDJ0\nlehHDJVEpHaBDeo6R9eMAZaidXdxAL9NIwCA==\n-----END SSH SIGNATURE-----"
+  }
+}

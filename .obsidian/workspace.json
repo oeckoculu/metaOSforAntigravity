@@ -11,10 +11,14 @@
             "id": "50ef054eb27f159a",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "docs/IGNITE_GUIDE.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "IGNITE_GUIDE"
             }
           }
         ]
@@ -183,17 +187,23 @@
   },
   "active": "50ef054eb27f159a",
   "lastOpenFiles": [
-    "docs",
-    "infra",
-    "provenance",
-    "receipts",
-    "tests",
-    "src",
-    "invariants",
-    "contracts",
-    "scripts/kernel_selftest",
-    "scripts/kernel_lock",
-    "scripts/envelope_wrap",
+    "docs/cockpit/STATE_GRAPH.md",
+    "docs/cockpit/DASHBOARD.md",
+    "receipts/B2_execution_and_closure.receipt.json",
+    "receipts/b2_stability_and_final_lock.json",
+    "receipts/b2_canary_telemetry.json",
+    "receipts/b2_merge_and_worktree_cleanup.json",
+    "receipts/b2_human_approval_token.json",
+    "receipts/by-run/run-0000/de597e487325d1eb5f8556c0e425a5aeb38ea7bbd9238ead982257f921e50f01.json",
+    "receipts/by-run/run-0000/bf21978f9081bacfcd75aa7a9f413427ab91ad65e88702228ad8e8e4a6ba0d77.json",
+    "receipts/b2_performance_scan_proof.json",
+    "receipts/by-run/run-0000/151b921037c634685f66ea7c36431353e2c3b65cc7223afc315e1999a6c2dd6b.json",
+    "receipts/by-run/run-0000/9ad991df862ffb11e81771829d5cc9c340a1c545d66592d6f84c90087fcf4d67.json",
+    "docs/IGNITE_GUIDE.md",
+    "docs/templates/research_briefing.template.md",
+    "docs/cockpit/EVIDENCE_LEDGER.md",
+    "docs/cockpit/DECISION_QUEUE.md",
+    "scripts/pdp_eval.md",
     "SPEC_META_OS_v1.1.md"
   ]
 }

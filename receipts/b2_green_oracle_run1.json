@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "mode": "GREEN_VERIFY",
+  "seed": 42,
+  "CompilationSuccess": true,
+  "RuntimeExecution": "EXECUTED",
+  "TestExitCode": 0,
+  "build_errors": 0,
+  "collection_errors": 0,
+  "infra_errors": 0,
+  "total_tests": 10,
+  "passed": 10,
+  "failures": 0,
+  "failed_test_ids": [],
+  "failed_oracle_ids": [],
+  "oracle_results": [
+    {
+      "test_id": "TST-001",
+      "oracle_id": "ORC-001",
+      "oracle_kind": "CONTRACT",
+      "outcome_id": "OUT-001",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-002",
+      "oracle_id": "ORC-001",
+      "oracle_kind": "CONTRACT",
+      "outcome_id": "OUT-002",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-003",
+      "oracle_id": "ORC-002",
+      "oracle_kind": "PROPERTY",
+      "outcome_id": "OUT-001",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-004",
+      "oracle_id": "ORC-002",
+      "oracle_kind": "PROPERTY",
+      "outcome_id": "OUT-002",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-005",
+      "oracle_id": "ORC-003",
+      "oracle_kind": "GOLDEN",
+      "outcome_id": "OUT-003",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-006",
+      "oracle_id": "ORC-003",
+      "oracle_kind": "GOLDEN",
+      "outcome_id": "OUT-004",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-007",
+      "oracle_id": "ORC-004",
+      "oracle_kind": "PERF",
+      "outcome_id": "OUT-003",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-008",
+      "oracle_id": "ORC-004",
+      "oracle_kind": "PERF",
+      "outcome_id": "OUT-002",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-009",
+      "oracle_id": "ORC-005",
+      "oracle_kind": "SECURITY",
+      "outcome_id": "OUT-001",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    },
+    {
+      "test_id": "TST-010",
+      "oracle_id": "ORC-005",
+      "oracle_kind": "SECURITY",
+      "outcome_id": "OUT-003",
+      "status": "PASS",
+      "exception_type": null,
+      "error": null
+    }
+  ],
+  "worktree_clean_restored": true
+}
