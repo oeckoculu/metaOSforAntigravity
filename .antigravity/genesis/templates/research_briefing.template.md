@@ -1,6 +1,6 @@
 # NotebookLM Arastirma Ozeti (Research Briefing Şablonu)
 
-## 1. Problem Tanimi veVizyon
+## 1. Problem Tanimi ve Vizyon
 - Cozulmek istenen temel problem ve hedef kullanici kitlesi.
 
 ## 2. Olculebilir Hedefler (Desired Outcomes)

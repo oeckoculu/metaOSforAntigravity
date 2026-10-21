@@ -226,6 +226,11 @@ def ignite_new_project(
     with open(prof_abs, "wb") as fh:
         fh.write(canonical.pretty_bytes(prof))
 
+    act_prof_rel = ".antigravity/genesis/active_profile.json"
+    act_prof_abs = os.path.join(target_root, act_prof_rel)
+    with open(act_prof_abs, "wb") as fh:
+        fh.write(canonical.pretty_bytes(prof))
+
     validator = journal.load_validator(target_root)
     rep = env.reproducibility(target_root)
     genesis_entry = journal.build_entry(
@@ -270,6 +275,21 @@ def ignite_new_project(
     with open(run_abs, "wb") as fh:
         fh.write(canonical.jcs_bytes(genesis_entry) + b"\n")
 
+    # Update root README.md with project metadata if stub placeholders exist
+    readme_path = os.path.join(target_root, "README.md")
+    if os.path.isfile(readme_path):
+        try:
+            r_txt = open(readme_path, "rb").read().decode("utf-8")
+            if "{{ PROJECT_NAME }}" in r_txt:
+                r_txt = r_txt.replace("{{ PROJECT_NAME }}", project_name)
+                r_txt = r_txt.replace("{{ PRIMARY_ARCHETYPE }}", primary_archetype)
+                r_txt = r_txt.replace("{{ LANGUAGE }}", language)
+                r_txt = r_txt.replace("{{ RISK_CLASS }}", risk_class)
+                with open(readme_path, "wb") as fh:
+                    fh.write(r_txt.encode("utf-8"))
+        except Exception:
+            pass
+
     return {
         "status": "IGNITED",
         "run_id": run_id,
@@ -279,4 +299,5 @@ def ignite_new_project(
         "language": language,
         "intent_path": intent_rel,
         "profile_path": prof_rel,
+        "active_profile_path": act_prof_rel,
     }

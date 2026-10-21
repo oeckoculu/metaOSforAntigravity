@@ -1,78 +1,59 @@
 # Meta-OS Universal Day-0 Ignite & Obsidian Kokpit Başucu Rehberi (`IGNITE_GUIDE.md`)
 
-Bu kılavuz, `metaOSforAntigravity` şablon deposunu klonlayarak yeni bir yazılım projesini **NotebookLM**, **Antigravity** ve **Obsidian** üçlüsüyle sıfırdan başlatmak ve yönetmek için hazırlanmış adım adım kontrol listesidir.
+Bu kılavuz, `metaOSforAntigravity` şablon deposunu klonlayarak yeni bir yazılım projesini **NotebookLM**, **Antigravity** ve **Obsidian** üçlüsüyle sıfırdan başlatmak, doğrulamak ve yönetmek için hazırlanmış 5 aşamalı operasyonel kontrol listesidir.
 
 ---
 
-## Bölüm 1: GitHub Template Klonlama & Çekirdek Kilit Doğrulaması
+## AŞAMA 1: KEŞİF STÜDYOSU (NotebookLM + Gemini Chat "Grill Me")
 
-Yeni bir projeye başlarken şablon depoyu klonlayın ve Katman A (Immutable Kernel) bütünlüğünü doğrulayın:
+Yeni bir projeye başlamadan önce tüm mimari kararları ve kontrat gereksinimlerini harici yapay zeka ile netleştirin:
+
+1. **Kaynak Yükleme:** `docs/META_OS_EXTERNAL_CONTEXT.md` dosyasını ve projenize ait makale/RFC dokümanlarını **Google NotebookLM** defterinize yükleyin.
+2. **Gemini Chat Oturumu:** Gemini Chat (veya harici LLM) oturumunuza NotebookLM defterini bağlayın.
+3. **Mülakat Başlatma Promptu:** Aşağıdaki promptu kopyalayıp Gemini Chat'e gönderin:
+
+```text
+Yüklediğim META_OS_EXTERNAL_CONTEXT.md belgesini ve proje dokümanlarımı kaynak al.
+Meta-OS v1.2 kuralları uyarınca benimle interaktif bir 'Grill Me' mimari mülakatı başlat.
+Her turda en fazla 2-3 odaklanmış soru sorarak problem tanımını, DO-1..DO-4 hedeflerini,
+6 arketipten hangisini seçeceğimizi ve risk sınıfını (R0..R4) netleştir.
+Mutabık kaldığımız an, .antigravity/genesis/project_manifest.json ve
+.antigravity/genesis/research_briefing.md dosyalarını hatasız üret.
+```
+
+4. **Dosyaları Kaydetme:** Mülakat sonunda üretilen çıktıları projenizin şu konumlarına kaydedin:
+   - `.antigravity/genesis/project_manifest.json`
+   - `.antigravity/genesis/research_briefing.md`
+
+---
+
+## AŞAMA 2: GITHUB TEMPLATE KLONLAMA & PROJE SIFIRLAMA
+
+GitHub üzerinde bu repoyu **"Use this template"** seçeneğiyle yeni bir depoya klonlayın ve Katman A kilit bütünlüğünü doğrulayın:
 
 ```bash
-git clone <metaOS-template-repo-url> yeni-proje-adi
+git clone <yeni-repo-url> yeni-proje-adi
 cd yeni-proje-adi
+
+# Katman A Merkle Kilidi ve Self-Test Doğrulaması (97 kilitli dosya)
 ./scripts/kernel_lock
 ./scripts/kernel_selftest
 ./scripts/pep_session_start
 ```
 
-- `./scripts/kernel_lock`: `valid: true` ve `total_locked_files: 97` (`merkle_root_sha256: sha256:fdc68cb03c9b1b5fd3e0648ea6b46ab0b6b9935a0ad2849fee91116975717aed`) döndürmelidir.
-- `./scripts/kernel_selftest`: `overall_valid: true` döndürmelidir.
-
----
-
-## Bölüm 2: NotebookLM Araştırma Sentezi & Kopyala-Yapıştır Prompt Şablonu
-
-Projeye ait makaleleri, API dokümanlarını, RFC'leri ve rakip analizlerini **Google NotebookLM**'e yükleyin ve aşağıdaki kopyala-yapıştır promptunu çalıştırın:
-
-```text
-Yüklediğim tüm kaynakları sentezleyerek Meta-OS v1.2.0 Day-0 ateşlemesi için aşağıdaki 4 başlıkta
-yapısal bir Markdown araştırma özeti (research_briefing.md) üret:
-1. Problem Tanımı ve Mimari Vizyon (somut darboğazlar ve hedef sistem sınırı)
-2. Ölçülebilir Hedefler (DO-1..DO-4 formatında doğrulanabilir çıktılar ve metrikler)
-3. Mimari Kısıtlar, Bütçeler ve Kapsam Dışı Alanlar (dil, gecikme bütçesi, güvenlik sınırları)
-4. 5 Zorunlu Kabul Kahini (CONTRACT, PROPERTY, GOLDEN, PERF, SECURITY test senaryoları)
-Not: Çıktıda hiçbir gerçek API anahtarı, parola veya gizli anahtar (I-12) yer almamalıdır.
-```
-
----
-
-## Bölüm 3: Dosya Yerleşimi & 6 Evrensel Arketip Seçim Tablosu
-
-1. `docs/templates/research_briefing.template.md` şablonunu baz alarak NotebookLM çıktısını `.antigravity/genesis/research_briefing.md` dosyasına kaydedin.
-2. `docs/templates/project_manifest.template.json` şablonunu `.antigravity/genesis/project_manifest.json` olarak kopyalayın ve projenize uygun arketipi seçin:
-
-| Arketip ID (`primary_archetype`) | Kullanım Senaryosu | Polimorfik Güvenlik & Performans Kapıları (`V12-03`) |
-| :--- | :--- | :--- |
-| `Backend_API` | REST/gRPC mikroservisler, veritabanı odaklı API sistemleri | OpenAPI AuthZ matrisi, p99 gecikme (`150ms`) & N+1 sorgu denetimi |
-| `FullStack_Web` | Modern web uygulamaları, BFF + UI durum makineleri | CSP/DOM XSS & CSRF denetimi, Core Web Vitals (`LCP < 2000ms`) |
-| `Data_ML_Pipeline` | Veri ambarı, ETL/ELT, özellik mağazası ve ML boru hatları | PII sızıntı & veri zehirlenmesi taraması, satır/sn throughput (`10k/s`) |
-| `CLI_SDK` | Komut satırı araçları, hermetik dil kütüphaneleri ve SDK'lar | AST tehlikeli çağrı denetimi, hermetik SBOM, soğuk başlatma (`< 250ms`) |
-| `Autonomous_Agent` | Çoklu ajan orkestratörleri, araç kullanan otonom çalışma zamanları | `I-14` zarf denetimi, CapabilityToken kapsam kontrolü, adım gecikmesi |
-| `Embedded_IoT` | Firmware, RTOS görevleri, donanım soyutlama katmanı (HAL) | Yığın/bellek sınır denetimi, imzalı önyükleme, WCET (`< 500us`) |
-
----
-
-## Bölüm 4: Antigravity Day-0 Ateşleme Promptu & CLI Komutları
-
-Dosyaları yerleştirdikten sonra terminalden tek komutla yeni proje günlüğünü başlatabilir veya doğrulama boru hattını çalıştırabilirsiniz (`./scripts/ignite` ve `./scripts/worktree_exec` işlevlerinin birleşik CLI karşılığı):
+- `./scripts/kernel_lock`: `valid: true` ve `total_locked_files: 97` (`sha256:fdc68cb03c9b1b5fd3e0648ea6b46ab0b6b9935a0ad2849fee91116975717aed`) çıktısı vermelidir.
+- Aşama 1'de ürettiğiniz `project_manifest.json` ve `research_briefing.md` dosyalarını `.antigravity/genesis/` altına kopyalayın.
+- Projenizi seçtiğiniz arketip ile temiz `run-0001` günlüğünde başlatın:
 
 ```bash
-# 1. Yeni klonlanan depoda temiz run-0001.jsonl ve IntentContract başlatma:
-python3 -m src.metaos_ignite.cli init-new-project --run-id run-0001
-
-# 2. NotebookLM girdilerini I-14 zarfından geçirip kontrat ve profil derleme:
-python3 -m src.metaos_ignite.cli compile
-
-# 3. Triple RED (V12-05) veya İzole Worktree GREEN (LC-13) doğrulaması:
-python3 -m src.metaos_ignite.cli verify-green --seed 42
-
-# 4. Ed25519 imzalı ProofReceipt üretimi ve Obsidian kokpit projeksiyonu:
-python3 -m src.metaos_ignite.cli assemble-proof --run-id run-0000
-python3 -m src.metaos_ignite.cli project-cockpit
+python3 -m src.metaos_ignite.cli init-new-project --run-id run-0001 --archetype Backend_API --language python
 ```
 
-**Antigravity IDE İçinde Kullanılacak Standart Day-0 Ateşleme Promptu:**
+---
+
+## AŞAMA 3: ANTIGRAVITY IDE İLE DAY-0 ATEŞLEME & MODEL YÖNLENDİRME
+
+Antigravity IDE içinde projeyi açın ve ajana aşağıdaki hazır Day-0 ateşleme istemini gönderin:
 
 ```text
 Kök dizindeki SPEC_META_OS_v1.1.md anayasasını, .antigravity/genesis/project_manifest.json
@@ -83,14 +64,38 @@ ve .antigravity/genesis/research_briefing.md dosyalarını oku.
    python3 -m src.metaos_ignite.cli project-cockpit ile Obsidian kokpitini güncelle.
 ```
 
+### Yetkinlik Tabanlı Model Yönlendirme Matrisi (Capability-Based Routing)
+
+| Katman / Görev Tipi | Model Sınıfı (Örnek Modeller) | Kullanım Alanı ve Nedenleri |
+| :--- | :--- | :--- |
+| **Tier-1: Deep Reasoning & Architecture** | Gemini 2.5/3 Pro, Claude 3.7 Sonnet Thinking, o3-mini | Day-0 niyet kontratı sentezi, tehdit modelleme, güvenlik sınırları, karmaşık mantıksal hata ayıklama. |
+| **Tier-2: Fast Coding & Iteration** | Gemini 3.8 Flash, Claude 3.5 Sonnet, GPT-4o | İzole worktree içinde kod yazımı, test geliştirme, fonksiyon implementasyonları. |
+| **Tier-0: Deterministic Projection** | Yerel Stdlib Python CLI (0 LLM Token) | Merkle kilidi denetimi, Obsidian kokpiti projeksiyonu, durum geçişleri, `./scripts/ignite` ve `./scripts/worktree_exec` komutları. |
+
 ---
 
-## Bölüm 5: Obsidian Kokpit Kurulumu & Canlı İzleme (`docs/cockpit/`)
+## AŞAMA 4: DÜŞÜK RİSKLİ (`R0`/`R1`) HIZLI İCRA (`fast-track`)
 
-1. **Obsidian** uygulamasını açın -> **Open folder as vault** seçeneğiyle proje kök dizinini (veya doğrudan `docs/cockpit/` klasörünü) açın.
-2. `docs/cockpit/` altında sıfır LLM token'ı (`I-07`) ile üretilen 4 canlı görünümü inceleyin:
-   - `DASHBOARD.md`: Mevcut durum (`current_state`), aktif arketip, risk sınıfı ve Sütun 9.2 Meta-Metrics karnesi.
-   - `STATE_GRAPH.md`: `LC-01..LC-22A` durum makinesinin ziyaret edilen ve aktif düğümlerini renklendiren Mermaid akış diyagramı.
-   - `DECISION_QUEUE.md`: `.antigravity/outbox/` içindeki insan onay kapıları (`HANDSHAKE_REVIEW`, `HUMAN_AUDIT_REVIEW`) ve dizi diyagramı.
-   - `EVIDENCE_LEDGER.md`: `research_briefing.md` -> `IntentContract` -> `spec.lock.json` -> `ProofReceipt` kriptografik kanıt soyağacı.
-3. **Graph View Ayarı:** Obsidian sol menüsünden **Open graph view** (`Cmd+G`) açarak `[[DASHBOARD]]`, `[[STATE_GRAPH]]`, `[[DECISION_QUEUE]]` ve `[[EVIDENCE_LEDGER]]` arasındaki canlı `[[wikilink]]` topolojisini izleyin.
+Yazım düzeltmeleri, dahili optimizasyonlar veya test eklemeleri gibi insan onayı gerektirmeyen (`R0` veya `R1`) küçük işler için tek komutlu `fast-track` boru hattını kullanabilirsiniz:
+
+```bash
+# R1 risk sınıfı için izole sandbox'ta test koş, kanıt üret ve kokpiti güncelle:
+python3 -m src.metaos_ignite.cli fast-track --risk R1
+# veya Makefile üzerinden:
+make fast-track
+```
+
+- Bu boru hattı `LC-06A` ve `LC-18B` kanonik rotalarını kullanarak insan onay kapılarını (`HUMAN_AUDIT_REQUIRED`) otomatik geçer.
+- Tüm 5-oracle testlerini koşar, SBOM ve performans kontrollerini doğrular, `ProofReceipt` üretir ve Obsidian kokpitini tek çağrıda günceller.
+
+---
+
+## AŞAMA 5: OBSIDIAN CANLI KOKPİT İZLEME (`docs/cockpit/`)
+
+1. **Vault Açma:** **Obsidian** uygulamasını açın -> **Open folder as vault** seçeneğiyle proje kök dizinini açın.
+2. **Graph View Filtresi:** Obsidian sol menüsünden **Open graph view** (`Cmd+G`) açın. Sağ üstteki arama filtresine `-path:.git` yazarak temiz grafik bağlantılarını görüntüleyin.
+3. **4 Canlı Görünüm:**
+   - `docs/cockpit/DASHBOARD.md`: Mevcut durum (`current_state`), aktif arketip, risk sınıfı ve canlı sayaçlar.
+   - `docs/cockpit/STATE_GRAPH.md`: `LC-01..LC-22A` durum makinesinin Mermaid akış şeması (aktif durum yeşil vurgulu).
+   - `docs/cockpit/DECISION_QUEUE.md`: `.antigravity/outbox/` içindeki insan inceleme kapıları ve durum dizisi.
+   - `docs/cockpit/EVIDENCE_LEDGER.md`: Kontrat, kilit ve test makbuzlarının SHA-256 kriptografik soyağacı.

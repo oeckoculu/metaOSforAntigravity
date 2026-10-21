@@ -1,0 +1,63 @@
+name: Meta-OS v1.2 Fail-Closed CI Harness
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Meta-OS Constitution & 5-Oracle Verification (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: 1. Verify Layer A Merkle Lock (97 files)
+        run: |
+          ./scripts/kernel_lock
+
+      - name: 2. Verify Kernel Self-Test & State Board
+        run: |
+          ./scripts/kernel_selftest
+
+      - name: 3. Verify Append-Only Event Journal
+        run: |
+          ./scripts/journal_verify
+
+      - name: 4. Verify PEP Session Start Policy
+        run: |
+          ./scripts/pep_session_start
+
+      - name: 5. Run 5-Oracle Deterministic Test Suite
+        run: |
+          python3 tests/run_suite.py --seed 42 --mode GREEN_VERIFY
+
+      - name: 6. Verify Guide & External Context Rendering
+        run: |
+          python3 -m src.metaos_ignite.cli render-guide
+
+      - name: 7. Verify Zero-Token Obsidian Cockpit Projection
+        run: |
+          python3 -m src.metaos_ignite.cli project-cockpit
+
+      - name: 8. Verify Git Working Tree Hygiene
+        run: |
+          git status --short

@@ -8,13 +8,14 @@ Subcommands:
 - project-cockpit
 - render-guide
 - init-new-project
+- fast-track
 """
 import argparse
 import json
 import os
 import sys
 
-from . import archetypes, cockpit, compiler, executor, guide, proof
+from . import archetypes, cockpit, compiler, executor, fast_track, guide, proof
 
 ROOT_DEFAULT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
@@ -58,6 +59,12 @@ def main(argv=None):
     p_init.add_argument("--risk-class", default="R2")
     p_init.add_argument("--dry-run", action="store_true")
     p_init.add_argument("--keystore-dir", default=None)
+
+    p_fast = sub.add_parser("fast-track")
+    p_fast.add_argument("--risk", default="R1", choices=["R0", "R1"])
+    p_fast.add_argument("--run-id", default="run-0000")
+    p_fast.add_argument("--seed", type=int, default=42)
+    p_fast.add_argument("--keystore-dir", default=None)
 
     args = parser.parse_args(argv)
     root = os.path.abspath(args.root)
@@ -127,6 +134,17 @@ def main(argv=None):
         )
         _print_json(res)
         return 0
+
+    if args.subcommand == "fast-track":
+        res = fast_track.run_fast_track(
+            root,
+            risk_class=args.risk,
+            run_id=args.run_id,
+            seed=args.seed,
+            keystore_dir=args.keystore_dir,
+        )
+        _print_json(res)
+        return 0 if res["valid"] else 1
 
     return 1
 
