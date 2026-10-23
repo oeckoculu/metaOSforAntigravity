@@ -121,7 +121,7 @@ Meta-OS derleyicisinin (`compiler.py`) Day-0 ateşlemesinde kabul ettiği iki ka
   "secondary_archetypes": ["Data_ML_Pipeline"],
   "language": "python",
   "risk_class": "R2",
-  "owner": "human:oeckoculu",
+  "owner": "human:<kullanici_adi>",
   "budgets": {
     "max_budget_usd": 10,
     "max_wall_clock_minutes": 60

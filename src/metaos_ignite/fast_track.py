@@ -23,6 +23,20 @@ def _ensure_kernel_path(root):
         sys.path.insert(0, kpath)
 
 
+def _detect_active_run_id(root):
+    events_dir = os.path.join(root, ".antigravity", "events")
+    if not os.path.isdir(events_dir):
+        return "run-0000"
+    runs = []
+    for fn in os.listdir(events_dir):
+        if fn.startswith("run-") and fn.endswith(".jsonl"):
+            runs.append(fn[:-6])
+    non_zero = sorted([r for r in runs if r != "run-0000"], reverse=True)
+    if non_zero:
+        return non_zero[0]
+    return "run-0000"
+
+
 def run_fast_track(
     root,
     risk_class="R1",
@@ -43,7 +57,7 @@ def run_fast_track(
             % (allowed_risks, risk_class)
         )
 
-    target_run_id = run_id or "run-0000"
+    target_run_id = run_id or _detect_active_run_id(root)
 
     # 2. Execute 5-oracle test suite in isolated /tmp git worktree (I-09, V12-05)
     wt_rep = executor.execute_in_worktree(root, seed=seed, mode="GREEN_VERIFY")

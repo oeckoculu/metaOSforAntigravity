@@ -73,7 +73,10 @@ make verify
 
 ### Adım 2: Projeyi Yeni Arketip ile Başlatma
 ```bash
-# Seçtiğiniz arketipe göre (örn: Backend_API, FullStack_Web, Data_ML_Pipeline, CLI_SDK) başlatın:
+# Tek komutla temiz Day-0 başlatma (Tavsiye Edilen):
+make init ARCHETYPE=Backend_API LANG=python NAME=yeni_projem
+
+# Veya doğrudan CLI parametreleri ile:
 python3 -m src.metaos_ignite.cli init-new-project --run-id run-0001 --archetype Backend_API --language python
 ```
 
@@ -127,6 +130,8 @@ python3 -m src.metaos_ignite.cli fast-track --risk R1
 
 | Hedef | Açıklama |
 | :--- | :--- |
+| `make init` | Yeni bir projeyi seçilen arketip ve dil ile temiz `run-0001` günlüğünde başlatır (örn: `make init ARCHETYPE=Backend_API LANG=python`). |
+| `make status` | Mevcut durum makinesi aşamasını (`current_state`) ve aktif olay günlüğü kimliğini anında gösterir. |
 | `make verify` | 97 Katman A dosyasının Merkle kilidini, kernel self-test'ini, event journal'ını ve PEP politikasını doğrular. |
 | `make test` | 5-Oracle test süitini (`tests/run_suite.py`) tohumlanmış (`--seed 42`) yeşil doğrulama modunda çalıştırır. |
 | `make fast-track` | Düşük riskli (`R1`) değişiklikler için izole sandbox testini, kanıt paketini ve kokpiti tek adımda günceller. |

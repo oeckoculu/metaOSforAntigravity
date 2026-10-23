@@ -2,7 +2,7 @@
 .SHELLFLAGS := -eu -c
 .ONESHELL:
 
-.PHONY: all help test verify cockpit fast-track guide selftest lock journal-verify clean
+.PHONY: all help test verify cockpit fast-track guide selftest lock journal-verify clean init status
 
 all: verify test guide cockpit ## Run full verification, test suite, and re-project guides and cockpit
 
@@ -41,3 +41,9 @@ guide: ## Re-render Turkish Operator Handbook (docs/IGNITE_GUIDE.md) and Externa
 clean: ## Clean local python cache files
 	find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 	find . -type f -name "*.pyc" -delete 2>/dev/null || true
+
+init: ## Initialize a clean new project (usage: make init ARCHETYPE=Backend_API LANG=python NAME=my_project)
+	python3 -m src.metaos_ignite.cli init-new-project --run-id run-0001 --archetype $(or $(ARCHETYPE),Backend_API) --language $(or $(LANG),python) --project-name $(or $(NAME),NewMetaOSProject)
+
+status: ## Show active project archetype, current run-id, and state board status
+	@python3 -c "import json, os; p=json.load(open('.antigravity/views/state_board.json')) if os.path.exists('.antigravity/views/state_board.json') else {}; print('Current State:', p.get('current_state', 'UNKNOWN')); print('Run ID:', p.get('run_id', 'None'))"

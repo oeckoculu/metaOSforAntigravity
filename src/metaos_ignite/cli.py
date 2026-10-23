@@ -59,10 +59,11 @@ def main(argv=None):
     p_init.add_argument("--risk-class", default="R2")
     p_init.add_argument("--dry-run", action="store_true")
     p_init.add_argument("--keystore-dir", default=None)
+    p_init.add_argument("--owner", default=None)
 
     p_fast = sub.add_parser("fast-track")
     p_fast.add_argument("--risk", default="R1", choices=["R0", "R1"])
-    p_fast.add_argument("--run-id", default="run-0000")
+    p_fast.add_argument("--run-id", default=None)
     p_fast.add_argument("--seed", type=int, default=42)
     p_fast.add_argument("--keystore-dir", default=None)
 
@@ -131,6 +132,7 @@ def main(argv=None):
             risk_class=args.risk_class,
             dry_run=args.dry_run,
             keystore_dir=args.keystore_dir,
+            owner=args.owner,
         )
         _print_json(res)
         return 0

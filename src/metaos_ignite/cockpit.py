@@ -38,7 +38,10 @@ def project_cockpit(root, output_dir="docs/cockpit"):
     ptr = _safe_load(root, "receipts/pointers/latest_proof.json", {})
 
     cur_state = sb.get("current_state", "GENESIS_LOCKED")
-    head_seq = sb.get("derived_from", {}).get("head_seq", 0)
+    derived_from = sb.get("derived_from", {})
+    head_seq = derived_from.get("head_seq", 0)
+    raw_jname = derived_from.get("journal_rel_path") or ("%s.jsonl" % sb.get("run_id", "run-0000"))
+    journal_name = os.path.basename(raw_jname)
     primary_arch = prof.get("primary_archetype", "CLI_SDK")
     sec_archs = ", ".join(prof.get("secondary_archetypes", ["Autonomous_Agent", "Data_ML_Pipeline"]))
     risk_class = risk.get("effective_risk_class", "R2")
@@ -66,7 +69,7 @@ def project_cockpit(root, output_dir="docs/cockpit"):
         "| Alan | Deger |",
         "| :--- | :--- |",
         "| **Mevcut Durum (`current_state`)** | `%s` |" % cur_state,
-        "| **Olay Gunlugu (`head_seq`)** | `%s` (`run-0000.jsonl`) |" % head_seq,
+        "| **Olay Gunlugu (`head_seq`)** | `%s` (`%s`) |" % (head_seq, journal_name),
         "| **Birincil Arketip** | `%s` |" % primary_arch,
         "| **Ikincil Arketipler** | `%s` |" % sec_archs,
         "| **Risk Sinifi** | `%s` |" % risk_class,
@@ -205,7 +208,7 @@ def project_cockpit(root, output_dir="docs/cockpit"):
         "sequenceDiagram",
         "    participant A as Meta-OS Kernel / Agent",
         "    participant O as .antigravity/outbox/",
-        "    participant H as Human Owner (human:oeckoculu)",
+        "    participant H as Human Owner (Human-in-the-Loop)",
         "    A->>O: outbox_emit (HANDSHAKE_REVIEW / HUMAN_AUDIT_REVIEW)",
         "    O->>H: Counterfactual Handshake (V12-01) & ProofReceipt (LC-18A)",
         "    H->>O: outbox_ack --decision APPROVED (sshsig-ed25519)",

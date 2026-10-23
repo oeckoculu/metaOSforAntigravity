@@ -30,7 +30,7 @@ import property_strategies  # noqa: E402
 
 
 def _check_compilation(root):
-    target_dirs = [os.path.join(root, "src", "metaos_ignite"), os.path.join(root, "tests")]
+    target_dirs = [os.path.join(root, "src"), os.path.join(root, "tests")]
     compiled_files = []
     build_errors = []
     for d in target_dirs:

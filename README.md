@@ -20,10 +20,13 @@ Bu proje, **[Meta-OS v1.2](docs/README_FOR_METAOS.md)** yapay zeka yerel proje i
 # 1. Anayasal çekirdek ve ortam doğrulamasını çalıştırın
 make verify
 
-# 2. 5-Oracle test süitini çalıştırın
+# 2. Yeni projenizi seçtiğiniz arketip ile başlatın (örn: Backend_API, FullStack_Web)
+make init ARCHETYPE=Backend_API LANG=python NAME=yeni_projem
+
+# 3. 5-Oracle test süitini çalıştırın
 make test
 
-# 3. Obsidian canlı kokpitini güncelleyin
+# 4. Obsidian canlı kokpitini güncelleyin
 make cockpit
 ```
 

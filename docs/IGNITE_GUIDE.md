@@ -14,11 +14,12 @@ Yeni bir projeye başlamadan önce tüm mimari kararları ve kontrat gereksiniml
 
 ```text
 Yüklediğim META_OS_EXTERNAL_CONTEXT.md belgesini ve proje dokümanlarımı kaynak al.
-Meta-OS v1.2 kuralları uyarınca benimle interaktif bir 'Grill Me' mimari mülakatı başlat.
-Her turda en fazla 2-3 odaklanmış soru sorarak problem tanımını, DO-1..DO-4 hedeflerini,
-6 arketipten hangisini seçeceğimizi ve risk sınıfını (R0..R4) netleştir.
-Mutabık kaldığımız an, .antigravity/genesis/project_manifest.json ve
-.antigravity/genesis/research_briefing.md dosyalarını hatasız üret.
+Meta-OS v1.2 kuralları uyarınca bir Kıdemli Sistem Mimarı olarak benimle interaktif bir 'Grill Me' mimari mülakatı başlat.
+1. Her turda en fazla 2-3 odaklanmış soru sor ve her seçenekte '(Tavsiye Edilen)' etiketini belirt.
+2. Tur 1'de problem kapsamını, 6 arketipten hangisini seçeceğimizi ve hedef dili netleştir.
+3. Tur 2'de DO-1..DO-4 hedeflerini, performans/gecikme ve bellek bütçelerini netleştir.
+4. Tur 3'te risk sınıfını (R0..R4) ve güvenlik/veri hassasiyetini netleştir.
+5. Mutabık kaldığımız an, başka ek metin üretmeden doğrudan Bölüm 4 şemasına %100 uyumlu .antigravity/genesis/project_manifest.json ve .antigravity/genesis/research_briefing.md dosyalarını üret.
 ```
 
 4. **Dosyaları Kaydetme:** Mülakat sonunda üretilen çıktıları projenizin şu konumlarına kaydedin:
@@ -46,7 +47,11 @@ cd yeni-proje-adi
 - Projenizi seçtiğiniz arketip ile temiz `run-0001` günlüğünde başlatın:
 
 ```bash
-python3 -m src.metaos_ignite.cli init-new-project --run-id run-0001 --archetype Backend_API --language python
+# Tek komutla temiz Day-0 başlatma (Tavsiye Edilen):
+make init ARCHETYPE=Backend_API LANG=python NAME=yeni_proje
+
+# Veya doğrudan CLI parametreleri ile:
+python3 -m src.metaos_ignite.cli init-new-project --run-id run-0001 --archetype Backend_API --language python --project-name yeni_proje --owner human:<kullanici_adi>
 ```
 
 ---
@@ -86,6 +91,7 @@ make fast-track
 ```
 
 - Bu boru hattı `LC-06A` ve `LC-18B` kanonik rotalarını kullanarak insan onay kapılarını (`HUMAN_AUDIT_REQUIRED`) otomatik geçer.
+- En güncel aktif olay günlüğünü (`run-0001`+) otomatik olarak saptar.
 - Tüm 5-oracle testlerini koşar, SBOM ve performans kontrollerini doğrular, `ProofReceipt` üretir ve Obsidian kokpitini tek çağrıda günceller.
 
 ---
@@ -94,7 +100,11 @@ make fast-track
 
 1. **Vault Açma:** **Obsidian** uygulamasını açın -> **Open folder as vault** seçeneğiyle proje kök dizinini açın.
 2. **Graph View Filtresi:** Obsidian sol menüsünden **Open graph view** (`Cmd+G`) açın. Sağ üstteki arama filtresine `-path:.git` yazarak temiz grafik bağlantılarını görüntüleyin.
-3. **4 Canlı Görünüm:**
+3. **Sistem Durumu Terminal Sorgusu:**
+```bash
+make status  # Aktif durum (current_state) ve geçerli run-id bilgisini anında gösterir
+```
+4. **4 Canlı Görünüm:**
    - `docs/cockpit/DASHBOARD.md`: Mevcut durum (`current_state`), aktif arketip, risk sınıfı ve canlı sayaçlar.
    - `docs/cockpit/STATE_GRAPH.md`: `LC-01..LC-22A` durum makinesinin Mermaid akış şeması (aktif durum yeşil vurgulu).
    - `docs/cockpit/DECISION_QUEUE.md`: `.antigravity/outbox/` içindeki insan inceleme kapıları ve durum dizisi.

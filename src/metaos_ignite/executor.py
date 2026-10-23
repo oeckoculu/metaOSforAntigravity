@@ -82,6 +82,18 @@ def _sync_layer_b_into_worktree(src_root, wt_dir):
         ".antigravity/genesis/active_profile.json",
         ".antigravity/genesis/templates",
     ]
+    root_configs = [
+        "package.json",
+        "tsconfig.json",
+        "pnpm-lock.yaml",
+        "pyproject.toml",
+        "requirements.txt",
+        "go.mod",
+        "go.sum",
+        "Cargo.toml",
+        "Cargo.lock",
+        "Makefile",
+    ]
     for rel in layer_b_Items:
         s_abs = os.path.join(src_root, rel)
         d_abs = os.path.join(wt_dir, rel)
@@ -94,6 +106,10 @@ def _sync_layer_b_into_worktree(src_root, wt_dir):
         else:
             os.makedirs(os.path.dirname(d_abs), exist_ok=True)
             shutil.copy2(s_abs, d_abs)
+    for fn in root_configs:
+        s_p = os.path.join(src_root, fn)
+        if os.path.isfile(s_p):
+            shutil.copy2(s_p, os.path.join(wt_dir, fn))
 
 
 def execute_in_worktree(root, seed=42, mode="GREEN_VERIFY"):
@@ -141,8 +157,10 @@ def execute_in_worktree(root, seed=42, mode="GREEN_VERIFY"):
         # Verify compilation of all Python modules inside the isolated worktree
         compiled = 0
         build_errors = 0
-        for sub in ("src/metaos_ignite", "tests"):
+        for sub in ("src", "tests"):
             sub_abs = os.path.join(wt_dir, sub)
+            if not os.path.isdir(sub_abs):
+                continue
             for dirpath, dirnames, filenames in os.walk(sub_abs):
                 dirnames[:] = sorted(d for d in dirnames if d != "__pycache__")
                 for fn in sorted(filenames):

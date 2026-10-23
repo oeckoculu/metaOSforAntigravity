@@ -20,7 +20,7 @@ Navigasyon: [[DASHBOARD]] | [[STATE_GRAPH]] | [[DECISION_QUEUE]] | [[EVIDENCE_LE
 sequenceDiagram
     participant A as Meta-OS Kernel / Agent
     participant O as .antigravity/outbox/
-    participant H as Human Owner (human:oeckoculu)
+    participant H as Human Owner (Human-in-the-Loop)
     A->>O: outbox_emit (HANDSHAKE_REVIEW / HUMAN_AUDIT_REVIEW)
     O->>H: Counterfactual Handshake (V12-01) & ProofReceipt (LC-18A)
     H->>O: outbox_ack --decision APPROVED (sshsig-ed25519)

@@ -37,7 +37,7 @@ def compile_ignition_pack(
 ):
     """Wrap NotebookLM briefing in I-14 envelope and synthesize/validate IntentContract & ArchetypeProfile."""
     _ensure_kernel_path(root)
-    from metaos import canonical, envelope, schema, secrets
+    from metaos import canonical, env, envelope, schema, secrets
 
     manifest_abs = os.path.join(root, manifest_path) if not os.path.isabs(manifest_path) else manifest_path
     briefing_abs = os.path.join(root, briefing_path) if not os.path.isabs(briefing_path) else briefing_path
@@ -53,22 +53,33 @@ def compile_ignition_pack(
 
     ks = keystore_dir or ("/tmp/metaos-keystore" if os.path.isdir("/tmp/metaos-keystore") else None)
     env_out_abs = os.path.join(root, "provenance", "research_briefing.envelope.json")
+    raw_hash = canonical.sha256_ref(raw_briefing.encode("utf-8"))
+    need_wrap = True
     if os.path.isfile(env_out_abs):
         env_doc = canonical.strict_load_file(env_out_abs)
-    else:
-        env_doc = envelope.wrap_untrusted_content(
-            root=root,
-            raw_text=raw_briefing,
-            source_kind="EXTERNAL_DOC",
-            source_uri="file://.antigravity/genesis/research_briefing.md",
-            retrieved_at="2026-10-21T01:00:00Z",
-            run_id="run-0000",
-            envelope_id="0192f3a4-0000-7000-8000-000000000103",
-            keystore_dir=ks,
-        )
-        os.makedirs(os.path.dirname(env_out_abs), exist_ok=True)
-        with open(env_out_abs, "wb") as fh:
-            fh.write(canonical.pretty_bytes(env_doc))
+        if env_doc.get("raw_sha256") == raw_hash:
+            need_wrap = False
+
+    if need_wrap:
+        try:
+            env_doc = envelope.wrap_untrusted_content(
+                root=root,
+                raw_text=raw_briefing,
+                source_kind="EXTERNAL_DOC",
+                source_uri="file://.antigravity/genesis/research_briefing.md",
+                retrieved_at=env.utc_now(),
+                run_id=manifest_obj.get("run_id", "run-0001"),
+                envelope_id=env.uuid7(),
+                keystore_dir=ks,
+            )
+            os.makedirs(os.path.dirname(env_out_abs), exist_ok=True)
+            with open(env_out_abs, "wb") as fh:
+                fh.write(canonical.pretty_bytes(env_doc))
+        except Exception:
+            if os.path.isfile(env_out_abs):
+                env_doc = canonical.strict_load_file(env_out_abs)
+            else:
+                raise
 
     ver = envelope.verify_untrusted_envelope(root, env_doc)
     if not ver["valid"]:
@@ -131,11 +142,14 @@ def compile_ignition_pack(
 
 def _synthesize_intent_from_manifest(manifest_obj, raw_briefing):
     primary_arch = manifest_obj.get("primary_archetype", "Backend_API")
+    owner = manifest_obj.get("owner") or "human:developer"
+    if not owner.startswith("human:"):
+        owner = "human:" + owner
     return {
         "schema_version": "1.0.0",
         "intent_id": "0192f3a4-0000-7000-8000-000000000901",
         "created_at": "2026-10-21T00:05:00Z",
-        "author": {"principal_id": "human:oeckoculu", "kind": "HUMAN"},
+        "author": {"principal_id": owner, "kind": "HUMAN"},
         "title": "%s (%s Day-0 Ignition Contract)" % (manifest_obj.get("project_name", "Meta-OS Project"), primary_arch),
         "problem_statement": (
             "Synthesized Day-0 IntentContract from project_manifest.json and I-14 isolated research_briefing.md "
@@ -185,10 +199,17 @@ def ignite_new_project(
     risk_class="R2",
     dry_run=False,
     keystore_dir=None,
+    owner=None,
 ):
     """Initialize a newly cloned repository or isolated sandbox with a clean run-<id>.jsonl journal."""
     _ensure_kernel_path(target_root)
+    import getpass
     from metaos import canonical, env, journal
+
+    user_name = getpass.getuser() or "developer"
+    principal_id = owner or ("human:" + user_name)
+    if not principal_id.startswith("human:"):
+        principal_id = "human:" + principal_id
 
     prof = archetypes.synthesize_archetype_profile(primary_archetype, language=language)
     manifest_obj = {
@@ -197,6 +218,7 @@ def ignite_new_project(
         "secondary_archetypes": list(secondary_archetypes or []),
         "language": language,
         "risk_class": risk_class,
+        "owner": principal_id,
     }
     intent_obj = _synthesize_intent_from_manifest(manifest_obj, "# Day-0 Briefing\n")
 
@@ -207,6 +229,7 @@ def ignite_new_project(
             "primary_archetype": primary_archetype,
             "language": language,
             "risk_class": risk_class,
+            "owner": principal_id,
             "default_directories": prof["default_directories"],
             "intent_sha256": canonical.jcs_hash(intent_obj),
             "profile_sha256": canonical.jcs_hash(prof),
@@ -233,14 +256,31 @@ def ignite_new_project(
 
     validator = journal.load_validator(target_root)
     rep = env.reproducibility(target_root)
-    genesis_entry = journal.build_entry(
-        validator=validator,
-        seq=0,
-        run_id=run_id,
-        prev_hash="0" * 64,
-        event_type="GENESIS_BOOTSTRAP",
-        actor={"principal_id": "human:oeckoculu", "kind": "HUMAN", "os_identity": "oeckoculu"},
-        payload={
+
+    # Check external keystore for signing capability (AUD-01 graceful fallback)
+    ks = keystore_dir or os.environ.get("METAOS_KEYSTORE_DIR", "/tmp/metaos-keystore")
+    can_sign = False
+    if os.path.isdir(ks):
+        priv_candidates = [
+            os.path.join(ks, "human_owner_ed25519"),
+            os.path.join(ks, "%s_ed25519" % user_name),
+        ]
+        if any(os.path.isfile(p) for p in priv_candidates):
+            try:
+                from metaos import crypto
+                if principal_id in crypto.PRINCIPALS:
+                    can_sign = True
+            except Exception:
+                can_sign = False
+
+    build_entry_kwargs = {
+        "validator": validator,
+        "seq": 0,
+        "run_id": run_id,
+        "prev_hash": "sha256:" + "0" * 64,
+        "event_type": "GENESIS_BOOTSTRAP",
+        "actor": {"principal_id": principal_id, "kind": "HUMAN", "os_identity": user_name},
+        "payload": {
             "proposal_id": "GBP-0000",
             "proposal_path": ".antigravity/genesis/genesis_bootstrap_proposal.json",
             "proposal_ref": canonical.file_sha256(
@@ -252,8 +292,11 @@ def ignite_new_project(
                 "V12-01", "V12-02", "V12-03", "V12-04", "V12-05", "V12-06",
             ],
             "approval_record": {
+                "channel": "ANTIGRAVITY_CONVERSATION",
+                "conversation_id": "0192f3a4-0000-7000-8000-000000000001",
                 "path": ".antigravity/genesis/user_approval_step26.md",
                 "sha256": canonical.file_sha256(os.path.join(target_root, ".antigravity/genesis/user_approval_step26.md")),
+                "step_index": 1,
             },
             "blueprint": {
                 "path": ".antigravity/genesis/blueprint/system_blueprint_v1.md",
@@ -261,14 +304,24 @@ def ignite_new_project(
                     os.path.join(target_root, ".antigravity/genesis/blueprint/system_blueprint_v1.md")
                 ),
             },
+            "substrate": "LOCAL_APFS_GIT",
         },
-        reproducibility=rep,
-        ts="2026-10-21T02:00:00Z",
-        root=target_root,
-        sign_principal="human:oeckoculu",
-        sign_namespace="metaos.journal",
-        keystore_dir=keystore_dir,
-    )
+        "reproducibility": rep,
+        "ts": env.utc_now(),
+        "root": target_root,
+    }
+
+    if can_sign:
+        build_entry_kwargs["sign_principal"] = principal_id
+        build_entry_kwargs["sign_namespace"] = "metaos.journal"
+        build_entry_kwargs["keystore_dir"] = ks
+    else:
+        build_entry_kwargs["signature"] = {
+            "status": "UNSIGNED",
+            "reason": "KEYS_NOT_PROVISIONED_UNTIL_A7",
+        }
+
+    genesis_entry = journal.build_entry(**build_entry_kwargs)
     run_rel = ".antigravity/events/%s.jsonl" % run_id
     run_abs = os.path.join(target_root, run_rel)
     os.makedirs(os.path.dirname(run_abs), exist_ok=True)
